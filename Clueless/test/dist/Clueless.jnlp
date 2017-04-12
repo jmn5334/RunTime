@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Clueless.jnlp">
+  <information>
+    <title>Clueless</title>
+    <vendor>tesfaz1</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Clueless.jar" size="2482314" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Clueless" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="runtime.clueless.Main"  name="Clueless" >
+    <fx:argument>/Users/tesfaz1/Desktop/classDoc/cs401/Clueless/test/data/clueless_test.properties</fx:argument>
+  </jfx:javafx-desc>
+  <update check="always"/>
+</jnlp>

@@ -1,0 +1,45 @@
+<html><head>
+  <SCRIPT src="./web-files/dtjava.js"></SCRIPT>
+<script>
+    function launchApplication(jnlpfile) {
+        dtjava.launch(            {
+                url : 'Clueless.jnlp',
+                jnlp_content : 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGpubHAgc3BlYz0iMS4wIiB4bWxuczpqZng9Imh0dHA6Ly9qYXZhZnguY29tIiBocmVmPSJDbHVlbGVzcy5qbmxwIj4KICA8aW5mb3JtYXRpb24+CiAgICA8dGl0bGU+Q2x1ZWxlc3M8L3RpdGxlPgogICAgPHZlbmRvcj50ZXNmYXoxPC92ZW5kb3I+CiAgICA8ZGVzY3JpcHRpb24+bnVsbDwvZGVzY3JpcHRpb24+CiAgICA8b2ZmbGluZS1hbGxvd2VkLz4KICA8L2luZm9ybWF0aW9uPgogIDxyZXNvdXJjZXM+CiAgICA8ajJzZSB2ZXJzaW9uPSIxLjYrIiBocmVmPSJodHRwOi8vamF2YS5zdW4uY29tL3Byb2R1Y3RzL2F1dG9kbC9qMnNlIi8+CiAgICA8amFyIGhyZWY9IkNsdWVsZXNzLmphciIgc2l6ZT0iMjQ4MjMxNCIgZG93bmxvYWQ9ImVhZ2VyIiAvPgogIDwvcmVzb3VyY2VzPgogIDxhcHBsZXQtZGVzYyAgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIG1haW4tY2xhc3M9ImNvbS5qYXZhZngubWFpbi5Ob0phdmFGWEZhbGxiYWNrIiAgbmFtZT0iQ2x1ZWxlc3MiID4KICAgIDxwYXJhbSBuYW1lPSJyZXF1aXJlZEZYVmVyc2lvbiIgdmFsdWU9IjguMCsiLz4KICA8L2FwcGxldC1kZXNjPgogIDxqZng6amF2YWZ4LWRlc2MgIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBtYWluLWNsYXNzPSJydW50aW1lLmNsdWVsZXNzLk1haW4iICBuYW1lPSJDbHVlbGVzcyIgPgogICAgPGZ4OmFyZ3VtZW50Pi9Vc2Vycy90ZXNmYXoxL0Rlc2t0b3AvY2xhc3NEb2MvY3M0MDEvQ2x1ZWxlc3MvdGVzdC9kYXRhL2NsdWVsZXNzX3Rlc3QucHJvcGVydGllczwvZng6YXJndW1lbnQ+CiAgPC9qZng6amF2YWZ4LWRlc2M+CiAgPHVwZGF0ZSBjaGVjaz0iYWx3YXlzIi8+Cjwvam5scD4K'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+        return false;
+    }
+</script>
+
+<script>
+    function javafxEmbedruntime.clueless() {
+        dtjava.embed(
+            {
+                id : 'runtime.clueless',
+                url : 'Clueless.jnlp',
+                placeholder : 'javafx-app-placeholder',
+                width : '800',
+                height : '600',
+                jnlp_content : 'PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPGpubHAgc3BlYz0iMS4wIiB4bWxuczpqZng9Imh0dHA6Ly9qYXZhZnguY29tIiBocmVmPSJDbHVlbGVzcy5qbmxwIj4KICA8aW5mb3JtYXRpb24+CiAgICA8dGl0bGU+Q2x1ZWxlc3M8L3RpdGxlPgogICAgPHZlbmRvcj50ZXNmYXoxPC92ZW5kb3I+CiAgICA8ZGVzY3JpcHRpb24+bnVsbDwvZGVzY3JpcHRpb24+CiAgICA8b2ZmbGluZS1hbGxvd2VkLz4KICA8L2luZm9ybWF0aW9uPgogIDxyZXNvdXJjZXM+CiAgICA8ajJzZSB2ZXJzaW9uPSIxLjYrIiBocmVmPSJodHRwOi8vamF2YS5zdW4uY29tL3Byb2R1Y3RzL2F1dG9kbC9qMnNlIi8+CiAgICA8amFyIGhyZWY9IkNsdWVsZXNzLmphciIgc2l6ZT0iMjQ4MjMxNCIgZG93bmxvYWQ9ImVhZ2VyIiAvPgogIDwvcmVzb3VyY2VzPgogIDxhcHBsZXQtZGVzYyAgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIG1haW4tY2xhc3M9ImNvbS5qYXZhZngubWFpbi5Ob0phdmFGWEZhbGxiYWNrIiAgbmFtZT0iQ2x1ZWxlc3MiID4KICAgIDxwYXJhbSBuYW1lPSJyZXF1aXJlZEZYVmVyc2lvbiIgdmFsdWU9IjguMCsiLz4KICA8L2FwcGxldC1kZXNjPgogIDxqZng6amF2YWZ4LWRlc2MgIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiBtYWluLWNsYXNzPSJydW50aW1lLmNsdWVsZXNzLk1haW4iICBuYW1lPSJDbHVlbGVzcyIgPgogICAgPGZ4OmFyZ3VtZW50Pi9Vc2Vycy90ZXNmYXoxL0Rlc2t0b3AvY2xhc3NEb2MvY3M0MDEvQ2x1ZWxlc3MvdGVzdC9kYXRhL2NsdWVsZXNzX3Rlc3QucHJvcGVydGllczwvZng6YXJndW1lbnQ+CiAgPC9qZng6amF2YWZ4LWRlc2M+CiAgPHVwZGF0ZSBjaGVjaz0iYWx3YXlzIi8+Cjwvam5scD4K'
+            },
+            {
+                javafx : '8.0+'
+            },
+            {}
+        );
+    }
+    <!-- Embed FX application into web page once page is loaded -->
+    dtjava.addOnloadCallback(javafxEmbedruntime.clueless);
+</script>
+
+</head><body>
+<h2>Test page for <b>Clueless</b></h2>
+  <b>Webstart:</b> <a href='Clueless.jnlp' onclick="return launchApplication('Clueless.jnlp');">click to launch this app as webstart</a><br><hr><br>
+
+  <!-- Applet will be inserted here -->
+  <div id='javafx-app-placeholder'></div>
+</body></html>
