@@ -8,13 +8,50 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Clueless.jar" size="2482314" download="eager" />
+    <jar href="Clueless.jar" size="2368043" download="eager" />
+    <jar href="lib/ELUGLib.jar" size="85059" download="eager" />
+    <jar href="lib/Jama-1.0.3.jar" size="35981" download="eager" />
+    <jar href="lib/ant-antlr.jar" size="11608" download="eager" />
+    <jar href="lib/ant-apache-regexp.jar" size="9611" download="eager" />
+    <jar href="lib/ant-commons-net.jar" size="91307" download="eager" />
+    <jar href="lib/ant-javafx.jar" size="1226520" download="eager" />
+    <jar href="lib/ant-junit.jar" size="118285" download="eager" />
+    <jar href="lib/ant-junit4.jar" size="13104" download="eager" />
+    <jar href="lib/ant-launcher.jar" size="18365" download="eager" />
+    <jar href="lib/ant-swing.jar" size="13285" download="eager" />
+    <jar href="lib/ant.jar" size="2036195" download="eager" />
+    <jar href="lib/commons-io-2.5.jar" size="208696" download="eager" />
+    <jar href="lib/fxgraphics2d-1.3.jar" size="17072" download="eager" />
+    <jar href="lib/hamcrest-all-1.3.jar" size="306578" download="eager" />
+    <jar href="lib/hamcrest-core-1.3.jar" size="45024" download="eager" />
+    <jar href="lib/imageio-generic-0.0.1-SNAPSHOT.jar" size="18619" download="eager" />
+    <jar href="lib/imageio-openjpeg-0.0.1-SNAPSHOT.jar" size="31701" download="eager" />
+    <jar href="lib/jarhdf5-2.11.0.jar" size="67032" download="eager" />
+    <jar href="lib/javafx-dialogs-0.0.4.jar" size="118239" download="eager" />
+    <jar href="lib/javafx-mx.jar" size="36038" download="eager" />
+    <jar href="lib/jcommon-1.0.23.jar" size="330246" download="eager" />
+    <jar href="lib/jfreechart-1.0.20-pre.jar" size="1588770" download="eager" />
+    <jar href="lib/jfreesvg-2.0.jar" size="50769" download="eager" />
+    <jar href="lib/jfxchartext-1.1.jar" size="63356" download="eager" />
+    <jar href="lib/jfxgraphics.jar" size="458695" download="eager" />
+    <jar href="lib/jnn.jar" size="47662" download="eager" />
+    <jar href="lib/joda-time-2.4.jar" size="586201" download="eager" />
+    <jar href="lib/junit-4.11.jar" size="245039" download="eager" />
+    <jar href="lib/log4j-1.2.13.jar" size="358180" download="eager" />
+    <jar href="lib/netcdfAll-4.5.jar" size="47881855" download="eager" />
+    <jar href="lib/ojdbc6.jar" size="2739670" download="eager" />
+    <jar href="lib/orsoncharts-1.4-eval-nofx.jar" size="445025" download="eager" />
+    <jar href="lib/orsonpdf-1.6-eval.jar" size="72444" download="eager" />
+    <jar href="lib/postgresql-9.4.1208.jar" size="648601" download="eager" />
+    <jar href="lib/saxon8-dom.jar" size="43963" download="eager" />
+    <jar href="lib/swtgraphics2d.jar" size="17492" download="eager" />
+    <jar href="lib/vecmath.jar" size="318956" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Clueless" >
     <param name="requiredFXVersion" value="8.0+"/>
   </applet-desc>
   <jfx:javafx-desc  width="800" height="600" main-class="runtime.clueless.Main"  name="Clueless" >
-    <fx:argument>/Users/tesfaz1/Desktop/classDoc/cs401/Clueless/test/data/clueless_test.properties</fx:argument>
+    <fx:argument>/Users/tesfaz1/Desktop/classDoc/cs401/gitProject/Clueless/test/data/clueless_test.properties</fx:argument>
   </jfx:javafx-desc>
   <update check="always"/>
 </jnlp>

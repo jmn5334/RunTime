@@ -45,10 +45,10 @@
                <children>
                   <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <items>
-                        <Button fx:id="moveup_button" mnemonicParsing="false" text="move up" />
-                        <Button fx:id="movedown_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="move down" />
+                        <Button fx:id="moveup_button" mnemonicParsing="false" onAction="#moveupCallback" text="move up" />
+                        <Button fx:id="movedown_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#movedownCallback" text="move down" />
                         <Button fx:id="moveleft_button" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#moveleftCallback" text="move left" />
-                        <Button fx:id="moveright_button" mnemonicParsing="false" text="move right" />
+                        <Button fx:id="moveright_button" mnemonicParsing="false" onAction="#moverightCallback" text="move right" />
                      </items>
                   </ToolBar>
                </children>
@@ -101,36 +101,36 @@
 
             <Pane maxHeight="455.0" maxWidth="525.0" minHeight="450.0" minWidth="520.0" prefHeight="455.0" prefWidth="525.0" BorderPane.alignment="TOP_LEFT">
                <children>
-                  <ImageView fitHeight="450.0" fitWidth="520.0" pickOnBounds="true">
+                  <ImageView fx:id="gameboard_imageview" fitHeight="450.0" fitWidth="520.0" pickOnBounds="true">
                      <image>
-                        <Image url="/icons/gameboard.png" />
+                        <Image url="@icons/gameboard.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="p1_chip" layoutX="44.0" layoutY="85.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
+                  <Button fx:id="p1_chip" layoutX="109.0" layoutY="96.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
                <padding>
                   <Insets left="-5.0" />
                </padding></Button>
-            <Button fx:id="p2_chip" layoutX="407.0" layoutY="339.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p2">
+            <Button fx:id="p2_chip" layoutX="443.0" layoutY="249.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p2">
                <padding>
                   <Insets left="5.0" />
                </padding>
             </Button>
-            <Button fx:id="p3_chip" layoutX="228.0" layoutY="215.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p3">
+            <Button fx:id="p3_chip" layoutX="443.0" layoutY="291.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p3">
                <padding>
                   <Insets left="-5.0" />
                </padding>
             </Button>
-            <Button fx:id="p4_chip" layoutX="228.0" layoutY="360.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p4">
+            <Button fx:id="p4_chip" layoutX="443.0" layoutY="335.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p4">
                <padding>
                   <Insets left="-5.0" />
                </padding>
             </Button>
-            <Button fx:id="p5_chip" layoutX="398.0" layoutY="96.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p5">
+            <Button fx:id="p5_chip" layoutX="450.0" layoutY="376.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p5">
                <padding>
                   <Insets left="5.0" />
                </padding>
             </Button>
-            <Button fx:id="p6_chip" layoutX="55.0" layoutY="349.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p6">
+            <Button fx:id="p6_chip" layoutX="450.0" layoutY="412.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p6">
                <padding>
                   <Insets left="-5.0" />
                </padding>
