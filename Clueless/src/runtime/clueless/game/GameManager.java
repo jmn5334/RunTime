@@ -56,6 +56,7 @@ public class GameManager {
         ArrayList<Hallway> h = hallwayList;
         ArrayList<Room> r = roomList;
 
+        // 1st quadrant setup
         r.get(1).setRight(h.get(1));
         h.get(1).setLeft(r.get(1));
         r.get(1).setBelow(h.get(3));
@@ -78,6 +79,57 @@ public class GameManager {
 
         r.get(4).setAbove(h.get(3));
         h.get(3).setBelow(r.get(4));
+
+        // end of 1st quadrant
+
+        // 2nd quadrant
+        r.get(2).setRight(h.get(2));
+        h.get(2).setLeft(r.get(2));
+        h.get(2).setRight(r.get(3));
+        r.get(3).setBelow(h.get(5));
+        r.get(3).setLeft(h.get(2));
+
+        r.get(6).setLeft(h.get(7));
+        h.get(7).setRight(r.get(6));
+        r.get(6).setAbove(h.get(5));
+        h.get(5).setBelow(r.get(6));
+        h.get(5).setAbove(r.get(3));
+        h.get(7).setLeft(r.get(5));
+
+        r.get(2).setBelow(h.get(4));
+        h.get(4).setAbove(r.get(2));
+        r.get(5).setAbove(h.get(4));
+        h.get(4).setBelow(r.get(5));
+        r.get(5).setRight(h.get(7));
+
+        // 3rd quadrant
+        r.get(6).setBelow(h.get(10));
+        h.get(10).setAbove(r.get(6));
+        h.get(10).setBelow(r.get(9));
+        r.get(9).setAbove(h.get(10));
+        r.get(9).setLeft(h.get(12));
+        h.get(12).setLeft(r.get(8));
+        h.get(12).setRight(r.get(9));
+        r.get(8).setLeft(h.get(12));
+        r.get(9).setAbove(h.get(10));
+        h.get(9).setBelow(r.get(8));
+        h.get(9).setAbove(r.get(5));
+        r.get(8).setAbove(h.get(9));
+
+        // 4th quadrant
+        r.get(8). setLeft(h.get(11));
+        r.get(8).setRight(h.get(12));
+        h.get(11).setRight(r.get(8));
+        h.get(11).setLeft(r.get(7));
+        r.get(7).setAbove(h.get(8));
+        h.get(8).setBelow(r.get(7));
+        h.get(8).setAbove(r.get(4));
+        r.get(4).setBelow(h.get(8));
+        r.get(7).setRight(h.get(11));
+        r.get(5).setBelow(h.get(9));
+
+
+
     }
 
 
@@ -90,11 +142,24 @@ public class GameManager {
         r.get(3).setPixel(372,96);
         r.get(4).setPixel(116,217);
         r.get(5).setPixel(243,217);
+        r.get(6).setPixel(372,217);
+        r.get(7).setPixel(116,335);
+        r.get(9).setPixel(372,335);
+        r.get(8).setPixel(243,335);
 
         h.get(1).setPixel(176,96);
+        h.get(2).setPixel(308,96);
         h.get(3).setPixel(119,152);
         h.get(4).setPixel(243,155);
+        h.get(5).setPixel(372,155);
         h.get(6).setPixel(179,217);
+        h.get(7).setPixel(308,217);
+        h.get(8).setPixel(116,276);
+        h.get(9).setPixel(245,276);
+        h.get(10).setPixel(372,276);
+        h.get(11).setPixel(178,335);
+        h.get(12).setPixel(306,335);
+
     }
 
     public boolean canMoveAbove(){ return currentPlayer.getPlace().canMoveAbove(); }

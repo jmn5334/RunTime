@@ -22,6 +22,7 @@ public class MainGUIFXML {
     @FXML Button moveright_button;
     @FXML Button moveup_button;
     @FXML Button movedown_button;
+    @FXML Button secretpass_button;
 
     @FXML ImageView gameboard_imageview;
 
@@ -86,9 +87,13 @@ public class MainGUIFXML {
 
         GameManager.getInstance().moveUp();refreshMovementButtons();
     }
-  @FXML void movedownCallback(){
+    @FXML void movedownCallback(){
 
       GameManager.getInstance().moveDown();refreshMovementButtons();
+    }
+    @FXML void secretpassCallback(){
+        GameManager.getInstance().moveDown();refreshMovementButtons();
+
     }
 
 }

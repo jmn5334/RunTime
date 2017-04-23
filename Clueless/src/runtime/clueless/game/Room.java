@@ -24,6 +24,7 @@ public class Room implements Place {
     public boolean canMoveLeft(){ return left!=null; }
     public boolean canMoveRight(){ return right!=null; }
 
+
     public void setAbove(Place h){ above=(Hallway)h; }
     public void setBelow(Place h){ below=(Hallway)h; }
     public void setLeft(Place h){ left=(Hallway)h; }

@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -43,12 +43,13 @@
          <children>
             <HBox layoutX="10.0" layoutY="88.0">
                <children>
-                  <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                  <ToolBar prefHeight="40.0" prefWidth="756.0" HBox.hgrow="ALWAYS">
                      <items>
                         <Button fx:id="moveup_button" mnemonicParsing="false" onAction="#moveupCallback" text="move up" />
                         <Button fx:id="movedown_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#movedownCallback" text="move down" />
                         <Button fx:id="moveleft_button" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#moveleftCallback" text="move left" />
                         <Button fx:id="moveright_button" mnemonicParsing="false" onAction="#moverightCallback" text="move right" />
+                        <Button fx:id="secretpass_button" mnemonicParsing="false" onAction="#secretpassCallback" text="secret pass" />
                      </items>
                   </ToolBar>
                </children>
@@ -106,7 +107,7 @@
                         <Image url="@icons/gameboard.png" />
                      </image>
                   </ImageView>
-                  <Button fx:id="p1_chip" layoutX="109.0" layoutY="96.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
+                  <Button fx:id="p1_chip" layoutX="113.0" layoutY="93.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
                <padding>
                   <Insets left="-5.0" />
                </padding></Button>

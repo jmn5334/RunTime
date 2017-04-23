@@ -33,6 +33,8 @@ public class Config {
 
     public void init(String configpath){
 
+       // configpath = "D:\\course\\401\\gitProject\\Clueless\\RunTime\\Clueless\\test\\data\\clueless_test.properties";
+
         File configfid = new File(configpath);
 
         // read the main config file
