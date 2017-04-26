@@ -49,7 +49,7 @@
                         <Button fx:id="movedown_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#movedownCallback" text="move down" />
                         <Button fx:id="moveleft_button" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#moveleftCallback" text="move left" />
                         <Button fx:id="moveright_button" mnemonicParsing="false" onAction="#moverightCallback" text="move right" />
-                        <Button fx:id="secretpass_button" mnemonicParsing="false" onAction="#secretpassCallback" text="secret pass" />
+                        <Button fx:id="movediagonal_button" mnemonicParsing="false" onAction="#movediagonalCallback" text="move diagonal" />
                      </items>
                   </ToolBar>
                </children>
@@ -90,7 +90,7 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <items>
                         <Button mnemonicParsing="false" text="connect to server" />
-                        <Button layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="leave game" />
+                        <Button fx:id="leavegame_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#leavegameCallback" text="leave game" />
                      </items>
                   </ToolBar>
                </children>

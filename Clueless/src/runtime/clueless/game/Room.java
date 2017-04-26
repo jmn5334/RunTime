@@ -9,6 +9,7 @@ public class Room implements Place {
     Hallway below=null;
     Hallway left=null;
     Hallway right=null;
+    Room diagonal=null;
 
     int pixelX=0 , pixelY = 0;
 
@@ -23,17 +24,20 @@ public class Room implements Place {
     public boolean canMoveBelow(){ return below!=null; }
     public boolean canMoveLeft(){ return left!=null; }
     public boolean canMoveRight(){ return right!=null; }
+    public boolean canMoveDiagonal() {return  diagonal!=null;}
 
 
     public void setAbove(Place h){ above=(Hallway)h; }
     public void setBelow(Place h){ below=(Hallway)h; }
     public void setLeft(Place h){ left=(Hallway)h; }
     public void setRight(Place h){ right=(Hallway)h; }
+    public void setDiagonal(Place h){diagonal=(Room) h;}
 
     public Place getAbove(){ return above; }
     public Place getBelow(){ return below; }
     public Place getLeft(){ return left; }
     public Place getRight(){ return right; }
+    public Room getDiagonal(){return diagonal;}
 
     public void setPixel(int x, int y){ pixelX = x; pixelY=y;}
     public int getX(){ return pixelX;}

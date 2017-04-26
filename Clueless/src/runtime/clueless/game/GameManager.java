@@ -127,6 +127,10 @@ public class GameManager {
         r.get(4).setBelow(h.get(8));
         r.get(7).setRight(h.get(11));
         r.get(5).setBelow(h.get(9));
+        r.get(9).setDiagonal(r.get(1));
+        r.get(1).setDiagonal(r.get(9));
+        r.get(7).setDiagonal(r.get(3));
+        r.get(3).setDiagonal(r.get(7));
 
 
 
@@ -166,10 +170,12 @@ public class GameManager {
     public boolean canMoveBelow(){ return currentPlayer.getPlace().canMoveBelow(); }
     public boolean canMoveLeft(){ return currentPlayer.getPlace().canMoveLeft(); }
     public boolean canMoveRight(){ return currentPlayer.getPlace().canMoveRight(); }
+    public boolean canMoveDiagonal() {return currentPlayer.getPlace().canMoveDiagonal();}
 
     public void moveUp(){ currentPlayer.moveUp();}
     public void moveDown(){ currentPlayer.moveDown();}
     public void moveLeft(){ currentPlayer.moveLeft();}
     public void moveRight(){ currentPlayer.moveRight();}
+    public void moveDiagonal(){currentPlayer.moveDiagonal();}
 
 }

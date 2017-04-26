@@ -34,7 +34,7 @@ public class Controller {
         Config.ptr().init(main_config_filepath);
 
 
-        System.out.println("GDSI started Config and Logger ");
+        System.out.println("started Config and Logger ");
 
         mainStage = Main.mainstage;
     }

@@ -69,4 +69,12 @@ public class Player {
         }
     }
 
+    public void moveDiagonal() {
+        if(currentLocation.canMoveDiagonal()) {
+            Place p = currentLocation.getDiagonal();
+            currentLocation = p;
+            move();
+        }
+    }
+
 }

@@ -9,11 +9,13 @@ public interface Place {
     public boolean canMoveBelow();
     public boolean canMoveLeft();
     public boolean canMoveRight();
+    public boolean canMoveDiagonal();
 
     public void setAbove(Place h);
     public void setBelow(Place h);
     public void setLeft(Place h);
     public void setRight(Place h);
+    public void setDiagonal(Place h);
 
     public void setPixel(int x, int y);
     public int getX();
@@ -24,4 +26,5 @@ public interface Place {
     public Place getBelow();
     public Place getLeft();
     public Place getRight();
+    public Room getDiagonal();
 }

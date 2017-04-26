@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import runtime.clueless.config.Config;
 import runtime.clueless.game.GameManager;
 import runtime.clueless.game.Player;
@@ -22,7 +24,9 @@ public class MainGUIFXML {
     @FXML Button moveright_button;
     @FXML Button moveup_button;
     @FXML Button movedown_button;
-    @FXML Button secretpass_button;
+    @FXML Button movediagonal_button;
+    @FXML private javafx.scene.control.Button leavegame_button;
+
 
     @FXML ImageView gameboard_imageview;
 
@@ -72,6 +76,10 @@ public class MainGUIFXML {
             moveright_button.setDisable(false);
         else
             moveright_button.setDisable(true);
+        if (gm.canMoveDiagonal())
+            movediagonal_button.setDisable(false);
+        else
+            movediagonal_button.setDisable(true);
     }
 
     @FXML void moveleftCallback(){
@@ -91,8 +99,11 @@ public class MainGUIFXML {
 
       GameManager.getInstance().moveDown();refreshMovementButtons();
     }
-    @FXML void secretpassCallback(){
-        GameManager.getInstance().moveDown();refreshMovementButtons();
+    @FXML void movediagonalCallback(){
+        GameManager.getInstance().moveDiagonal();refreshMovementButtons();
+
+    }
+    @FXML public void leavegameCallback(){
 
     }
 
