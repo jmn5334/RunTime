@@ -90,7 +90,7 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <items>
                         <Button mnemonicParsing="false" text="connect to server" />
-                        <Button layoutX="10.0" layoutY="11.0" mnemonicParsing="false" text="leave game" />
+                        <Button fx:id="leavegame_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#leavegameCallback" text="leave game" />
                      </items>
                   </ToolBar>
                </children>
