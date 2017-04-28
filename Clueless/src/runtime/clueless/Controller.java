@@ -1,5 +1,7 @@
 package runtime.clueless;
 
+import javafx.fxml.FXML;
+import javafx.scene.control.TreeView;
 import runtime.clueless.config.Config;
 
 import javafx.stage.Stage;

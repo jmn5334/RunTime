@@ -9,12 +9,19 @@ public class Room implements Place {
     Hallway below=null;
     Hallway left=null;
     Hallway right=null;
-    Room diagonal=null;
+
+    RoomCard card = null;
+
+    private Room diagonal=null;
 
     int pixelX=0 , pixelY = 0;
 
     public Room(){
     }
+
+
+    public void setCard(RoomCard c){ card = c; label = card.name;}
+    public RoomCard getCard(){ return card;}
 
     String label = "---";
     public void setLabel(String l){ label = l;}

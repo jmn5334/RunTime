@@ -2,6 +2,8 @@ package runtime.clueless.game;
 
 import javafx.scene.control.Button;
 
+import java.util.ArrayList;
+
 /**
  * Created by tesfaz1 on 4/20/17.
  */
@@ -12,6 +14,10 @@ public class Player {
     Button playerChip;
 
     String label = "p";
+
+    ArrayList<RoomCard> roomCards = new ArrayList<>();
+    ArrayList<SuspectCard> suspectCards = new ArrayList<>();
+    ArrayList<WeaponCard> weaponCards = new ArrayList<>();
 
     public Player(){
 
@@ -32,7 +38,7 @@ public class Player {
         playerChip.setLayoutX(x);
         playerChip.setLayoutY(y);
 
-        System.out.println(" Player Action: " + label + " has moved to " + currentLocation.getLabel());
+        System.out.println(" Player Action: " + label + " has moved to " + currentLocation.getLabel()+"  x="+currentLocation.getX()+" y="+currentLocation.getY());
 
 
     }
