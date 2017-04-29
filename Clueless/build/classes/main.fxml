@@ -45,6 +45,7 @@
                <children>
                   <ToolBar prefHeight="40.0" prefWidth="756.0" HBox.hgrow="ALWAYS">
                      <items>
+                        <ComboBox fx:id="chooseplayer_combobox2" prefWidth="150.0" promptText="choose player" />
                         <Button fx:id="moveup_button" mnemonicParsing="false" onAction="#moveupCallback" text="move up" />
                         <Button fx:id="movedown_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#movedownCallback" text="move down" />
                         <Button fx:id="moveleft_button" layoutX="85.0" layoutY="11.0" mnemonicParsing="false" onAction="#moveleftCallback" text="move left" />
@@ -57,9 +58,9 @@
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" spacing="5.0" style="-fx-background-color: #dddd00; -fx-border-color: #000000;">
                <children>
                   <Label text="Make a Suggestion" />
-                  <ComboBox minWidth="100.0" prefWidth="80.0" promptText="Person" />
-                  <ComboBox minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
-                  <Button mnemonicParsing="false" text="Suggest">
+                  <ComboBox fx:id="suggestion_person_combobox" minWidth="100.0" prefWidth="80.0" promptText="Person" />
+                  <ComboBox fx:id="suggestion_weapon_combobox" minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
+                  <Button mnemonicParsing="false" onAction="#playerSuggestMurderer" text="Suggest">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -72,10 +73,10 @@
             <HBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: #ddaaaa; -fx-border-color: #000000;">
                <children>
                   <Label text="ACCUSE " />
-                  <ComboBox minWidth="100.0" prefWidth="80.0" promptText="Person" />
-                  <ComboBox minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
-                  <ComboBox layoutX="187.0" layoutY="15.0" minWidth="80.0" prefWidth="100.0" promptText="Place" />
-                  <Button mnemonicParsing="false" text="Accuse">
+                  <ComboBox fx:id="accuse_person_combobox" minWidth="100.0" prefWidth="80.0" promptText="Person" />
+                  <ComboBox fx:id="accuse_weapon_combobox" minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
+                  <ComboBox fx:id="accuse_room_combobox" layoutX="187.0" layoutY="15.0" minWidth="80.0" prefWidth="100.0" promptText="Place" />
+                  <Button mnemonicParsing="false" onAction="#playerAccusesMurderer" text="Accuse">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -104,7 +105,7 @@
                <children>
                   <ImageView fx:id="gameboard_imageview" fitHeight="450.0" fitWidth="520.0" pickOnBounds="true">
                      <image>
-                        <Image url="@icons/gameboard.png" />
+                        <Image url="@icons/gameboard2.png" />
                      </image>
                   </ImageView>
                   <Button fx:id="p1_chip" layoutX="113.0" layoutY="93.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
@@ -144,7 +145,7 @@
          <children>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <TreeView prefHeight="200.0" prefWidth="240.0" HBox.hgrow="ALWAYS" />
+                  <TreeView fx:id="activityLogViewer" prefHeight="200.0" prefWidth="240.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
