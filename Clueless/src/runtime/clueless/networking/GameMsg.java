@@ -32,7 +32,11 @@ public class GameMsg implements Serializable{
         accuse,
         send_card_client,
         end_turn,
-        join_game
+        join_game,
+        
+        //both
+        ack,
+        invalid
     }
     
     public String text; //for debugging/message content
@@ -40,6 +44,7 @@ public class GameMsg implements Serializable{
     //HEADER
     
     public String name;
+    public int id;
     public cmd command;
     
     //DATA

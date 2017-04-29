@@ -8,6 +8,8 @@ package runtime.clueless.networking;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -69,39 +71,17 @@ public class GameServer {
         }
     }
     
+    //starts the game once everyone has joined
     public void startGame() throws InterruptedException{
         
-        //test switch between threads
-        turn = 0;
-        
-        //wait for thread to do its business
-        while(turn != -99){
-            sleep(25);
-        }
-        
-        turn = 1;
-        
-        while (turn != -99) {
-            sleep(25);
-        }
-        
-        turn = 1;
-        
-        while (turn != -99) {
-            sleep(25);
-        }
-        
-        turn = 0;
-        
-        while(turn != -99){
-            sleep(25);
-        }        
-        
-        dealCards();
-        
+        //send state to threads
+        System.out.println("Sending board state to all clients.");
         sendBoardState();
+        System.out.println("Done sending board state to all clients.");
         
         //Need turn logic here
+        dealCards();
+    
         
     }
     
@@ -109,8 +89,32 @@ public class GameServer {
         
     }
     
-    public void sendBoardState(){
-        
+    public void sendBoardState() {
+
+        for (int i = 0; i < numClients; i++) {
+
+            msg.name = "Server";
+            msg.command = GameMsg.cmd.board_state;
+            msg.id = i;
+            //TODO: set boardstate
+
+            turn = i;
+            serverWait();
+            
+            //verify that msg worked, otherwise return failure
+            switch (msg.command) {
+                case ack:
+                    System.out.println("Successfully sent board state to client "+Integer.toString(i));
+                    break;
+                case invalid:
+                    System.out.println("Failed to send board state to client "+Integer.toString(i));
+                    break;
+                default:
+                    System.out.println("Recieved invalid response from client "+Integer.toString(i));
+                    break;
+            }
+        }
+
     }
     
     public void startTurn(){
@@ -131,6 +135,17 @@ public class GameServer {
     
     public void nooneHadIt(){
         
+    }
+    
+    //wait for a thread to do its business
+    private void serverWait(){
+        while(turn != -99){
+            try {
+                sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
     }
     
     /**

@@ -54,8 +54,10 @@ public class ClientThread implements Runnable {
         
         while(true){
             try{
+                /*
                 msg = (GameMsg) in.readObject();
                 System.out.println(msg.text);
+                */
                 
                 //wait for turn
                 System.out.println("Thread "+Integer.toString(id)+" is waiting...");
@@ -70,9 +72,14 @@ public class ClientThread implements Runnable {
                 
                 System.out.println("Thread "+Integer.toString(id)+" is doing stuff and things.");
                 //send message to client
-                
+                out.writeObject(msg);
+
+                //wait for object
+                //while (!(in.available() > 0)) {
+                    msg = (GameMsg) in.readObject();
+                //}
+
                 //recieve message from client and write to shared msg object
-                
                 //set turn to invalid value
                 System.out.println("Thread "+Integer.toString(id)+" is ending turn.");
                 turn = -99;

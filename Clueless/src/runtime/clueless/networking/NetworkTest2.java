@@ -23,6 +23,9 @@ public class NetworkTest2 {
         System.out.println("Hello world 2!!!");
         
         gc.connectToServer();
+        
+        //wait until we've recieved a message
+        gc.waitForMsg();
 /*
         gc.sendAccusation();
         gc.sendSuggestion();
