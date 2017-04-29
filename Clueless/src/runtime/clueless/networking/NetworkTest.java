@@ -16,7 +16,7 @@ public class NetworkTest {
         GameServer gs;
         GameClient gc;
         
-        gs =  new GameServer();
+        gs =  new GameServer(3);
         
         System.out.println("Hello world!!!");
         

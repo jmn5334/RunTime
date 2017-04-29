@@ -20,9 +20,9 @@ public class ClientThread implements Runnable {
     private String textArea;
     
     //contructor
-    public ClientThread(Socket client, String textArea){
+    public ClientThread(Socket client){
         this.client = client;
-        this.textArea = textArea;
+        this.textArea = "";
     }
     
     @Override
@@ -51,7 +51,7 @@ public class ClientThread implements Runnable {
                 textArea += line;
                 System.out.println(textArea);
             } catch (IOException e){
-                System.out.println("Read failed");
+                //System.out.println("Read failed");
                 //System.exit(-1);
             }
         }

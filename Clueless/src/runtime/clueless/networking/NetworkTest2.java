@@ -5,13 +5,15 @@
  */
 package runtime.clueless.networking;
 
+import static java.lang.Thread.sleep;
+
 /**
  *
  * @author jmnew
  */
 public class NetworkTest2 {
     
-    public static void main(String [ ] args){
+    public static void main(String [ ] args) throws InterruptedException{
         
         GameClient gc;
         
@@ -20,8 +22,13 @@ public class NetworkTest2 {
         System.out.println("Hello world 2!!!");
         
         gc.connectToServer();
+
+        gc.sendAccusation();
+        gc.sendMove();
+        gc.sendSuggestion();
+        
         while(true){
-            gc.sayHi();
+            sleep(10);
         }
         
     }

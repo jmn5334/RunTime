@@ -16,9 +16,16 @@ public class GameServer {
     
     private ServerSocket server;
     private String textArea;
+    private final int MAX_THREADS = 6;
+    private int numClients;
+    private int numPlayers;
 
-    public GameServer(){
+    public GameServer(int numPlayers){
         System.out.println("GameServer is being created.");
+        server = null;
+        textArea = "";
+        numClients = 0;
+        this.numPlayers = numPlayers;
     }
     
     public void acceptClients(){
@@ -30,13 +37,17 @@ public class GameServer {
         }
         while(true){
             ClientThread td;
-            System.out.println("Waiting for client connections...");
             try{
-                td = new ClientThread(server.accept(), textArea);
-                System.out.println("Recieved a client connect request!!!");
-                System.out.println("Creating thread...");
-                Thread t = new Thread(td);
-                t.start();
+                //make sure we are under the max and the number desired by the user
+                if(numClients < 6 && numClients < numPlayers){
+                    System.out.println("Waiting for client connections...");
+                    td = new ClientThread(server.accept());
+                    System.out.println("Recieved a client connect request!!!");
+                    System.out.println("Creating thread "+Integer.toString(numClients+1)+"...");
+                    Thread t = new Thread(td);
+                    t.start();
+                    numClients++;
+                }
             } catch (IOException e){
                 System.out.println("Accept failed: 5000");
                 System.exit(-1);

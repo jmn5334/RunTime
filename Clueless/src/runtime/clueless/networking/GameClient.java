@@ -46,6 +46,23 @@ public class GameClient {
         }
     }
     
+    public void sendMove(){
+        out.println("MOVE MSG");
+    }
+    
+    public void sendAccusation(){
+        out.println("ACCUSATION MSG");
+    }
+    
+    public void sendSuggestion(){
+        out.println("SUGGESTION MSG");
+    }
+    
+    public void revealCard(){
+        out.println("REVEAL CARD MSG");
+    }
+    
+    //test method
     public void sayHi(){
         out.println("Hi buddy or my guy!!!");
     }
