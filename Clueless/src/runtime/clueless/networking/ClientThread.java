@@ -29,14 +29,14 @@ public class ClientThread implements Runnable {
     public void run(){
         String line;
         BufferedReader in;
-       // PrintWriter out;
+        PrintWriter out;
         
         in = null;
-       // out = null;
+        out = null;
         
         try{
             in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            //out = new PrintWriter(client.getOutputStream(), true); 
+            out = new PrintWriter(client.getOutputStream(), true); 
         } catch (IOException e){
             System.out.println("in or out failed");
             System.exit(-1);
@@ -46,13 +46,13 @@ public class ClientThread implements Runnable {
             try{
                 line = in.readLine();
                 //send data back to client
-                //out.println(line);
+                out.println(line);
                 //append data to text area
                 textArea += line;
                 System.out.println(textArea);
             } catch (IOException e){
                 System.out.println("Read failed");
-                System.exit(-1);
+                //System.exit(-1);
             }
         }
     }

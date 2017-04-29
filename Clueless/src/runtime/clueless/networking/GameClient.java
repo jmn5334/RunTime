@@ -44,6 +44,9 @@ public class GameClient {
             System.out.println("No I/O");
             System.exit(1);
         }
+        while(true){
+            out.println("Hi buddy!!!");
+        }
     }
     
 }
