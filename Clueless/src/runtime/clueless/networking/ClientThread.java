@@ -68,9 +68,9 @@ public class ClientThread implements Runnable {
                 System.out.println(textArea);
                 */
                 msg = (GameMsg) in.readObject();
-                //System.out.println(msg.text);
+                System.out.println(msg.text);
             } catch (IOException e){
-                //System.out.println("Read failed");
+                System.out.println("Read failed");
                 //System.exit(-1);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);

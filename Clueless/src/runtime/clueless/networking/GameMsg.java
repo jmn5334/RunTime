@@ -5,11 +5,13 @@
  */
 package runtime.clueless.networking;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jmnew
  */
-public class GameMsg {
+public class GameMsg implements Serializable{
     
     public String text;
     

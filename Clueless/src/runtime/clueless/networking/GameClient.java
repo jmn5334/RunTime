@@ -46,7 +46,7 @@ public class GameClient {
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
             */
-            in = new ObjectInputStream(socket.getInputStream());
+            //in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
             
         } catch (UnknownHostException e) {
@@ -63,7 +63,7 @@ public class GameClient {
         msg.text = "New message from client!!!";
         while(true){
             out.writeObject(msg);
-            sleep(5);
+            //sleep(5);
         }
         //System.out.println(msg.text);
     }

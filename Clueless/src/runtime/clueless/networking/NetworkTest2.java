@@ -23,14 +23,13 @@ public class NetworkTest2 {
         System.out.println("Hello world 2!!!");
         
         gc.connectToServer();
-
+/*
         gc.sendAccusation();
         gc.sendSuggestion();
-        
-        while(true){
-            gc.sendMove();
-            sleep(10);
-        }
+*/
+
+        gc.sendMove();
+
         
     }
 }
