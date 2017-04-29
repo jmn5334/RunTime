@@ -29,7 +29,7 @@ public class GameClient {
         in = null;
     }
 
-    public void listenSocket() {
+    public void connectToServer() {
         //Create socket connection
         try {
             socket = new Socket("10.0.0.201", 5000);
@@ -44,9 +44,10 @@ public class GameClient {
             System.out.println("No I/O");
             System.exit(1);
         }
-        while(true){
-            out.println("Hi buddy!!!");
-        }
+    }
+    
+    public void sayHi(){
+        out.println("Hi buddy or my guy!!!");
     }
     
 }

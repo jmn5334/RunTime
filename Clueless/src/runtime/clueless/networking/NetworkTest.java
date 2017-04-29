@@ -20,7 +20,7 @@ public class NetworkTest {
         
         System.out.println("Hello world!!!");
         
-        gs.listenSocket();
+        gs.acceptClients();
         
     }
 }

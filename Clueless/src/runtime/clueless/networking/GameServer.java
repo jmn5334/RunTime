@@ -21,7 +21,7 @@ public class GameServer {
         System.out.println("GameServer is being created.");
     }
     
-    public void listenSocket(){
+    public void acceptClients(){
         try{
             server = new ServerSocket(5000);
         }catch (IOException e){

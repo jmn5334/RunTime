@@ -19,7 +19,10 @@ public class NetworkTest2 {
         
         System.out.println("Hello world 2!!!");
         
-        gc.listenSocket();
+        gc.connectToServer();
+        while(true){
+            gc.sayHi();
+        }
         
     }
 }
