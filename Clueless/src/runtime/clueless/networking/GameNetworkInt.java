@@ -39,7 +39,7 @@ public class GameNetworkInt {
     //this function doesn't return until the game ends
     public void hostGame(int port){
         //implement host game stuff here
-        gs = new GameServer();
+        gs = new GameServer(3);
         gs.acceptClients();
     }
     
