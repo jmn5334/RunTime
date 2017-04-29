@@ -15,17 +15,20 @@ import java.net.ServerSocket;
 public class GameServer {
     
     private ServerSocket server;
-    private String textArea;
     private final int MAX_THREADS = 6;
     private int numClients;
-    private int numPlayers;
+    private final int numPlayers;
+    private final Thread[] threads = new Thread[MAX_THREADS];
+    private final ClientThread[] cthreads = new ClientThread[MAX_THREADS];
+    public static GameMsg msg;
+    
 
     public GameServer(int numPlayers){
         System.out.println("GameServer is being created.");
         server = null;
-        textArea = "";
         numClients = 0;
         this.numPlayers = numPlayers;
+        msg = new GameMsg();
     }
     
     public void acceptClients(){
@@ -36,23 +39,68 @@ public class GameServer {
             System.exit(-1);
         }
         while(true){
-            ClientThread td;
             try{
                 //make sure we are under the max and the number desired by the user
-                if(numClients < 6 && numClients < numPlayers){
+                if(numClients < MAX_THREADS && numClients < numPlayers){
+                    
+                    
                     System.out.println("Waiting for client connections...");
-                    td = new ClientThread(server.accept());
+                    cthreads[numClients] = new ClientThread(server.accept());
+                    
                     System.out.println("Recieved a client connect request!!!");
-                    System.out.println("Creating thread "+Integer.toString(numClients+1)+"...");
-                    Thread t = new Thread(td);
-                    t.start();
+                    System.out.println("Creating thread "+Integer.toString(numClients)+"...");
+                    threads[numClients] = new Thread(cthreads[numClients]);
+                    threads[numClients].start();
+
                     numClients++;
+                }
+                else{
+                    System.out.println("Done accepting clients.");
+                    return;
                 }
             } catch (IOException e){
                 System.out.println("Accept failed: 5000");
                 System.exit(-1);
             }
         }
+    }
+    
+    public void startGame(){
+        
+        dealCards();
+        
+        sendBoardState();
+        
+        //Need turn logic here
+        
+    }
+    
+    public void dealCards(){
+        
+    }
+    
+    public void sendBoardState(){
+        
+    }
+    
+    public void startTurn(){
+        
+    }
+    
+    public void endGame(){
+        
+    }
+    
+    public void killPlayer(){
+        
+    }
+    
+    public void askNextPlayer(){
+        
+    }
+    
+    public void nooneHadIt(){
+        
     }
     
     /**
