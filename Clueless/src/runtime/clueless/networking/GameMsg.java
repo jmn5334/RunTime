@@ -6,6 +6,9 @@
 package runtime.clueless.networking;
 
 import java.io.Serializable;
+import runtime.clueless.game.RoomCard;
+import runtime.clueless.game.SuspectCard;
+import runtime.clueless.game.WeaponCard;
 
 /**
  *
@@ -13,8 +16,43 @@ import java.io.Serializable;
  */
 public class GameMsg implements Serializable{
     
-    public String text;
+    public enum cmd {
+        
+        //server to client commands
+        start_turn,
+        reveal_card,
+        send_card_server,
+        kill_player,
+        game_over,
+        board_state,
+        
+        //client to server commands
+        move,
+        suggest,
+        accuse,
+        send_card_client,
+        end_turn,
+        join_game
+    }
     
+    public String text; //for debugging/message content
+    
+    //HEADER
+    
+    public String name;
+    public cmd command;
+    
+    //DATA
+    
+    //for card messages
+    public RoomCard rCard;
+    public SuspectCard sCard;
+    public WeaponCard wCard;
+    
+    
+    //for board update msgs
+    //public Board board;
+
     public GameMsg(){
         text = "Hello there!";
     }
