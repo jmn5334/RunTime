@@ -26,7 +26,7 @@ public class NetworkTest {
         gs.startGame();
         
         while(true){
-            System.out.println(gs.msg.text);
+           // System.out.println(gs.msg.text);
             sleep(10);
         }
         

@@ -6,6 +6,7 @@
 package runtime.clueless.networking;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
 
 /**
@@ -20,8 +21,10 @@ public class GameServer {
     private final int numPlayers;
     private final Thread[] threads = new Thread[MAX_THREADS];
     private final ClientThread[] cthreads = new ClientThread[MAX_THREADS];
-    public static GameMsg msg;
     
+    //shared object
+    public static GameMsg msg;
+    public static volatile int turn;
 
     public GameServer(int numPlayers){
         System.out.println("GameServer is being created.");
@@ -29,6 +32,7 @@ public class GameServer {
         numClients = 0;
         this.numPlayers = numPlayers;
         msg = new GameMsg();
+        turn = -99;
     }
     
     public void acceptClients(){
@@ -45,7 +49,7 @@ public class GameServer {
                     
                     
                     System.out.println("Waiting for client connections...");
-                    cthreads[numClients] = new ClientThread(server.accept());
+                    cthreads[numClients] = new ClientThread(server.accept(),numClients);
                     
                     System.out.println("Recieved a client connect request!!!");
                     System.out.println("Creating thread "+Integer.toString(numClients)+"...");
@@ -65,7 +69,33 @@ public class GameServer {
         }
     }
     
-    public void startGame(){
+    public void startGame() throws InterruptedException{
+        
+        //test switch between threads
+        turn = 0;
+        
+        //wait for thread to do its business
+        while(turn != -99){
+            sleep(25);
+        }
+        
+        turn = 1;
+        
+        while (turn != -99) {
+            sleep(25);
+        }
+        
+        turn = 1;
+        
+        while (turn != -99) {
+            sleep(25);
+        }
+        
+        turn = 0;
+        
+        while(turn != -99){
+            sleep(25);
+        }        
         
         dealCards();
         
