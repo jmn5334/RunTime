@@ -25,6 +25,7 @@ public class GameMsg implements Serializable{
         kill_player,
         game_over,
         board_state,
+        stuck,
         
         //client to server commands
         move,

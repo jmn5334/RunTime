@@ -76,20 +76,58 @@ public class GameServer {
         
         //send state to threads
         System.out.println("Sending board state to all clients.");
-        sendBoardState();
+        int retries = 3;
+        while(!sendBoardState() && retries > 0){
+            System.out.println("Retrying to send board state.");
+            retries--;
+        }
         System.out.println("Done sending board state to all clients.");
         
-        //Need turn logic here
-        dealCards();
+        dealCards();//TODO not implemented
     
+        //BEGIN STATE MACHINE HERE
         
+        //game managing assets
+        
+        
+        //turn terminating conditions
+        boolean hasMoved,
+                hasSuggested,
+                hasAccused,
+                isStuck,
+                hasSurrendered;
+        
+        //game terminating conditions
+        boolean haveWinner = false;
+        
+        //continue until we have a winner
+        while(!haveWinner){
+            
+            //intitialize turn state
+            hasMoved = false;
+            hasSuggested = false;
+            hasAccused = false;
+            isStuck = false;
+            hasSurrendered = false;
+            
+            //continue turn until we've met terminating conditions
+            while(!isStuck && !hasSurrendered && !hasAccused){
+
+                //check if stuck
+                
+                
+            }
+        }       
+  
     }
     
     public void dealCards(){
         
     }
     
-    public void sendBoardState() {
+    public boolean sendBoardState() {
+        
+        boolean success = true;
 
         for (int i = 0; i < numClients; i++) {
 
@@ -107,14 +145,17 @@ public class GameServer {
                     System.out.println("Successfully sent board state to client "+Integer.toString(i));
                     break;
                 case invalid:
-                    System.out.println("Failed to send board state to client "+Integer.toString(i));
+                    System.out.println("Client returned that our cmd was invalid. Failed to send board state to client "+Integer.toString(i));
+                    success = false;
                     break;
                 default:
                     System.out.println("Recieved invalid response from client "+Integer.toString(i));
+                    success = false;
                     break;
             }
         }
 
+        return success;
     }
     
     public void startTurn(){

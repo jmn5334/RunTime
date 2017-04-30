@@ -190,8 +190,12 @@ public class GameClient {
                 s = "board_state";
                 break;
             }
+            case stuck:{
+                s = "stuck";
+                break;
+            }
             default:{
-                s = "INVALID CMD";
+                s = "INVALID CMD: possibly forgot to add to this function";
             }
         }
         
