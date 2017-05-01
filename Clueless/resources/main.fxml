@@ -9,6 +9,7 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 
@@ -69,85 +70,246 @@
    <right>
       <VBox layoutX="520.0" layoutY="30.0" BorderPane.alignment="CENTER" />
    </right>
-   <top>
-      <HBox prefHeight="482.0" prefWidth="768.0" BorderPane.alignment="CENTER">
+   <center>
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="480.0" prefWidth="600.0">
+            <HBox prefHeight="482.0" prefWidth="768.0">
                <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="597.0">
+                  <VBox prefHeight="480.0" prefWidth="600.0">
                      <children>
-                        <ListView prefHeight="120.0" prefWidth="100.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="597.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="597.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="597.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="600.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="597.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="120.0" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="597.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="60.0" prefWidth="600.0">
-                     <children>
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="120.0" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                        <VBox prefHeight="200.0" prefWidth="120.0" />
-                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="120.0">
-                           <children>
-                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="90.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="600.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff1ef5" height="60.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="120.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-                     </children>
-                  </HBox>
+                  </VBox>
+                  <VBox prefHeight="482.0" prefWidth="162.0" />
                </children>
-            </VBox>
-            <VBox prefHeight="482.0" prefWidth="162.0" />
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox prefHeight="480.0" prefWidth="600.0">
+                     <children>
+                        <HBox prefHeight="120.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Study" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H0" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Hall" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H1" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Lounge" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="60.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H2" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H3" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H4" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Library" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H5" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Billiard Room" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H6" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Dining Room" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="108.0" prefHeight="60.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H7" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H8" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
+                              <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H9" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="120.0" prefWidth="600.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Conservatory" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H10" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Ballroom" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="H11" />
+                                    <TextField />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
+                                 <children>
+                                    <Label text="Kitchen" />
+                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
-      </HBox>
-   </top>
+      </StackPane>
+   </center>
 </BorderPane>
