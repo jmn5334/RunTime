@@ -10,11 +10,29 @@ package runtime.clueless.game;
  * @author jmnew
  */
 public class JSuspect {
-  
+
+    
     private final String name;
- 
-    public void printSuspect(){
-        System.out.println(name);
+    private JHallway hLocation;
+    private JRoom rLocation;
+    
+    //constructor
+    public JSuspect(String name){
+        this.name = name;
+        hLocation = null;
+        rLocation = null;
+    }
+    
+    //returns 1 for room, 0 for hallway, -1 for error
+    public int inRoom(){
+        if(hLocation == null){
+            if(rLocation == null){
+                System.out.println("inRoom error: Can't find suspect "+name);
+                return -1;
+            } 
+            return 1;
+        }
+        return 0;
     }
     
     /**
@@ -24,9 +42,44 @@ public class JSuspect {
         return name;
     }
     
-    //constructor
-    public JSuspect(String name){
-        this.name = name;
+    /**
+     * @return the hLocation
+     */
+    public JHallway getHallwayLocation() {
+        return hLocation;
+    }
+
+    /**
+     * @param hLocation the hLocation to set
+     */
+    public void setHallwayLocation(JHallway hLocation) {
+        this.hLocation = hLocation;
+        this.rLocation = null;
+    }
+
+    /**
+     * @return the rLocation
+     */
+    public JRoom getRoomLocation() {
+        return rLocation;
+    }
+
+    /**
+     * @param rLocation the rLocation to set
+     */
+    public void setRoomLocation(JRoom rLocation) {
+        this.rLocation = rLocation;
+        this.hLocation = null;
     }
     
+    public void printSuspect(){
+        if(rLocation == null && hLocation == null)
+            System.out.println(name+" is LOST!");
+        else if(rLocation == null)
+            System.out.println(name+" located in "+Integer.toString(hLocation.getId()));
+        else if(hLocation == null)
+            System.out.println(name+" located in "+rLocation.getName());    
+        else
+            System.out.println(name+" is located in both"+rLocation.getName()+" and "+Integer.toString(hLocation.getId()));
+    }
 }

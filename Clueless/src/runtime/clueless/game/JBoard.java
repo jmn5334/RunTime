@@ -20,28 +20,60 @@ public class JBoard {
     
     private final ArrayList<JHallway> hallways;
     private final ArrayList<JRoom> rooms;
+    private final ArrayList<JSuspect> suspects;
+    private final ArrayList<JWeapon> weapons;
     
-    //for testing
-    public void printBoard(){
+    //moves suspect to a new location
+    //returns true for success, false if move is invalid
+    public boolean moveSuspectToHallway(JSuspect s, JHallway dest){
         
-        System.out.println("************CLUELESS GAMEBOARD**************");
+        boolean isRoom;
         
-        System.out.println("************ROOMS ON BOARD******************");
+        //check if the hallway is occupied
+        if(dest.getSuspect() != null){
+            System.out.println("Hallway is occupied.");
+            return false;
+        }  
         
-        for (JRoom room : rooms) {
-            room.printRoom();
+        //is suspect in hallway or room?
+        switch (s.inRoom()) {
+            case 1:
+                isRoom = true;
+                break;
+            case 0:
+                isRoom = false;
+                break;
+            default:
+                return false;
         }
         
-        System.out.println("************HALLWAYS ON BOARD***************");
-        
-        for (JHallway hallway : hallways) {
-            hallway.printHallway();
-        }
-        
-        System.out.println("********************************************");
-        
-    }
+        //if we have a room check adjacent rooms for this hallway
+        if(isRoom){
+            JRoom rLocation = s.getRoomLocation();
             
+            //if adjacent then move suspect
+            if(rLocation.isHallwayAdjacent(dest)){
+                rLocation.removeSuspect(s);
+                dest.addSuspect(s);
+                s.setHallwayLocation(dest);
+            }
+            else{
+                return false;
+            }   
+        }
+        else{
+            System.out.println("Can't move from hallway to hallway.");
+            return false; //impossible to move to a hallway from a hallway
+        }
+        
+        return true;
+    }
+    
+    public boolean moveSuspectToRoom(){
+        return true;
+    }
+    
+    //constructor... creates all game objects        
     public JBoard(){
         
         //create suspects
@@ -73,6 +105,14 @@ public class JBoard {
         JHallway h9 = new JHallway(9,null);
         JHallway h10 = new JHallway(10,s3);
         JHallway h11 = new JHallway(11,s2);
+        
+        //add locations to suspects
+        s0.setHallwayLocation(h1);
+        s1.setHallwayLocation(h4);
+        s2.setHallwayLocation(h11);
+        s3.setHallwayLocation(h10);
+        s4.setHallwayLocation(h7);
+        s5.setHallwayLocation(h2);
         
         //create room weapons lists
         ArrayList<JWeapon> wList0 = new ArrayList<>();
@@ -115,6 +155,14 @@ public class JBoard {
         JRoom r7 = new JRoom("Ballroom",wList7,sList7);
         JRoom r8 = new JRoom("Kitchen",wList8,sList8);
         
+        //add room location to weapons
+        w0.setRoomLocation(r0);
+        w1.setRoomLocation(r1);
+        w2.setRoomLocation(r2);
+        w3.setRoomLocation(r3);
+        w4.setRoomLocation(r4);
+        w5.setRoomLocation(r5);
+
         //package rooms for hallways
         ArrayList<JRoom> rList0 = new ArrayList<>();
         ArrayList<JRoom> rList1 = new ArrayList<>();
@@ -218,8 +266,26 @@ public class JBoard {
         r8.setAdjacentLocations(hList8,r0);
         
         //that was exhausting... no we can finally add the rooms and hallways to the board
+        suspects = new ArrayList<>();
+        weapons = new ArrayList<>();
         hallways = new ArrayList<>();
         rooms = new ArrayList<>();
+        
+        //add suspects
+        suspects.add(s0);
+        suspects.add(s1);
+        suspects.add(s2);
+        suspects.add(s3);
+        suspects.add(s4);
+        suspects.add(s5);
+        
+        //add weapons
+        weapons.add(w0);
+        weapons.add(w1);
+        weapons.add(w2);
+        weapons.add(w3);
+        weapons.add(w4);
+        weapons.add(w5);
         
         //add hallways
         hallways.add(h0);
@@ -245,5 +311,54 @@ public class JBoard {
         rooms.add(r6);
         rooms.add(r7);
         rooms.add(r8); 
+    }
+    
+    /**
+     * @return the hallways
+     */
+    public ArrayList<JHallway> getHallways() {
+        return hallways;
+    }
+
+    /**
+     * @return the rooms
+     */
+    public ArrayList<JRoom> getRooms() {
+        return rooms;
+    }
+
+    /**
+     * @return the suspects
+     */
+    public ArrayList<JSuspect> getSuspects() {
+        return suspects;
+    }
+
+    /**
+     * @return the weapons
+     */
+    public ArrayList<JWeapon> getWeapons() {
+        return weapons;
+    }
+    
+    //for testing
+    public void printBoard(){
+        
+        System.out.println("************CLUELESS GAMEBOARD**************");
+        
+        System.out.println("************ROOMS ON BOARD******************");
+        
+        for (JRoom room : getRooms()) {
+            room.printRoom();
+        }
+        
+        System.out.println("************HALLWAYS ON BOARD***************");
+        
+        for (JHallway hallway : getHallways()) {
+            hallway.printHallway();
+        }
+        
+        System.out.println("********************************************");
+        
     }
 }

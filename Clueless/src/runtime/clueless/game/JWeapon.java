@@ -14,9 +14,40 @@ package runtime.clueless.game;
 public class JWeapon {
 
     private final String name;
+    private JRoom rLocation;
+    
+    //constructor
+    public JWeapon(String name){
+        this.name = name;
+        rLocation = null;
+    }
+
+    /**
+     * @param hLocation the hLocation to set
+     */
+    public void setHallwayLocation(JHallway hLocation) {
+        this.rLocation = null;
+    }
+
+    /**
+     * @return the rLocation
+     */
+    public JRoom getRoomLocation() {
+        return rLocation;
+    }
+
+    /**
+     * @param rLocation the rLocation to set
+     */
+    public void setRoomLocation(JRoom rLocation) {
+        this.rLocation = rLocation;
+    }
     
     public void printWeapon(){
-        System.out.println(name);
+        if(rLocation != null)
+            System.out.println(name+" located in "+rLocation.getName());    
+        else
+            System.out.println(name+" is LOST!");
     }
     
     /**
@@ -24,11 +55,6 @@ public class JWeapon {
      */
     public String getName() {
         return name;
-    }
-    
-    //constructor
-    public JWeapon(String name){
-        this.name = name;
     }
     
 }
