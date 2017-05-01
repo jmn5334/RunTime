@@ -121,8 +121,6 @@ public class JBoard {
     //on a suggestion this moves the suspect and weapon to a room
     public boolean moveOnSuggestion(JSuspect s, JWeapon w, JRoom dest){
         
-        boolean isRoom;
-        
         //move the suspect
         //is suspect in hallway or room?
         switch (s.inRoom()) {

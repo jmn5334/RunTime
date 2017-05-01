@@ -40,6 +40,12 @@ public class GameMsg implements Serializable{
         invalid
     }
     
+    public enum sub_cmd {
+        moveOnSuggest,
+        move2hall,
+        move2room
+    }
+    
     public String text; //for debugging/message content
     
     //HEADER
