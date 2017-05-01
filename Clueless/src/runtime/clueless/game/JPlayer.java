@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class JPlayer {
     
-    private JBoard board;
+    private final JBoard board;
     private JSuspect suspect;
     private final String name;
     
@@ -38,19 +38,26 @@ public class JPlayer {
     }
 
     public ArrayList<JHallway> getHallways() {
-        return board.getHallways();
+        return getBoard().getHallways();
     }
 
     public ArrayList<JRoom> getRooms() {
-        return board.getRooms();
+        return getBoard().getRooms();
     }
     
     public ArrayList<JSuspect> getSuspects() {
-        return board.getSuspects();
+        return getBoard().getSuspects();
     }
 
     public ArrayList<JWeapon> getWeapons() {
-        return board.getWeapons();
+        return getBoard().getWeapons();
+    }
+    
+    /**
+     * @return the board
+     */
+    public JBoard getBoard() {
+        return board;
     }
     
 }

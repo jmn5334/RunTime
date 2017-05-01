@@ -34,6 +34,18 @@ public class JHallway {
         System.out.println();
     }
     
+    public boolean isRoomAdjacent(JRoom r){
+        
+        boolean isAdjacent = false;
+        
+        for(JRoom room : adjacentRooms){
+            if(room == r)
+                isAdjacent = true;
+        }
+        
+        return isAdjacent;  
+    }
+    
     public JHallway(int id, JSuspect suspect){
         this.id = id;
         this.suspect = suspect;

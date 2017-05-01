@@ -23,13 +23,6 @@ public class JWeapon {
     }
 
     /**
-     * @param hLocation the hLocation to set
-     */
-    public void setHallwayLocation(JHallway hLocation) {
-        this.rLocation = null;
-    }
-
-    /**
      * @return the rLocation
      */
     public JRoom getRoomLocation() {

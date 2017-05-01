@@ -69,7 +69,80 @@ public class JBoard {
         return true;
     }
     
-    public boolean moveSuspectToRoom(){
+    public boolean moveSuspectToRoom(JSuspect s, JRoom dest){
+        
+        boolean isRoom;
+        
+        //is suspect in hallway or room?
+        switch (s.inRoom()) {
+            case 1:
+                isRoom = true;
+                break;
+            case 0:
+                isRoom = false;
+                break;
+            default:
+                return false;
+        }
+        
+        //if we have a room check for secret passage
+        if(isRoom){
+            JRoom rLocation = s.getRoomLocation();
+            
+            //check for secret passage and if it leads to our dest
+            if(rLocation.getSecretPassage() != null && rLocation.getSecretPassage() == dest){
+                rLocation.removeSuspect(s);
+                dest.addSuspect(s);
+                s.setRoomLocation(dest);
+            }
+            else{
+                System.out.println("This room is not accessible via secret passage.");
+                return false;
+            }
+        }
+        //suspect is in a hallway
+        else{
+            JHallway hLocation = s.getHallwayLocation();
+            //check if the dest room is adjacent to suspect's hallway
+            if(hLocation.isRoomAdjacent(dest)){
+                hLocation.removeSuspect();
+                dest.addSuspect(s);
+                s.setRoomLocation(dest);
+            }
+            else {
+                System.out.println("This room is not accessible from this hallway");
+                return false; //impossible to move to a hallway from a hallway
+            }
+        }
+        
+        return true;
+    }
+    
+    //on a suggestion this moves the suspect and weapon to a room
+    public boolean moveOnSuggestion(JSuspect s, JWeapon w, JRoom dest){
+        
+        boolean isRoom;
+        
+        //move the suspect
+        //is suspect in hallway or room?
+        switch (s.inRoom()) {
+            case 1:
+                s.getRoomLocation().removeSuspect(s);
+                break;
+            case 0:
+                s.getHallwayLocation().removeSuspect();
+                break;
+            default:
+                return false;
+        }
+        dest.addSuspect(s);
+        s.setRoomLocation(dest);
+        
+        //move weapon
+        w.getRoomLocation().removeWeapon(w);
+        dest.addWeapon(w);
+        w.setRoomLocation(dest);
+ 
         return true;
     }
     
