@@ -12,6 +12,10 @@ package runtime.clueless.game;
 public class JSuspect {
   
     private final String name;
+ 
+    public void printSuspect(){
+        System.out.println(name);
+    }
     
     /**
      * @return the name

@@ -15,6 +15,10 @@ public class JWeapon {
 
     private final String name;
     
+    public void printWeapon(){
+        System.out.println(name);
+    }
+    
     /**
      * @return the name
      */

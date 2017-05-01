@@ -16,8 +16,31 @@ import java.util.ArrayList;
  */
 public class JBoard {
     
-    private ArrayList<JHallway> hallways;
-    private ArrayList<JRoom> rooms;
+    //NOTE: Class constructor is at the bottom of the file as it is very large
+    
+    private final ArrayList<JHallway> hallways;
+    private final ArrayList<JRoom> rooms;
+    
+    //for testing
+    public void printBoard(){
+        
+        System.out.println("************CLUELESS GAMEBOARD**************");
+        
+        System.out.println("************ROOMS ON BOARD******************");
+        
+        for (JRoom room : rooms) {
+            room.printRoom();
+        }
+        
+        System.out.println("************HALLWAYS ON BOARD***************");
+        
+        for (JHallway hallway : hallways) {
+            hallway.printHallway();
+        }
+        
+        System.out.println("********************************************");
+        
+    }
             
     public JBoard(){
         
@@ -132,6 +155,95 @@ public class JBoard {
         rList11.add(r7);
         rList11.add(r8);
         
+        //set room lists for the hallways
+        h0.setAdjacentRooms(rList0);
+        h1.setAdjacentRooms(rList1);
+        h2.setAdjacentRooms(rList2);
+        h3.setAdjacentRooms(rList3);
+        h4.setAdjacentRooms(rList4);
+        h5.setAdjacentRooms(rList5);
+        h6.setAdjacentRooms(rList6);
+        h7.setAdjacentRooms(rList7);
+        h8.setAdjacentRooms(rList8);
+        h9.setAdjacentRooms(rList9);
+        h10.setAdjacentRooms(rList10);
+        h11.setAdjacentRooms(rList11);
         
+        //package hallways for rooms
+        ArrayList<JHallway> hList0 = new ArrayList<>();
+        ArrayList<JHallway> hList1 = new ArrayList<>();
+        ArrayList<JHallway> hList2 = new ArrayList<>();
+        ArrayList<JHallway> hList3 = new ArrayList<>();
+        ArrayList<JHallway> hList4 = new ArrayList<>();
+        ArrayList<JHallway> hList5 = new ArrayList<>();
+        ArrayList<JHallway> hList6 = new ArrayList<>();
+        ArrayList<JHallway> hList7 = new ArrayList<>();
+        ArrayList<JHallway> hList8 = new ArrayList<>();
+        
+        //add hallways to lists
+        hList0.add(h0);
+        hList0.add(h2);
+        hList1.add(h0);
+        hList1.add(h1);
+        hList1.add(h3);
+        hList2.add(h1);
+        hList2.add(h4);
+        hList3.add(h2);
+        hList3.add(h5);
+        hList3.add(h7);
+        hList4.add(h3);
+        hList4.add(h5);
+        hList4.add(h6);
+        hList4.add(h8);
+        hList5.add(h4);
+        hList5.add(h6);
+        hList5.add(h9);
+        hList6.add(h7);
+        hList6.add(h10);
+        hList7.add(h8);
+        hList7.add(h10);
+        hList7.add(h11);
+        hList8.add(h9);
+        hList8.add(h11);
+        
+        //set hallway lists and secret passage, if there is one, for each room
+        r0.setAdjacentLocations(hList0,r8);
+        r1.setAdjacentLocations(hList1,null);
+        r2.setAdjacentLocations(hList2,r6);
+        r3.setAdjacentLocations(hList3,null);
+        r4.setAdjacentLocations(hList4,null);
+        r5.setAdjacentLocations(hList5,null);
+        r6.setAdjacentLocations(hList6,r2);
+        r7.setAdjacentLocations(hList7,null);
+        r8.setAdjacentLocations(hList8,r0);
+        
+        //that was exhausting... no we can finally add the rooms and hallways to the board
+        hallways = new ArrayList<>();
+        rooms = new ArrayList<>();
+        
+        //add hallways
+        hallways.add(h0);
+        hallways.add(h1);
+        hallways.add(h2);
+        hallways.add(h3);
+        hallways.add(h4);
+        hallways.add(h5);
+        hallways.add(h6);
+        hallways.add(h7);
+        hallways.add(h8);
+        hallways.add(h9);
+        hallways.add(h10);
+        hallways.add(h11);
+        
+        //add rooms
+        rooms.add(r0);
+        rooms.add(r1);
+        rooms.add(r2);
+        rooms.add(r3);
+        rooms.add(r4);
+        rooms.add(r5);
+        rooms.add(r6);
+        rooms.add(r7);
+        rooms.add(r8); 
     }
 }

@@ -20,6 +20,40 @@ public class JRoom {
     private final ArrayList<JSuspect> suspects;
     private ArrayList<JHallway> adjacentHalls;
     private JRoom secretPassage;
+    
+    public void printRoom(){
+        
+        System.out.println(name+" contains:");
+        
+        System.out.println("WEAPONS");
+        for (JWeapon weapon : weapons) {
+            weapon.printWeapon();
+        }
+        
+        if(weapons.isEmpty())
+            System.out.println("none");
+        
+        System.out.println("SUSPECTS");
+        for (JSuspect suspect : suspects) {
+            suspect.printSuspect();
+        }
+        
+        if(suspects.isEmpty())
+            System.out.println("none");
+        
+        System.out.println("HALLWAYS");
+        for (JHallway hallway : adjacentHalls) {
+            System.out.println("Hallway "+Integer.toString(hallway.getId()));
+        }
+        
+        System.out.println("SECRET PASSAGE");
+        if(secretPassage != null)
+            System.out.println(secretPassage.getName());
+        else
+            System.out.println("none");
+        
+        System.out.println();
+    }
             
     public JRoom(String name, ArrayList<JWeapon> weapons, 
             ArrayList<JSuspect> suspects){

@@ -17,18 +17,35 @@ public class JHallway {
     private JSuspect suspect;
     private ArrayList<JRoom> adjacentRooms;
     
+    public void printHallway(){
+        
+        System.out.println("Hallway "+Integer.toString(id)+" contains:");
+        
+        if(suspect != null)
+            suspect.printSuspect();
+        else
+            System.out.println("none");
+        
+        System.out.println("ROOMS");
+        for (JRoom room : adjacentRooms) {
+            System.out.println(room.getName());
+        }
+        
+        System.out.println();
+    }
+    
     public JHallway(int id, JSuspect suspect){
         this.id = id;
         this.suspect = suspect;
     }
     
     public boolean setAdjacentRooms(ArrayList<JRoom> adjacentRooms){
-        if(adjacentRooms.size() != 2){
+        if(adjacentRooms.size() == 2){
             this.adjacentRooms = adjacentRooms;
             return true;
         }
         else{
-            System.out.println("Incorrect number of hallways provided.");
+            System.out.println("Incorrect number of rooms provided.");
             return false;
         }    
     }
