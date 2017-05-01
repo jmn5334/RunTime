@@ -18,12 +18,27 @@ import java.util.ArrayList;
 public class MainGUIFXML {
 
 
+    
     // used by the logger to output status to the gui
     @FXML private WebView status_webview;
 
     @FXML ComboBox suggestion_person_combobox;
     @FXML ComboBox suggestion_weapon_combobox;
+    
+    //checkboxes
+/*
+    @FXML
+    CheckBox scarlet_checkbox = new CheckBox();
 
+    @FXML
+    public void checkScarletBox() {
+        if (scarlet_checkbox.isSelected()) {
+            scarlet_checkbox.setSelected(false);
+        } else {
+            scarlet_checkbox.setSelected(true);
+        }
+    }
+*/
     @FXML
     public void initialize(){
 

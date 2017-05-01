@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -12,6 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
    <bottom>
@@ -21,6 +23,10 @@
                <children>
                   <Label prefHeight="42.0" prefWidth="57.0" text="  Move:" />
                   <ComboBox prefWidth="150.0" promptText="Place" />
+                  <Label text="  Cards: " />
+                  <ComboBox prefHeight="31.0" prefWidth="126.0" promptText="card" />
+                  <VBox prefHeight="44.0" prefWidth="26.0" />
+                  <Button mnemonicParsing="false" text="Reveal Card" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="768.0" spacing="5.0" style="-fx-background-color: #dddd00; -fx-border-color: #000000;">
@@ -54,7 +60,6 @@
                   <Insets bottom="5.0" left="10.0" top="5.0" />
                </padding>
             </HBox>
-            <HBox layoutX="10.0" layoutY="10.0" />
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
                   <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="87.0" text="join game" />
@@ -67,9 +72,6 @@
          </children>
       </VBox>
    </bottom>
-   <right>
-      <VBox layoutX="520.0" layoutY="30.0" BorderPane.alignment="CENTER" />
-   </right>
    <center>
       <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -148,10 +150,9 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="482.0" prefWidth="162.0" />
                </children>
             </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="483.0" prefWidth="588.0">
                <children>
                   <VBox prefHeight="480.0" prefWidth="600.0">
                      <children>
@@ -166,7 +167,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H0" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -178,7 +179,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H1" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -194,21 +195,21 @@
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H2" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H3" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H4" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -224,7 +225,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H5" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -236,7 +237,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H6" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -252,21 +253,21 @@
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H7" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H8" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H9" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -282,7 +283,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H10" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -294,7 +295,7 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H11" />
-                                    <TextField />
+                                    <TextField editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -307,6 +308,130 @@
                         </HBox>
                      </children>
                   </VBox>
+                  <VBox prefHeight="483.0" prefWidth="33.0" />
+                  <VBox prefHeight="483.0" prefWidth="136.0">
+                     <children>
+                        <Label text="Suspects">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <CheckBox mnemonicParsing="false" text="Mrs. Scarlet">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="27.0" mnemonicParsing="false" text="Colonel Mustard">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="44.0" mnemonicParsing="false" text="Mrs. White">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="61.0" mnemonicParsing="false" text="Mr. Green">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="78.0" mnemonicParsing="false" text="Mrs. Peacock">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="95.0" mnemonicParsing="false" text="Professor Plum">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <Label layoutX="10.0" layoutY="10.0" text="Weapons">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <CheckBox layoutX="10.0" layoutY="112.0" mnemonicParsing="false" text="wrench">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="112.0" mnemonicParsing="false" text="candlestick">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="163.0" mnemonicParsing="false" text="knife">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="180.0" mnemonicParsing="false" text="rope">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="197.0" mnemonicParsing="false" text="lead pipe">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="214.0" mnemonicParsing="false" text="revolver">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <Label layoutX="10.0" layoutY="129.0" text="Rooms">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </Label>
+                        <CheckBox layoutX="10.0" layoutY="231.0" mnemonicParsing="false" text="Study">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="265.0" mnemonicParsing="false" text="Hall">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="282.0" mnemonicParsing="false" text="Lounge">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="299.0" mnemonicParsing="false" text="Library">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="316.0" mnemonicParsing="false" text="Billiard Room">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="316.0" mnemonicParsing="false" text="Dining Room">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="350.0" mnemonicParsing="false" text="Conservatory">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="367.0" mnemonicParsing="false" text="Ballroom">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                        <CheckBox layoutX="10.0" layoutY="384.0" mnemonicParsing="false" text="Kitchen">
+                           <font>
+                              <Font size="12.0" />
+                           </font>
+                        </CheckBox>
+                     </children></VBox>
                </children>
             </HBox>
          </children>
