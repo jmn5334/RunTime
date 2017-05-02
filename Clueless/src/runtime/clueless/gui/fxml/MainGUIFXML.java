@@ -64,6 +64,13 @@ public class MainGUIFXML {
         
         player = new JPlayer("Test");
         
+        //TODO: SET WITH SERVER
+        ArrayList<JSuspect> s = player.getSuspects();
+        
+        player.setSuspect(s.get(0));
+        
+        //TODO^
+        
         //need to connect and negotiate with server here
         
         initComboBoxes();
@@ -76,6 +83,38 @@ public class MainGUIFXML {
         ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
 
 
+    }
+    
+    @FXML
+    public void move(){
+
+    }
+    
+    @FXML
+    public void makeSuggestion(){
+        
+        //get values of the suggestion combo boxes
+        String s = suspectSuggestCombo.getSelectionModel().getSelectedItem().toString();
+        String w = weaponSuggestCombo.getSelectionModel().getSelectedItem().toString();
+        
+        JRoom room = player.getBoard().findRoom("Lounge");
+        
+        //test code
+        player.getBoard().moveSuspectToRoom(player.getSuspect(), room);
+        //test code^
+        
+        JRoom r = player.getSuspect().getRoomLocation();
+        
+        JSuspect suspect = player.getBoard().findSuspect(s);
+        JWeapon weapon = player.getBoard().findWeapon(w);
+        
+        if(player.getBoard().moveOnSuggestion(suspect, weapon, r))
+            message("Moved!!");
+        else
+            message("Failed to move");
+        
+        refreshBoardLists();
+        
     }
     
     //populates move combo box TODO: remove tag
