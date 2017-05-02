@@ -24,14 +24,18 @@ public class NetworkTest2 {
         
         gc.connectToServer();
         
+        while(true){
+            sleep(10);
+        }
+        
         //wait until we've recieved a message
-        gc.waitForMsg();
+        //gc.waitForMsg();
 /*
         gc.sendAccusation();
         gc.sendSuggestion();
 */
 
-        gc.sendMove();
+        //gc.sendMove();
 
         
     }

@@ -37,6 +37,33 @@ public class GameServer {
         turn = -99;
     }
     
+    public static void main(String [ ] args){
+        
+        GameServer gs;
+        
+        gs =  new GameServer(2);
+        
+        System.out.println("Hello world!!!");
+        
+        gs.acceptClients();
+        
+        try {
+            gs.startGame();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        while(true){
+            try {
+                // System.out.println(gs.msg.text);
+                sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
     public void acceptClients(){
         try{
             server = new ServerSocket(5000);

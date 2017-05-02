@@ -13,6 +13,7 @@ import runtime.clueless.config.Config;
 import runtime.clueless.game.*;
 
 import java.util.ArrayList;
+import runtime.clueless.networking.GameClient;
 
 
 public class MainGUIFXML {
@@ -21,6 +22,7 @@ public class MainGUIFXML {
     
     //biz logic variables
     private JPlayer player;
+    private GameClient gc;
     
     //GUI elements
     //rooms
@@ -63,6 +65,7 @@ public class MainGUIFXML {
         GameManager gm = GameManager.getInstance();
         
         player = new JPlayer("Test");
+        gc = new GameClient();
         
         //TODO: SET WITH SERVER
         ArrayList<JSuspect> s = player.getSuspects();
@@ -83,6 +86,26 @@ public class MainGUIFXML {
         ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
 
 
+    }
+    
+    @FXML
+    public void revealCard(){
+        
+    }
+    
+    @FXML
+    public void accuse(){
+        
+    }
+    
+    @FXML
+    public void joinGame(){
+        gc.connectToServer();
+    }
+    
+    @FXML
+    public void hostGame(){
+        
     }
     
     //returns integer >=0 on success, -1 on failure(probably a room)
@@ -146,8 +169,6 @@ public class MainGUIFXML {
         //get values of the suggestion combo boxes
         String s = suspectSuggestCombo.getSelectionModel().getSelectedItem().toString();
         String w = weaponSuggestCombo.getSelectionModel().getSelectedItem().toString();
-        
-        JRoom room = player.getBoard().findRoom("Lounge");
         
         JRoom r = player.getSuspect().getRoomLocation();
         
