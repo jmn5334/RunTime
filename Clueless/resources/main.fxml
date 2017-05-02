@@ -34,7 +34,7 @@
                   <Label text="Make a Suggestion:" />
                   <ComboBox fx:id="suggestion_person_combobox" minWidth="100.0" prefWidth="80.0" promptText="Person" />
                   <ComboBox fx:id="suggestion_weapon_combobox" minWidth="80.0" prefHeight="31.0" prefWidth="124.0" promptText="Weapon" />
-                  <Button mnemonicParsing="false" onAction="#playerSuggestMurderer" text="Suggest">
+                  <Button mnemonicParsing="false" onAction="#refreshBoardLists" text="Suggest">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -161,31 +161,31 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Study" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="studyList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H0" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h0Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Hall" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="hallList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H1" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h1Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Lounge" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="loungeList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -195,21 +195,21 @@
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H2" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h2Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H3" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h3Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H4" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h4Field" editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -219,31 +219,31 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Library" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="libraryList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H5" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h5Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Billiard Room" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="billiardRoomList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H6" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h6Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Dining Room" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="diningRoomList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -253,21 +253,21 @@
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H7" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h7Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H8" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h8Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0" />
                               <VBox alignment="CENTER" prefHeight="60.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H9" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h9Field" editable="false" />
                                  </children>
                               </VBox>
                            </children>
@@ -277,31 +277,31 @@
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Conservatory" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="conservatoryList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H10" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h10Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Ballroom" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="ballroomList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="H11" />
-                                    <TextField editable="false" />
+                                    <TextField fx:id="h11Field" editable="false" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
                                     <Label text="Kitchen" />
-                                    <ListView prefHeight="80.0" prefWidth="80.0" />
+                                    <ListView fx:id="kitchenList" prefHeight="80.0" prefWidth="80.0" />
                                  </children>
                               </VBox>
                            </children>

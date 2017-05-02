@@ -16,6 +16,127 @@ import java.util.ArrayList;
 
 
 public class MainGUIFXML {
+    
+    //Jake's code STARTS HERE
+    
+    //biz logic variables
+    private JPlayer player;
+    
+    //GUI elements
+    //rooms
+    @FXML private ListView studyList;
+    @FXML private ListView hallList;
+    @FXML private ListView loungeList;
+    @FXML private ListView libraryList;
+    @FXML private ListView billiardRoomList;
+    @FXML private ListView diningRoomList;
+    @FXML private ListView conservatoryList;
+    @FXML private ListView ballroomList;
+    @FXML private ListView kitchenList;
+    
+    //hallways
+    @FXML private TextField h0Field;
+    @FXML private TextField h1Field;
+    @FXML private TextField h2Field;
+    @FXML private TextField h3Field;
+    @FXML private TextField h4Field;
+    @FXML private TextField h5Field;
+    @FXML private TextField h6Field;
+    @FXML private TextField h7Field;
+    @FXML private TextField h8Field;
+    @FXML private TextField h9Field;
+    @FXML private TextField h10Field;
+    @FXML private TextField h11Field;
+    
+    //populates all of the board lists using player class
+    @FXML
+    public void refreshBoardLists() {
+        
+        //populate room lists
+        populateRoomList("Study", studyList);
+        populateRoomList("Hall", hallList);
+        populateRoomList("Lounge", loungeList);
+        populateRoomList("Library", libraryList);
+        populateRoomList("Billiard Room", billiardRoomList);
+        populateRoomList("Dining Room", diningRoomList);
+        populateRoomList("Conservatory", conservatoryList);
+        populateRoomList("Ballroom", ballroomList);
+        populateRoomList("Kitchen", kitchenList);
+        
+        //set hallway fields
+        populateHallwayField(0,h0Field);
+        populateHallwayField(1,h1Field);
+        populateHallwayField(2,h2Field);
+        populateHallwayField(3,h3Field);
+        populateHallwayField(4,h4Field);
+        populateHallwayField(5,h5Field);
+        populateHallwayField(6,h6Field);
+        populateHallwayField(7,h7Field);
+        populateHallwayField(8,h8Field);
+        populateHallwayField(9,h9Field);
+        populateHallwayField(10,h10Field);
+        populateHallwayField(11,h11Field);
+    }
+
+    private void populateHallwayField(int id, TextField hall) {
+        
+        JHallway ourHall;
+        
+        //find hallway
+        ourHall = player.getBoard().findHallway(id);
+        
+        if(ourHall == null)
+            return;
+        
+        JSuspect s = ourHall.getSuspect();
+        
+        //set empty if we have no suspects
+        hall.setEditable(true);
+        if(s == null)
+            hall.clear();
+        else
+            hall.setText(s.getName());
+        hall.setEditable(false);
+
+    }
+    
+    private void populateRoomList(String name, ListView list){
+        
+        JRoom ourRoom;
+        ObservableList<String> items = FXCollections.observableArrayList();
+        
+        //find room
+        ourRoom = player.getBoard().findRoom(name);
+        
+        if(ourRoom == null)
+            return;
+        
+        ArrayList<JSuspect> suspects;
+        ArrayList<JWeapon> weapons;
+        
+        suspects = ourRoom.getSuspects();
+        weapons = ourRoom.getWeapons();
+        
+        //add suspects
+        for(JSuspect s : suspects){
+            items.add(s.getName());
+        }
+        
+        //add weapons
+        for(JWeapon w: weapons){
+            items.add(w.getName());
+        }
+        
+        //add items
+        list.setEditable(true);
+        list.setItems(items);
+        list.setEditable(false);
+    }
+    
+    
+    //END Jake's code
+    
+    
 
 
     
@@ -25,24 +146,12 @@ public class MainGUIFXML {
     @FXML ComboBox suggestion_person_combobox;
     @FXML ComboBox suggestion_weapon_combobox;
     
-    //checkboxes
-/*
-    @FXML
-    CheckBox scarlet_checkbox = new CheckBox();
-
-    @FXML
-    public void checkScarletBox() {
-        if (scarlet_checkbox.isSelected()) {
-            scarlet_checkbox.setSelected(false);
-        } else {
-            scarlet_checkbox.setSelected(true);
-        }
-    }
-*/
     @FXML
     public void initialize(){
 
         GameManager gm = GameManager.getInstance();
+        
+        player = new JPlayer("Test");
 
 
         ArrayList<String> playerchoicelist = new ArrayList<>();

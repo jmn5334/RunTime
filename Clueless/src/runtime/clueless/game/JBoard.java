@@ -23,6 +23,59 @@ public class JBoard {
     private final ArrayList<JSuspect> suspects;
     private final ArrayList<JWeapon> weapons;
     
+    //FIND METHODS
+    public JRoom findRoom(String room){
+        
+        JRoom foundRoom = null;
+        
+        for(JRoom r: rooms){
+            if(r.getName().equals(room)){
+                foundRoom = r;
+            }
+        }
+        
+        return foundRoom;
+    }
+    
+    public JHallway findHallway(int hall){
+        
+        JHallway foundHall = null;
+        
+        for(JHallway h: hallways){
+            if(h.getId() == hall){
+                foundHall = h;
+            }
+        }
+        
+        return foundHall;
+    }
+    
+    public JSuspect findSuspect(String suspect){
+        
+        JSuspect foundSuspect = null;
+        
+        for(JSuspect s: suspects){
+            if(s.getName().equals(suspect)){
+                foundSuspect = s;
+            }
+        }
+        
+        return foundSuspect;
+    }
+    
+    public JWeapon findWeapon(String weapon){
+        
+        JWeapon foundWeapon= null;
+        
+        for(JWeapon w: weapons){
+            if(w.getName().equals(weapon)){
+                foundWeapon = w;
+            }
+        }
+        
+        return foundWeapon;
+    }
+    
     //moves suspect to a new location
     //returns true for success, false if move is invalid
     public boolean moveSuspectToHallway(JSuspect s, JHallway dest){

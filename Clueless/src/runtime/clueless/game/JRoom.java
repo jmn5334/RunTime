@@ -55,40 +55,40 @@ public class JRoom {
     //returns JSuspect if we have one, otherwise return null
     public JSuspect hasSuspect(JSuspect s){
         
-        int index = suspects.indexOf(s);
+        int index = getSuspects().indexOf(s);
         
         if(index == -1)
             return null;
         else
-            return suspects.get(index);
+            return getSuspects().get(index);
     }
     
     //searchs room for a given weapon
     //returns JWeapon if we have one, otherwise return null
     public JWeapon hasWeapon(JWeapon w){
         
-        int index = suspects.indexOf(w);
+        int index = getSuspects().indexOf(w);
         
         if(index == -1)
             return null;
         else
-            return weapons.get(index);  
+            return getWeapons().get(index);  
     }
     
     public void addSuspect(JSuspect s){
-        suspects.add(s);
+        getSuspects().add(s);
     }
     
     public boolean removeSuspect(JSuspect s){
-        return suspects.remove(s);
+        return getSuspects().remove(s);
     }
     
     public void addWeapon(JWeapon w){
-        weapons.add(w);
+        getWeapons().add(w);
     }
     
     public boolean removeWeapon(JWeapon w){
-        return weapons.remove(w);
+        return getWeapons().remove(w);
     }
     
     public ArrayList<JHallway> getAdjacentHallways(){
@@ -108,19 +108,19 @@ public class JRoom {
         System.out.println(name+" contains:");
         
         System.out.println("WEAPONS");
-        for (JWeapon weapon : weapons) {
+        for (JWeapon weapon : getWeapons()) {
             weapon.printWeapon();
         }
         
-        if(weapons.isEmpty())
+        if(getWeapons().isEmpty())
             System.out.println("none");
         
         System.out.println("SUSPECTS");
-        for (JSuspect suspect : suspects) {
+        for (JSuspect suspect : getSuspects()) {
             suspect.printSuspect();
         }
         
-        if(suspects.isEmpty())
+        if(getSuspects().isEmpty())
             System.out.println("none");
         
         System.out.println("HALLWAYS");
@@ -135,5 +135,19 @@ public class JRoom {
             System.out.println("none");
         
         System.out.println();
+    }
+    
+    /**
+     * @return the weapons
+     */
+    public ArrayList<JWeapon> getWeapons() {
+        return weapons;
+    }
+
+    /**
+     * @return the suspects
+     */
+    public ArrayList<JSuspect> getSuspects() {
+        return suspects;
     }
 }
