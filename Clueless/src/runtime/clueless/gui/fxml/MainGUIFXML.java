@@ -48,8 +48,112 @@ public class MainGUIFXML {
     @FXML private TextField h10Field;
     @FXML private TextField h11Field;
     
-    //populates all of the board lists using player class
+    //combo boxes
+    @FXML private ComboBox movePlaceCombo;
+    @FXML private ComboBox accusePlaceCombo;
+    @FXML private ComboBox cardCombo;
+    @FXML private ComboBox suspectSuggestCombo;
+    @FXML private ComboBox weaponSuggestCombo;
+    @FXML private ComboBox suspectAccuseCombo;
+    @FXML private ComboBox weaponAccuseCombo;
+    
     @FXML
+    public void initialize(){
+
+        GameManager gm = GameManager.getInstance();
+        
+        player = new JPlayer("Test");
+        
+        //need to connect and negotiate with server here
+        
+        initComboBoxes();
+        refreshBoardLists();
+
+
+        ArrayList<String> playerchoicelist = new ArrayList<>();
+        for(int n=1; n<7; n++)
+            playerchoicelist.add(String.valueOf(n));
+        ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
+
+
+    }
+    
+    //populates move combo box TODO: remove tag
+    public void initComboBoxes(){
+        
+        ObservableList<String> items1 = FXCollections.observableArrayList();
+        ObservableList<String> items2 = FXCollections.observableArrayList();
+        ObservableList<String> items3 = FXCollections.observableArrayList();
+        ObservableList<String> items4 = FXCollections.observableArrayList();
+        ObservableList<String> items5 = FXCollections.observableArrayList();
+        
+        //populate combos that contain places
+        ArrayList<JRoom> rooms;
+        ArrayList<JHallway> halls;
+        
+        movePlaceCombo.getItems().clear();
+        accusePlaceCombo.getItems().clear();
+        
+        rooms = player.getRooms();
+        halls = player.getHallways();
+        
+        //add rooms to items
+        for(JRoom r:rooms){
+            items1.add(r.getName());
+            items2.add(r.getName());
+        }
+        
+        accusePlaceCombo.setItems(items1);
+        
+        //add hallways to items
+        for(JHallway h:halls)
+            items2.add("Hallway "+Integer.toString(h.getId()));
+        
+        movePlaceCombo.setItems(items2);
+        
+        //populate combos that contain things
+        ArrayList<JSuspect> suspects;
+        ArrayList<JWeapon> weapons;
+        
+        suspectAccuseCombo.getItems().clear();
+        suspectSuggestCombo.getItems().clear();
+        weaponAccuseCombo.getItems().clear();
+        weaponSuggestCombo.getItems().clear();
+        
+        suspects = player.getSuspects();
+        weapons = player.getWeapons();
+        
+        for(JSuspect s: suspects){
+            items3.add(s.getName());
+        }
+        
+        for(JWeapon w: weapons){
+            items4.add(w.getName());
+        }
+        
+        suspectAccuseCombo.setItems(items3);
+        suspectSuggestCombo.setItems(items3);
+        weaponAccuseCombo.setItems(items4);
+        weaponSuggestCombo.setItems(items4);
+        
+        //finally we can add cards
+        ArrayList<JCard> cards = player.getCards();
+        
+        //check if cards are null
+        if(cards == null)
+            return;
+        
+        cardCombo.getItems().clear();
+        
+        for(JCard c: cards){
+            items5.add(c.getName());
+        }
+        
+        cardCombo.setItems(items5);
+       
+    }
+
+    //populates all of the board lists using player class TODO: remove tag
     public void refreshBoardLists() {
         
         //populate room lists
@@ -129,6 +233,7 @@ public class MainGUIFXML {
         
         //add items
         list.setEditable(true);
+        list.getItems().clear();
         list.setItems(items);
         list.setEditable(false);
     }
@@ -146,64 +251,7 @@ public class MainGUIFXML {
     @FXML ComboBox suggestion_person_combobox;
     @FXML ComboBox suggestion_weapon_combobox;
     
-    @FXML
-    public void initialize(){
 
-        GameManager gm = GameManager.getInstance();
-        
-        player = new JPlayer("Test");
-
-
-        ArrayList<String> playerchoicelist = new ArrayList<>();
-        for(int n=1; n<7; n++)
-            playerchoicelist.add(String.valueOf(n));
-        ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
-
-
-        initSuggestOptions();
-    }
-
-    @FXML ComboBox accuse_room_combobox;
-    @FXML ComboBox accuse_person_combobox;
-    @FXML ComboBox accuse_weapon_combobox;
-
-    private void initSuggestOptions(){
-
-        GameManager gm = GameManager.getInstance();
-        ArrayList<RoomCard> roomCards = gm.getRoomCards();
-        ArrayList<SuspectCard> suspectCards = gm.getSuspectCards();
-        ArrayList<WeaponCard> weaponCards = gm.getWeaponCards();
-
-        ArrayList<ListNode> list = new ArrayList<>();
-        for(int n=0;n<9; n++) {
-            ListNode m = new ListNode(roomCards.get(n).name, n);
-            m.setData(roomCards.get(n));
-            list.add(m);
-        }
-        ObservableList<ListNode> plist = FXCollections.observableArrayList(list);
-        accuse_room_combobox.setItems(plist);
-
-
-        ArrayList<ListNode> list2 = new ArrayList<>();
-        for(int n=0;n<6; n++) {
-            ListNode m = new ListNode(suspectCards.get(n).name, n);
-            m.setData(suspectCards.get(n));
-            list2.add(m);
-        }
-        ObservableList<ListNode> plist2 = FXCollections.observableArrayList(list2);
-        accuse_person_combobox.setItems(plist2);
-        suggestion_person_combobox.setItems(plist2);
-
-        ArrayList<ListNode> list3 = new ArrayList<>();
-        for(int n=0;n<6; n++) {
-            ListNode m = new ListNode(weaponCards.get(n).name, n);
-            m.setData(weaponCards.get(n));
-            list3.add(m);
-        }
-        ObservableList<ListNode> plist3 = FXCollections.observableArrayList(list3);
-        accuse_weapon_combobox.setItems(plist3);
-        suggestion_weapon_combobox.setItems(plist3);
-    }
 
     @FXML public void playerSuggestMurderer(){
 
@@ -230,30 +278,6 @@ public class MainGUIFXML {
         }
 
             message("please select a player and go to a room");
-
-    }
-
-    @FXML public void playerAccusesMurderer(){
-
-        GameManager gm = GameManager.getInstance();
-        Player p = gm.getCurrentPlayer();
-
-        if(p==null){
-            message("please select a player");
-            return;
-        }
-
-        String msg = " Player="+p.getLabel();
-
-        SuspectCard s = (SuspectCard) ((ListNode) accuse_person_combobox.getValue()).getData();
-            WeaponCard w = (WeaponCard) ((ListNode) accuse_weapon_combobox.getValue()).getData();
-
-            RoomCard r = (RoomCard) ((ListNode) accuse_room_combobox.getValue()).getData();
-
-        msg += " Suggestion( room:"+r.name+" weapon:"+w.name+" suspect:"+s.name+" )";
-
-        setAlert(GameManager.getInstance().isGuessCorrect(r,s,w),msg);
-
 
     }
 

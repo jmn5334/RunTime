@@ -11,18 +11,32 @@ package runtime.clueless.game;
  */
 public class JCard {
     
-    public enum card_type{
-        suspect,
-        weapon,
-        room
-    }
-    
     private final String name;
     private final card_type type;
     
     public JCard(String name, card_type type){
         this.name = name;
         this.type = type;
+    }
+    
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return the type
+     */
+    public card_type getType() {
+        return type;
+    }
+    
+    public enum card_type{
+        suspect,
+        weapon,
+        room
     }
     
 }
