@@ -85,9 +85,59 @@ public class MainGUIFXML {
 
     }
     
+    //returns integer >=0 on success, -1 on failure(probably a room)
+    private int getHallwayId(String s){
+        
+        String numString = "";
+        
+        for(char c : s.toCharArray()){
+            if(Character.isDigit(c))
+                numString += c;
+        }
+        
+        //if no numbers added return -1
+        if(numString.equals("")){
+            return -1;
+        }
+        else{
+            return Integer.parseInt(numString);
+        }
+    }
+    
     @FXML
     public void move(){
-
+        
+        //get place from combo box
+        String destName = movePlaceCombo.getSelectionModel().getSelectedItem().toString();
+        
+        //determine if room or hallway
+        int id = getHallwayId(destName);
+        
+        if(id == -1){
+            JRoom dest = player.getBoard().findRoom(destName);
+            
+            String msgStr = "player "+player.getName()+"("+player.getSuspect().getName()+") to "+dest.getName()+".";
+            if(player.getBoard().moveSuspectToRoom(player.getSuspect(), dest)){
+                message("Moved "+msgStr);
+            }
+            else{
+                message("Failed to move "+msgStr);
+            }
+        }
+        else{
+            JHallway dest = player.getBoard().findHallway(id);
+            
+            String msgStr = "player "+player.getName()+"("+player.getSuspect().getName()+") to hallway "+Integer.toString(dest.getId())+".";
+            if(player.getBoard().moveSuspectToHallway(player.getSuspect(), dest)){
+                message("Moved "+msgStr);
+            }
+            else{
+                message("Failed to move "+msgStr);
+            }
+        }
+        
+        refreshBoardLists();
+        
     }
     
     @FXML
@@ -98,10 +148,6 @@ public class MainGUIFXML {
         String w = weaponSuggestCombo.getSelectionModel().getSelectedItem().toString();
         
         JRoom room = player.getBoard().findRoom("Lounge");
-        
-        //test code
-        player.getBoard().moveSuspectToRoom(player.getSuspect(), room);
-        //test code^
         
         JRoom r = player.getSuspect().getRoomLocation();
         
