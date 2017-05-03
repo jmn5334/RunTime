@@ -299,9 +299,11 @@ public class MainGUIFXML {
             if(!didPlayerWin)
                 removeCurrentPlayer();
 
-            message(" Player "+currentPlayerID+" has won the game... the game will now exit");
+            if(didPlayerWin) {
+                message(" Player " + currentPlayerID + " has won the game... the game will now exit");
 
-            System.exit(1);
+                System.exit(1);
+            }
 
         }catch(Exception e){
             message("Please select from the options first!");

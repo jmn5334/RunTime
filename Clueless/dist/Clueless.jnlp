@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Clueless.jar" size="4040800" download="eager" />
+    <jar href="Clueless.jar" size="4049064" download="eager" />
     <jar href="lib/ELUGLib.jar" size="85059" download="eager" />
     <jar href="lib/Jama-1.0.3.jar" size="35981" download="eager" />
     <jar href="lib/ant-antlr.jar" size="11608" download="eager" />
