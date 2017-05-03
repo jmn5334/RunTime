@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import runtime.clueless.game.JPlayer;
 import static runtime.clueless.networking.GameClient.Gmsg;
 
 /**
@@ -26,7 +27,7 @@ public class GuiThread implements Runnable {
     private boolean isFirstMsg;
     
     //contructor
-    public GuiThread(Socket client){
+    public GuiThread(Socket client, JPlayer player){
         this.socket = client;
         this.id = -1;   //init to negative until id is negotiated
         this.in = null;
@@ -94,6 +95,10 @@ public class GuiThread implements Runnable {
         
         //check command
         switch (Gmsg.command){
+            case init:{
+                setAlert()
+                break;
+            }
             case start_turn:{
                 break;
             }
@@ -110,8 +115,6 @@ public class GuiThread implements Runnable {
                 break;
             }
             case board_state:{
-                //setBoardState();
-                //TODO implement a way to set board state on GUI
                 break;
             }
             default:{

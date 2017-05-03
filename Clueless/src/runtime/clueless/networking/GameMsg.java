@@ -26,6 +26,7 @@ public class GameMsg implements Serializable{
         game_over,
         board_state,
         stuck,
+        init,
         
         //client to server commands
         move,
@@ -55,12 +56,8 @@ public class GameMsg implements Serializable{
     public cmd command;
     
     //DATA
-    
-    //for card messages
-    public RoomCard rCard;
-    public SuspectCard sCard;
-    public WeaponCard wCard;
-    
+    //for init msg
+    public String suspect;
     
     //for board update msgs
     //public Board board;

@@ -7,6 +7,7 @@ package runtime.clueless.networking;
 
 import java.io.IOException;
 import static java.lang.Thread.sleep;
+import runtime.clueless.game.JPlayer;
 
 /**
  *
@@ -17,8 +18,9 @@ public class NetworkTest2 {
     public static void main(String [ ] args) throws InterruptedException, IOException, ClassNotFoundException{
         
         GameClient gc;
+        JPlayer p = new JPlayer("headless_client",false);
         
-        gc =  new GameClient();
+        gc =  new GameClient(p);
         
         System.out.println("Hello world 2!!!");
         

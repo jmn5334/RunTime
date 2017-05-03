@@ -8,8 +8,17 @@ package runtime.clueless.networking;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import runtime.clueless.game.JBoard;
+import runtime.clueless.game.JCard;
+import runtime.clueless.game.JPlayer;
+import runtime.clueless.game.JRoom;
+import runtime.clueless.game.JSuspect;
+import runtime.clueless.game.JWeapon;
 
 /**
  *
@@ -17,12 +26,39 @@ import java.util.logging.Logger;
  */
 public class GameServer {
     
+    //TODO move this
+    public static void main(String [ ] args){
+        
+        GameServer gs;
+        gs =  new GameServer(1);
+        
+        gs.acceptClients();
+        
+        gs.startGame();
+        
+        while(true){
+            try {
+                // System.out.println(gs.msg.text);
+                sleep(10);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+    
     private ServerSocket server;
     private final int MAX_THREADS = 6;
     private int numClients;
     private final int numPlayers;
     private final Thread[] threads = new Thread[MAX_THREADS];
     private final ClientThread[] cthreads = new ClientThread[MAX_THREADS];
+    
+    //biz logic variables
+    private final ArrayList<JCard> deck;
+    private final ArrayList<JCard> caseFile;
+    private JBoard board;
+    private ArrayList<JPlayer> players;
     
     //shared object
     public static GameMsg msg;
@@ -35,34 +71,16 @@ public class GameServer {
         this.numPlayers = numPlayers;
         msg = new GameMsg();
         turn = -99;
+        
+        //biz logic initialization
+        deck = new ArrayList<>();
+        caseFile = new ArrayList<>();
+        players = new ArrayList<>();
+        
+        //create cards
+        initCards();
     }
     
-    public static void main(String [ ] args){
-        
-        GameServer gs;
-        
-        gs =  new GameServer(2);
-        
-        System.out.println("Hello world!!!");
-        
-        gs.acceptClients();
-        
-        try {
-            gs.startGame();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        while(true){
-            try {
-                // System.out.println(gs.msg.text);
-                sleep(10);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-    }
     
     public void acceptClients(){
         try{
@@ -98,8 +116,60 @@ public class GameServer {
         }
     }
     
+    public boolean verifyResponse(String messageType, int cid){
+        
+            boolean success = true;
+        
+            //verify that msg worked, otherwise return failure
+            switch (msg.command) {
+                case ack:
+                    System.out.println("Successfully sent "+messageType+" to client "+Integer.toString(cid));
+                    break;
+                case invalid:
+                    System.out.println("Client returned that our cmd was invalid. Failed to send "+messageType+" to client "+Integer.toString(cid));
+                    success = false;
+                    break;
+                default:
+                    System.out.println("Recieved invalid response for "+messageType+" from client "+Integer.toString(cid));
+                    success = false;
+                    break;
+            }
+            
+            return success;
+    }
+    
+    public boolean negotiatePlayers(){
+        
+        boolean success = true;
+
+        for (int i = 0; i < numClients; i++) {
+
+            msg.name = "Server";
+            msg.command = GameMsg.cmd.init;
+            msg.id = i;
+
+            turn = i;
+            serverWait();
+            
+            if(verifyResponse("init",i)){
+                JPlayer p = new JPlayer(msg.name,true);
+                p.setId(i);
+                p.setSuspect(board.findSuspect(msg.suspect));
+                players.add(p);
+            }
+            else{
+                success = false;
+            }
+            
+            
+        }
+
+        return success;
+        
+    }
+    
     //starts the game once everyone has joined
-    public void startGame() throws InterruptedException{
+    public void startGame(){
         
         //send state to threads
         System.out.println("Sending board state to all clients.");
@@ -109,6 +179,8 @@ public class GameServer {
             retries--;
         }
         System.out.println("Done sending board state to all clients.");
+        
+        negotiatePlayers();
         
         dealCards();//TODO not implemented
     
@@ -149,6 +221,59 @@ public class GameServer {
     }
     
     public void dealCards(){
+        
+    }
+    
+    public final void initCards(){
+        
+        long seed = System.nanoTime(); 
+        
+        //get board objects that correspond to cards
+        ArrayList<JRoom> rooms = board.getRooms();
+        ArrayList<JSuspect> suspects = board.getSuspects();
+        ArrayList<JWeapon> weapons = board.getWeapons();
+        
+        //split cards for shuffling
+        ArrayList<JCard> roomCards = new ArrayList<>(),
+                         suspectCards = new ArrayList<>(),
+                         weaponCards = new ArrayList<>();
+        
+        //create room cards
+        for(JRoom r : rooms){
+            JCard c = new JCard(r.getName(),JCard.card_type.room);
+            roomCards.add(c);
+        }
+        
+        //create suspect cards
+        for(JSuspect s : suspects){
+            JCard c = new JCard(s.getName(),JCard.card_type.suspect);
+            suspectCards.add(c);
+        }
+        
+        //create weapon cards
+        for(JWeapon w : weapons){
+            JCard c = new JCard(w.getName(),JCard.card_type.weapon);
+            weaponCards.add(c);
+        }
+        
+        Collections.shuffle(roomCards, new Random(seed));
+        Collections.shuffle(suspectCards, new Random(seed));
+        Collections.shuffle(weaponCards, new Random(seed));
+        
+        //remove an element from each and put into case file
+        caseFile.add(roomCards.remove(0));
+        caseFile.add(suspectCards.remove(0));
+        caseFile.add(weaponCards.remove(0));
+        
+        System.out.println("Winning cards are "+caseFile.get(0).getName()+","+caseFile.get(1).getName()+","+caseFile.get(2).getName());
+        
+        //add remaining cards to deck and reshuffle
+        deck.addAll(roomCards);
+        deck.addAll(suspectCards);
+        deck.addAll(weaponCards);
+        
+        //reshuffle
+        Collections.shuffle(deck, new Random(seed));
         
     }
     

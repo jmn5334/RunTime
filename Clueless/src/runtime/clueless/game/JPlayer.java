@@ -17,12 +17,25 @@ public class JPlayer {
     private final JBoard board;
     private JSuspect suspect;
     private final String name;
+    private int id;
     private ArrayList<JCard> cards;
     
-    public JPlayer(String name){
-        board = new JBoard();
+    public JPlayer(String name, boolean onServer){
+        if(!onServer)
+            board = new JBoard();
+        else
+            board = null;
         suspect = null;
         this.name = name;
+        id = -99;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public int getId(){
+        return id;
     }
     
     //interface to update board, replicates commands done on server

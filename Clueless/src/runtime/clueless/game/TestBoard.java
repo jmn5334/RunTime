@@ -17,7 +17,7 @@ public class TestBoard {
         
         //test intial board configuration
         //JBoard board = new JBoard();
-        JPlayer player = new JPlayer("Jake");
+        JPlayer player = new JPlayer("Jake",false);
         
         player.getBoard().printBoard();
         

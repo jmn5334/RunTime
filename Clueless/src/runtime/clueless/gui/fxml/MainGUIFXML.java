@@ -13,6 +13,7 @@ import runtime.clueless.config.Config;
 import runtime.clueless.game.*;
 
 import java.util.ArrayList;
+import runtime.clueless.Controller;
 import runtime.clueless.networking.GameClient;
 
 
@@ -64,8 +65,8 @@ public class MainGUIFXML {
 
         GameManager gm = GameManager.getInstance();
         
-        player = new JPlayer("Test");
-        gc = new GameClient();
+        player = new JPlayer("Test",false);
+        gc = new GameClient(player);
         
         //TODO: SET WITH SERVER
         ArrayList<JSuspect> s = player.getSuspects();

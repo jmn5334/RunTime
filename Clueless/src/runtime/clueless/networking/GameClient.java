@@ -8,6 +8,7 @@ package runtime.clueless.networking;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import runtime.clueless.game.JPlayer;
 
 
 /**
@@ -17,6 +18,9 @@ import java.net.UnknownHostException;
 public class GameClient {
     
     private Socket socket;
+    private String host;
+    private int port;
+    private JPlayer p;
     
     //shared object
     public static GameMsg Gmsg;
@@ -26,11 +30,12 @@ public class GameClient {
     private GuiThread gThread;
     private Thread thread;
     
-    public GameClient() {
+    public GameClient(JPlayer p) {
         System.out.println("GameClient is being created.");
         socket = null;
         Gmsg = new GameMsg();
         thread = null;
+        this.p = p;
     }
 
     public void connectToServer() {
@@ -42,7 +47,7 @@ public class GameClient {
             System.out.println("Creating thread...");
             
             //create thread with this socket
-            gThread = new GuiThread(socket);
+            gThread = new GuiThread(socket,p);
             thread = new Thread(gThread);
             
             System.out.println("DONE thread creation.");
