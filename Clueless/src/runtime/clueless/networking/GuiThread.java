@@ -25,6 +25,7 @@ public class GuiThread implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private boolean isFirstMsg;
+    private JPlayer player;
     
     //contructor
     public GuiThread(Socket client, JPlayer player){
@@ -34,6 +35,7 @@ public class GuiThread implements Runnable {
         this.out = null;
         this.isFirstMsg = true;
         System.out.println("GuiThread object being created.");
+        this.player = player;
     }
     
     @Override
@@ -66,79 +68,94 @@ public class GuiThread implements Runnable {
     
     public void waitForMsg(){
         
-        boolean isValid = true;
-        
-        //read message
-        try {
-            //wait for object
-            //while(!(in.available() > 0)){
+        while (true) {
+
+            boolean isValid = true;
+
+            //read message
+            try {
+                //wait for object
+                //while(!(in.available() > 0)){
                 Gmsg = (GameMsg) in.readObject();
-            //}
-        } catch (IOException ex) {
-            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        //grab id out of message if it's the first one
-        if(isFirstMsg){
-            id = Gmsg.id;
-            isFirstMsg = false;
-        }
-        //TODO: Add error handling for getting message with wrong id
-        
-        //print msg
-        System.out.println("Client recieved message:");
-        System.out.println(Gmsg.text);
-        System.out.println(commandToString());
-        System.out.println();
-        
-        //check command
-        switch (Gmsg.command){
-            case init:{
-                setAlert()
-                break;
+                //}
+            } catch (IOException ex) {
+                Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
             }
-            case start_turn:{
-                break;
+
+            //grab id out of message if it's the first one
+            if (isFirstMsg) {
+                id = Gmsg.id;
+                isFirstMsg = false;
             }
-            case reveal_card:{
-                break;
+            //TODO: Add error handling for getting message with wrong id
+
+            //print msg
+            System.out.println("Client recieved message:");
+            System.out.println(Gmsg.text);
+            System.out.println(commandToString());
+            System.out.println();
+
+            //check command
+            switch (Gmsg.command) {
+                case init: {
+                    handleInit();
+                    break;
+                }
+                case start_turn: {
+                    break;
+                }
+                case reveal_card: {
+                    break;
+                }
+                case send_card_server: {
+                    break;
+                }
+                case kill_player: {
+                    break;
+                }
+                case game_over: {
+                    break;
+                }
+                case board_state: {
+                    break;
+                }
+                default: {
+                    //bad_message
+                    System.out.println("Error recieved unsupported message type from server.");
+                    isValid = false;
+                }
             }
-            case send_card_server:{
-                break;
+
+            //send ack or invalid message back to server
+            if (isValid) {
+                Gmsg.command = GameMsg.cmd.ack;
+            } else {
+                Gmsg.command = GameMsg.cmd.invalid;
             }
-            case kill_player:{
-                break;
+
+            try {
+                out.writeObject(Gmsg);
+            } catch (IOException ex) {
+                Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
             }
-            case game_over:{
-                break;
-            }
-            case board_state:{
-                break;
-            }
-            default:{
-                //bad_message
-                System.out.println("Error recieved unsupported message type from server.");
-                isValid = false;
-            }
+
         }
 
+    }
+    
+    public void handleInit(){
+        
+        //set values from server
+        player.setId(Gmsg.id);
+        player.setSuspect(player.getBoard().findSuspect(Gmsg.suspect));
+        
         setDefaultMsg();
-
-        //send ack or invalid message back to server
-        if (isValid) {
-            Gmsg.command = GameMsg.cmd.ack;
-        } else {
-            Gmsg.command = GameMsg.cmd.invalid;
-        }
-
-        try {
-            out.writeObject(Gmsg);
-        } catch (IOException ex) {
-            Logger.getLogger(GameClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        
+        //set message to send back
+        Gmsg.name = "clientX";
+    
     }
     
     public String commandToString(){
@@ -146,6 +163,10 @@ public class GuiThread implements Runnable {
         String s;
         
         switch (Gmsg.command){
+            case init:{
+                s = "init";
+                break;
+            }
             case start_turn:{
                 s = "start_turn";
                 break;

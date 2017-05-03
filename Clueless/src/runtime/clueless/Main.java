@@ -9,6 +9,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 
 
 public class Main extends Application {
@@ -97,5 +99,48 @@ public class Main extends Application {
         System.out.println(" Starting GUI ");
 
     }
+/*
+    public static class NetworkDaemon extends Service<Void> {
+
+        @Override
+        protected Task<Void> createTask() {
+            return new Task<Void>() {
+
+                private int clientCount = 0;
+
+                @Override
+                protected Void call() throws Exception {
+
+
+                        final String clientName = "Client " + (++clientCount);
+                        final int connectTime = rng.nextInt(3000) + 4000;
+                        Thread clientThread = new Thread(() -> {
+                            try {
+                                Thread.sleep(connectTime);
+                            } catch (InterruptedException exc) {
+                                exc.printStackTrace();
+                            }
+                            Platform.runLater(() -> {
+                                disconnectedNotification.accept(clientName);
+                            });
+                        });
+                        clientThread.setDaemon(true);
+                        Platform.runLater(() -> {
+                            connectedNotification.accept(clientName);
+                            Alert alert = new Alert(AlertType.INFORMATION);
+                            alert.setContentText(clientName + " connected");
+                            alert.show();
+                        });
+                        clientThread.start();
+                    
+
+                    return null;
+                }
+
+            };
+        }
+
+    }
+*/
 
 }

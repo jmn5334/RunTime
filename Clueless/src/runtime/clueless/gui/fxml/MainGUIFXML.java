@@ -69,9 +69,9 @@ public class MainGUIFXML {
         gc = new GameClient(player);
         
         //TODO: SET WITH SERVER
-        ArrayList<JSuspect> s = player.getSuspects();
+       // ArrayList<JSuspect> s = player.getSuspects();
         
-        player.setSuspect(s.get(0));
+       // player.setSuspect(s.get(0));
         
         //TODO^
         
@@ -424,3 +424,4 @@ public class MainGUIFXML {
         }
     }
 }
+

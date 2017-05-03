@@ -57,7 +57,7 @@ public class GameServer {
     //biz logic variables
     private final ArrayList<JCard> deck;
     private final ArrayList<JCard> caseFile;
-    private JBoard board;
+    private final JBoard board;
     private ArrayList<JPlayer> players;
     
     //shared object
@@ -76,6 +76,7 @@ public class GameServer {
         deck = new ArrayList<>();
         caseFile = new ArrayList<>();
         players = new ArrayList<>();
+        board = new JBoard();
         
         //create cards
         initCards();
@@ -143,6 +144,11 @@ public class GameServer {
         boolean success = true;
 
         for (int i = 0; i < numClients; i++) {
+            
+            ArrayList<JSuspect> suspects = board.getSuspects();
+            
+            //randomally assign a suspect to each player
+            msg.suspect = suspects.get(i).getName();
 
             msg.name = "Server";
             msg.command = GameMsg.cmd.init;
