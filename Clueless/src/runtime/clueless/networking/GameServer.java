@@ -6,7 +6,10 @@
 package runtime.clueless.networking;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.net.ServerSocket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,13 +18,26 @@ import java.net.ServerSocket;
 public class GameServer {
     
     private ServerSocket server;
-    private String textArea;
+    private final int MAX_THREADS = 6;
+    private int numClients;
+    private final int numPlayers;
+    private final Thread[] threads = new Thread[MAX_THREADS];
+    private final ClientThread[] cthreads = new ClientThread[MAX_THREADS];
+    
+    //shared object
+    public static GameMsg msg;
+    public static volatile int turn;
 
-    public GameServer(){
+    public GameServer(int numPlayers){
         System.out.println("GameServer is being created.");
+        server = null;
+        numClients = 0;
+        this.numPlayers = numPlayers;
+        msg = new GameMsg();
+        turn = -99;
     }
     
-    public void listenSocket(){
+    public void acceptClients(){
         try{
             server = new ServerSocket(5000);
         }catch (IOException e){
@@ -29,19 +45,148 @@ public class GameServer {
             System.exit(-1);
         }
         while(true){
-            ClientThread td;
-            System.out.println("Waiting for client connections...");
             try{
-                td = new ClientThread(server.accept(), textArea);
-                System.out.println("Recieved a client connect request!!!");
-                System.out.println("Creating thread...");
-                Thread t = new Thread(td);
-                t.start();
+                //make sure we are under the max and the number desired by the user
+                if(numClients < MAX_THREADS && numClients < numPlayers){
+                    
+                    
+                    System.out.println("Waiting for client connections...");
+                    cthreads[numClients] = new ClientThread(server.accept(),numClients);
+                    
+                    System.out.println("Recieved a client connect request!!!");
+                    System.out.println("Creating thread "+Integer.toString(numClients)+"...");
+                    threads[numClients] = new Thread(cthreads[numClients]);
+                    threads[numClients].start();
+
+                    numClients++;
+                }
+                else{
+                    System.out.println("Done accepting clients.");
+                    return;
+                }
             } catch (IOException e){
                 System.out.println("Accept failed: 5000");
                 System.exit(-1);
             }
         }
+    }
+    
+    //starts the game once everyone has joined
+    public void startGame() throws InterruptedException{
+        
+        //send state to threads
+        System.out.println("Sending board state to all clients.");
+        int retries = 3;
+        while(!sendBoardState() && retries > 0){
+            System.out.println("Retrying to send board state.");
+            retries--;
+        }
+        System.out.println("Done sending board state to all clients.");
+        
+        dealCards();//TODO not implemented
+    
+        //BEGIN STATE MACHINE HERE
+        
+        //game managing assets
+        
+        
+        //turn terminating conditions
+        boolean hasMoved,
+                hasSuggested,
+                hasAccused,
+                isStuck,
+                hasSurrendered;
+        
+        //game terminating conditions
+        boolean haveWinner = false;
+        
+        //continue until we have a winner
+        while(!haveWinner){
+            
+            //intitialize turn state
+            hasMoved = false;
+            hasSuggested = false;
+            hasAccused = false;
+            isStuck = false;
+            hasSurrendered = false;
+            
+            //continue turn until we've met terminating conditions
+            while(!isStuck && !hasSurrendered && !hasAccused){
+
+                //check if stuck
+                
+                
+            }
+        }       
+  
+    }
+    
+    public void dealCards(){
+        
+    }
+    
+    public boolean sendBoardState() {
+        
+        boolean success = true;
+
+        for (int i = 0; i < numClients; i++) {
+
+            msg.name = "Server";
+            msg.command = GameMsg.cmd.board_state;
+            msg.id = i;
+            //TODO: set boardstate
+
+            turn = i;
+            serverWait();
+            
+            //verify that msg worked, otherwise return failure
+            switch (msg.command) {
+                case ack:
+                    System.out.println("Successfully sent board state to client "+Integer.toString(i));
+                    break;
+                case invalid:
+                    System.out.println("Client returned that our cmd was invalid. Failed to send board state to client "+Integer.toString(i));
+                    success = false;
+                    break;
+                default:
+                    System.out.println("Recieved invalid response from client "+Integer.toString(i));
+                    success = false;
+                    break;
+            }
+        }
+
+        return success;
+    }
+    
+    public void startTurn(){
+        
+    }
+    
+    public void endGame(){
+        
+    }
+    
+    public void killPlayer(){
+        
+    }
+    
+    public void askNextPlayer(){
+        
+    }
+    
+    public void nooneHadIt(){
+        
+    }
+    
+    //wait for a thread to do its business
+    private void serverWait(){
+        while(turn != -99){
+            try {
+                sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }   
     }
     
     /**

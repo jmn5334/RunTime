@@ -5,13 +5,16 @@
  */
 package runtime.clueless.networking;
 
+import java.io.IOException;
+import static java.lang.Thread.sleep;
+
 /**
  *
  * @author jmnew
  */
 public class NetworkTest2 {
     
-    public static void main(String [ ] args){
+    public static void main(String [ ] args) throws InterruptedException, IOException, ClassNotFoundException{
         
         GameClient gc;
         
@@ -19,7 +22,17 @@ public class NetworkTest2 {
         
         System.out.println("Hello world 2!!!");
         
-        gc.listenSocket();
+        gc.connectToServer();
+        
+        //wait until we've recieved a message
+        gc.waitForMsg();
+/*
+        gc.sendAccusation();
+        gc.sendSuggestion();
+*/
+
+        gc.sendMove();
+
         
     }
 }
