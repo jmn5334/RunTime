@@ -27,11 +27,11 @@ public class Player {
     public void setLabel(String l){ label = l;}
     public String getLabel(){ return label;}
 
-    public void setPlace(Place p ){ currentLocation = p;}
+    public void setPlace(Place p ){ currentLocation = p; p.setPlayer(this);}
     public Place getPlace(){ return currentLocation; }
 
     public void setPlayerChip(Button b){ playerChip = b;}
-
+    public Button getPlayerChip(){return playerChip;}
     private void move(){
         int x = currentLocation.getX();
         int y = currentLocation.getY();
@@ -47,6 +47,7 @@ public class Player {
         if(currentLocation.canMoveLeft()) {
             Place p = currentLocation.getLeft();
             currentLocation = p;
+            p.setPlayer(this);
             move();
         }
     }
@@ -55,6 +56,7 @@ public class Player {
         if(currentLocation.canMoveRight()) {
             Place p = currentLocation.getRight();
             currentLocation = p;
+            p.setPlayer(this);
             move();
         }
     }
@@ -63,6 +65,7 @@ public class Player {
         if(currentLocation.canMoveAbove()) {
             Place p = currentLocation.getAbove();
             currentLocation = p;
+            p.setPlayer(this);
             move();
         }
     }
@@ -71,6 +74,7 @@ public class Player {
         if(currentLocation.canMoveBelow()) {
             Place p = currentLocation.getBelow();
             currentLocation = p;
+            p.setPlayer(this);
             move();
         }
     }
@@ -79,6 +83,7 @@ public class Player {
         if(currentLocation.canMoveDiagonal()) {
             Place p = currentLocation.getDiagonal();
             currentLocation = p;
+            p.setPlayer(this);
             move();
         }
     }

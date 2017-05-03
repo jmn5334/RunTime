@@ -1,5 +1,7 @@
 package runtime.clueless.gui.fxml;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +14,7 @@ import javafx.scene.web.WebView;
 import runtime.clueless.config.Config;
 import runtime.clueless.game.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 
 
@@ -43,28 +46,41 @@ public class MainGUIFXML {
 
     @FXML ComboBox chooseplayer_combobox2;
 
+    @FXML TextArea status_textarea;
+
     String playerid;
     Button playerChip = p1_chip;
+    int currentPlayerID = -1;
+
+    ArrayList<String> playerchoicelist = new ArrayList<>();
 
     @FXML
-    public void initialize(){
+    public void initialize() throws InterruptedException {
         playerid = Config.ptr().str("playernumber");
 
-        if(playerid.contains("p1")){
-            playerChip = p1_chip;
-        }
+//        if(playerid.contains("p1")){
+//            playerChip = p1_chip;
+//        }
 
-        gameboard_imageview.setImage(new Image("/icons/gameboard.png"));
+        gameboard_imageview.setImage(new Image("/icons/gameboard2.png"));
+
+        //gameboard_imageview.setImage(new Image("/icons/gameboard2.png"));
+
 
         GameManager gm = GameManager.getInstance();
 
+        gm.setStatusTextArea(status_textarea);
         Button[] playerChipsList = {null, p1_chip, p2_chip,p3_chip,p4_chip,p5_chip,p6_chip};
+
         gm.setPlayerChipArray(playerChipsList);
+
 
         refreshMovementButtons();
 
 
-        ArrayList<String> playerchoicelist = new ArrayList<>();
+
+
+
         for(int n=1; n<7; n++)
             playerchoicelist.add(String.valueOf(n));
         ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
@@ -78,15 +94,52 @@ public class MainGUIFXML {
                 if(newValue!=null){
                     int pid = Integer.valueOf((String)newValue);
                     GameManager.getInstance().chooseCurrentPlayer(pid);
-
+                    currentPlayerID = pid;
                     refreshMovementButtons();
+
+
+                    gameboard_imageview.setImage(new Image("/icons/gameboard3.png"));
                 }
             }
 
         });
 
-
         initSuggestOptions();
+
+    }
+
+    private void removeCurrentPlayer(){
+
+        GameManager.getInstance().chooseCurrentPlayer(currentPlayerID);
+        GameManager.getInstance().getCurrentPlayer().getPlace().removePlayer();
+        GameManager.getInstance().getCurrentPlayer().getPlayerChip().setVisible(false);
+
+        int firstPlayer = -1;
+        for(int n=0; n<playerchoicelist.size(); n++) {
+            int pid = Integer.valueOf(playerchoicelist.get(n));
+            if (pid != currentPlayerID &&firstPlayer < 0)
+                firstPlayer = pid;
+
+            if(pid == currentPlayerID)
+                playerchoicelist.remove(n);
+        }
+        ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
+        chooseplayer_combobox2.setItems(plist);
+
+        currentPlayerID = firstPlayer;
+
+
+        GameManager.getInstance().chooseCurrentPlayer(currentPlayerID);
+
+        if(GameManager.getInstance().getCurrentPlayer()==null){
+            message("All Players have been eliminated! Game Over!!");
+            return;
+        }
+
+        refreshMovementButtons();
+
+
+        chooseplayer_combobox2.setValue(String.valueOf(currentPlayerID));
     }
 
     @FXML ComboBox accuse_room_combobox;
@@ -129,6 +182,7 @@ public class MainGUIFXML {
         ObservableList<ListNode> plist3 = FXCollections.observableArrayList(list3);
         accuse_weapon_combobox.setItems(plist3);
         suggestion_weapon_combobox.setItems(plist3);
+
     }
 
 
@@ -155,6 +209,7 @@ public class MainGUIFXML {
             movediagonal_button.setDisable(false);
         else
             movediagonal_button.setDisable(true);
+
     }
 
     @FXML void moveleftCallback(){
@@ -179,6 +234,7 @@ public class MainGUIFXML {
 
     }
     @FXML public void leavegameCallback(){
+        // need to implement this to close the GUI by pressing the "leave game" button
 
     }
 
@@ -190,7 +246,7 @@ public class MainGUIFXML {
             message("please select a player");
             return;
         }
-
+    try{
         String msg = " Player="+p.getLabel();
 
         if(p.getPlace() instanceof Room) {
@@ -204,10 +260,13 @@ public class MainGUIFXML {
 
             setAlert(GameManager.getInstance().isGuessCorrect(r,s,w),msg);
 
+            print(msg);
         }
-
-            message("please select a player and go to a room");
-
+        if(p.getPlace() instanceof Hallway)
+         message("please select a player and go to a room");
+    }catch(Exception e){
+        message("Please select from the options first!");
+    }
     }
 
     @FXML public void playerAccusesMurderer(){
@@ -219,17 +278,34 @@ public class MainGUIFXML {
             message("please select a player");
             return;
         }
+        try {
+            String msg = " Player=" + p.getLabel();
 
-        String msg = " Player="+p.getLabel();
-
-        SuspectCard s = (SuspectCard) ((ListNode) accuse_person_combobox.getValue()).getData();
+            SuspectCard s = (SuspectCard) ((ListNode) accuse_person_combobox.getValue()).getData();
             WeaponCard w = (WeaponCard) ((ListNode) accuse_weapon_combobox.getValue()).getData();
 
             RoomCard r = (RoomCard) ((ListNode) accuse_room_combobox.getValue()).getData();
 
-        msg += " Suggestion( room:"+r.name+" weapon:"+w.name+" suspect:"+s.name+" )";
+            msg += " Suggestion( room:" + r.name + " weapon:" + w.name + " suspect:" + s.name + " )";
 
-        setAlert(GameManager.getInstance().isGuessCorrect(r,s,w),msg);
+            boolean didPlayerWin = GameManager.getInstance().isGuessCorrect(r, s, w);
+
+            print(msg);
+
+            setAlert(didPlayerWin, msg);
+
+            print(" Player " + currentPlayerID + " made the wrong accusation and has been removed!");
+
+            if(!didPlayerWin)
+                removeCurrentPlayer();
+
+            message(" Player "+currentPlayerID+" has won the game... the game will now exit");
+
+            System.exit(1);
+
+        }catch(Exception e){
+            message("Please select from the options first!");
+        }
 
 
     }
@@ -268,5 +344,10 @@ public class MainGUIFXML {
         }catch(IllegalStateException err){
 
         }
+        print(msg);
+    }
+    public void print(String msg){
+
+        status_textarea.appendText(msg+"\n");
     }
 }

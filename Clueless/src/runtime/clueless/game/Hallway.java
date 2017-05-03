@@ -16,15 +16,27 @@ public class Hallway  implements Place{
 
     }
 
+    Player currentPlayerInRoom=null;
+
+    public void setPlayer(Player p){
+        currentPlayerInRoom = p;
+    }
+    public boolean occupiedByPlayer(){
+        return currentPlayerInRoom !=null;
+    }
+    public void removePlayer(){
+        currentPlayerInRoom = null;
+    }
+
     String label = "---";
     public void setLabel(String l){ label = l;}
     public String getLabel(){ return label;}
 
-    public boolean canMoveAbove(){ return above!=null; }
-    public boolean canMoveBelow(){ return below!=null; }
-    public boolean canMoveLeft(){ return left!=null; }
-    public boolean canMoveRight(){ return right!=null; }
-    public boolean canMoveDiagonal() {return diagonal!=null;}
+    public boolean canMoveAbove(){ return (above!=null && !above.occupiedByPlayer()); }
+    public boolean canMoveBelow(){ return below!=null && !below.occupiedByPlayer(); }
+    public boolean canMoveLeft(){ return left!=null && !left.occupiedByPlayer(); }
+    public boolean canMoveRight(){ return right!=null && !right.occupiedByPlayer(); }
+    public boolean canMoveDiagonal() {return diagonal!=null && !diagonal.occupiedByPlayer();}
 
     public void setAbove(Place h){ above=(Room)h; }
     public void setBelow(Place h){ below=(Room)h; }

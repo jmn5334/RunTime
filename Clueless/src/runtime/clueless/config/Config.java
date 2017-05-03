@@ -33,9 +33,8 @@ public class Config {
 
     public void init(String configpath){
 
-       // configpath = "D:\\course\\401\\gitProject\\Clueless\\RunTime\\Clueless\\test\\data\\clueless_test.properties";
-
         File configfid = new File(configpath);
+        System.out.println("Properties file location:" +configfid);
 
         // read the main config file
         try {

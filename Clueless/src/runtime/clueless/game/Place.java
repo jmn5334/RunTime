@@ -27,4 +27,8 @@ public interface Place {
     public Place getLeft();
     public Place getRight();
     public Room getDiagonal();
+
+    public void setPlayer(Player p);
+    public boolean occupiedByPlayer();
+    public void removePlayer();
 }

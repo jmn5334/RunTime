@@ -19,6 +19,17 @@ public class Room implements Place {
     public Room(){
     }
 
+    Player currentPlayerInRoom=null;
+
+    public void setPlayer(Player p){
+        currentPlayerInRoom = p;
+    }
+    public boolean occupiedByPlayer(){
+        return false;
+    }
+    public void removePlayer(){
+
+    }
 
     public void setCard(RoomCard c){ card = c; label = card.name;}
     public RoomCard getCard(){ return card;}
@@ -27,11 +38,11 @@ public class Room implements Place {
     public void setLabel(String l){ label = l;}
     public String getLabel(){ return label;}
 
-    public boolean canMoveAbove(){ return above!=null; }
-    public boolean canMoveBelow(){ return below!=null; }
-    public boolean canMoveLeft(){ return left!=null; }
-    public boolean canMoveRight(){ return right!=null; }
-    public boolean canMoveDiagonal() {return  diagonal!=null;}
+    public boolean canMoveAbove(){ return above!=null && !above.occupiedByPlayer(); }
+    public boolean canMoveBelow(){ return below!=null && !below.occupiedByPlayer(); }
+    public boolean canMoveLeft(){ return left!=null && !left.occupiedByPlayer(); }
+    public boolean canMoveRight(){ return right!=null && !right.occupiedByPlayer(); }
+    public boolean canMoveDiagonal() {return  diagonal!=null && !diagonal.occupiedByPlayer();}
 
 
     public void setAbove(Place h){ above=(Hallway)h; }

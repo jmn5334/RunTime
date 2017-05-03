@@ -62,8 +62,8 @@ public class Main extends Application {
 
         // load the main icon for the application
         mainstage.getIcons().add(new Image("/icons/time.png"));
-        //setUserAgentStylesheet(STYLESHEET_CASPIAN);
-        //initProgram();
+        setUserAgentStylesheet(STYLESHEET_CASPIAN);
+        initProgram();
     }
 
     public void initProgram(){
@@ -95,6 +95,7 @@ public class Main extends Application {
 
         // start the logger
         System.out.println(" Starting GUI ");
+
 
     }
 

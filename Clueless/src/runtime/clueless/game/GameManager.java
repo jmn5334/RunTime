@@ -1,6 +1,9 @@
 package runtime.clueless.game;
 
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import runtime.clueless.Controller;
 
@@ -50,6 +53,7 @@ public class GameManager {
         setPixelLocation();
 
         initCards();
+
 
     }
 
@@ -130,7 +134,6 @@ public class GameManager {
         long seed = System.nanoTime();
         Collections.shuffle(playerid, new Random(seed));
 
-
         for(int n=0; n<7; n++)
             playersList.add(new Player());
 
@@ -151,21 +154,35 @@ public class GameManager {
             int y = p.getPlace().getY();
             playerChipsList[playerIndex].setLayoutX(x);
             playerChipsList[playerIndex].setLayoutY(y);
-            System.out.println(" Setting up Player "+(n+1)+" index="+randIndex+" hallway="+hall+" pixel x="+x+" y="+y);
+
+            print(" Setting up Player "+(n+1)+" index="+randIndex+" hallway="+hall+" pixel x="+x+" y="+y);
             playersList.add(playerIndex,p);
         }
 
     }
 
     public void chooseCurrentPlayer(int m){
+        if(m<0){
+            currentPlayer = null;
+            return;
+        }
+
         currentPlayer = playersList.get(m);
 
         for(int n=1; n<7; n++) {
 
-            if(m!=n)
-            playerChipsList[n].setVisible(false);
-            else
-                playerChipsList[n].setVisible(true);
+            //playerChipsList[n].setVisible(true);
+            if(m!=n) {
+                //playerChipsList[n].setVisible(true);
+                playerChipsList[n].setStyle("-fx-background-color: #558855");
+
+            }
+            else {
+                //playerChipsList[n].setVisible(true);
+                playerChipsList[n].setStyle("-fx-background-color: #ff0000");
+                playerChipsList[n].toFront();
+                print(" Player "+n+" chosen to move");
+            }
         }
 
     }
@@ -259,8 +276,6 @@ public class GameManager {
         r.get(7).setDiagonal(r.get(3));
         r.get(3).setDiagonal(r.get(7));
 
-
-
     }
 
     public void setPixelLocation(){
@@ -299,10 +314,24 @@ public class GameManager {
     public boolean canMoveRight(){ return (currentPlayer==null)? false : currentPlayer.getPlace().canMoveRight(); }
     public boolean canMoveDiagonal() {return (currentPlayer==null)? false : currentPlayer.getPlace().canMoveDiagonal();}
 
-    public void moveUp(){ if(currentPlayer!=null) currentPlayer.moveUp();}
-    public void moveDown(){ if(currentPlayer!=null) currentPlayer.moveDown();}
-    public void moveLeft(){ if(currentPlayer!=null) currentPlayer.moveLeft();}
-    public void moveRight(){ if(currentPlayer!=null) currentPlayer.moveRight();}
-    public void moveDiagonal(){if(currentPlayer!=null) currentPlayer.moveDiagonal();}
+    public void moveUp(){ if(currentPlayer!=null && leaveRoom()) currentPlayer.moveUp();}
+    public void moveDown(){ if(currentPlayer!=null && leaveRoom()) currentPlayer.moveDown();}
+    public void moveLeft(){ if(currentPlayer!=null && leaveRoom()) currentPlayer.moveLeft();}
+    public void moveRight(){ if(currentPlayer!=null && leaveRoom()) currentPlayer.moveRight();}
+    public void moveDiagonal(){if(currentPlayer!=null && leaveRoom()) currentPlayer.moveDiagonal();}
 
+
+    public boolean leaveRoom(){
+        currentPlayer.getPlace().removePlayer();
+        return true;
+    }
+
+    @FXML TextArea status_textarea;
+
+    public void print(String msg){
+
+        status_textarea.appendText(msg+"\n");
+    }
+
+    public void setStatusTextArea(TextArea st){ status_textarea = st;}
 }

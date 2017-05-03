@@ -2,6 +2,7 @@ package runtime.clueless;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import runtime.clueless.config.Config;
 
 import javafx.stage.Stage;
@@ -45,6 +46,7 @@ public class Controller {
 
 
     public void run(){
+
 
     }
 }

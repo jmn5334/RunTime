@@ -7,8 +7,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
@@ -60,7 +60,7 @@
                   <Label text="Make a Suggestion" />
                   <ComboBox fx:id="suggestion_person_combobox" minWidth="100.0" prefWidth="80.0" promptText="Person" />
                   <ComboBox fx:id="suggestion_weapon_combobox" minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
-                  <Button mnemonicParsing="false" onAction="#playerSuggestMurderer" text="Suggest">
+                  <Button fx:id="playerSuggestMurderer_button" mnemonicParsing="false" onAction="#playerSuggestMurderer" text="Suggest">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -76,7 +76,7 @@
                   <ComboBox fx:id="accuse_person_combobox" minWidth="100.0" prefWidth="80.0" promptText="Person" />
                   <ComboBox fx:id="accuse_weapon_combobox" minWidth="80.0" prefWidth="100.0" promptText="Weapon" />
                   <ComboBox fx:id="accuse_room_combobox" layoutX="187.0" layoutY="15.0" minWidth="80.0" prefWidth="100.0" promptText="Place" />
-                  <Button mnemonicParsing="false" onAction="#playerAccusesMurderer" text="Accuse">
+                  <Button fx:id="playerAccusesMurderer_button" mnemonicParsing="false" onAction="#playerAccusesMurderer" text="Accuse">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -91,7 +91,6 @@
                   <ToolBar prefHeight="40.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                      <items>
                         <Button mnemonicParsing="false" text="connect to server" />
-                        <Button fx:id="leavegame_button" layoutX="10.0" layoutY="11.0" mnemonicParsing="false" onAction="#leavegameCallback" text="leave game" />
                      </items>
                   </ToolBar>
                </children>
@@ -100,54 +99,68 @@
       </VBox>
    </bottom>
    <center>
-
-            <Pane maxHeight="455.0" maxWidth="525.0" minHeight="450.0" minWidth="520.0" prefHeight="455.0" prefWidth="525.0" BorderPane.alignment="TOP_LEFT">
+      <VBox BorderPane.alignment="TOP_LEFT">
+         <children>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="gameboard_imageview" fitHeight="450.0" fitWidth="520.0" pickOnBounds="true">
-                     <image>
-                        <Image url="@icons/gameboard2.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="p1_chip" layoutX="113.0" layoutY="93.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding></Button>
-            <Button fx:id="p2_chip" layoutX="443.0" layoutY="249.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p2">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="p3_chip" layoutX="443.0" layoutY="291.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p3">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="p4_chip" layoutX="443.0" layoutY="335.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p4">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="p5_chip" layoutX="450.0" layoutY="376.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p5">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Button>
-            <Button fx:id="p6_chip" layoutX="450.0" layoutY="412.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p6">
-               <padding>
-                  <Insets left="-5.0" />
-               </padding>
-            </Button>
+                  <HBox>
+                     <children>
+                  
+                              <Pane maxHeight="455.0" maxWidth="525.0" minHeight="450.0" minWidth="520.0" prefHeight="455.0" prefWidth="525.0">
+                                 <children>
+                                    <ImageView fx:id="gameboard_imageview" fitHeight="450.0" fitWidth="520.0" pickOnBounds="true">
+                                       <image>
+                                          <Image url="@icons/gameboard2.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Button fx:id="p1_chip" layoutX="113.0" layoutY="93.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p1">
+                                 <padding>
+                                    <Insets left="-5.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="p2_chip" layoutX="443.0" layoutY="249.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p2">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="p3_chip" layoutX="443.0" layoutY="291.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p3">
+                                 <padding>
+                                    <Insets left="-5.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="p4_chip" layoutX="443.0" layoutY="335.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p4">
+                                 <padding>
+                                    <Insets left="-5.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="p5_chip" layoutX="450.0" layoutY="376.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #ccdd00;" text="p5">
+                                 <padding>
+                                    <Insets left="5.0" />
+                                 </padding>
+                              </Button>
+                              <Button fx:id="p6_chip" layoutX="450.0" layoutY="412.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="35.0" style="-fx-background-color: #00dd00;" text="p6">
+                                 <padding>
+                                    <Insets left="-5.0" />
+                                 </padding>
+                              </Button>
+                                 </children>
+                              </Pane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <TextArea fx:id="status_textarea" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
                </children>
-            </Pane>
+            </HBox>
+         </children>
+      </VBox>
    </center>
    <right>
       <VBox layoutX="520.0" layoutY="30.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox VBox.vgrow="ALWAYS">
-               <children>
-                  <TreeView fx:id="activityLogViewer" prefHeight="200.0" prefWidth="240.0" HBox.hgrow="ALWAYS" />
-               </children>
-            </HBox>
+            <HBox VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
    </right>
