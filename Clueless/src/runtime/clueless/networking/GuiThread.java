@@ -8,11 +8,15 @@ package runtime.clueless.networking;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import static java.lang.Thread.sleep;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import runtime.clueless.game.JCard;
 import runtime.clueless.game.JPlayer;
+import runtime.clueless.gui.fxml.MainGUIFXML;
 import static runtime.clueless.networking.GameClient.Gmsg;
+import static runtime.clueless.networking.GameClient.updateGUI;
 
 /**
  *
@@ -26,9 +30,10 @@ public class GuiThread implements Runnable {
     private ObjectOutputStream out;
     private boolean isFirstMsg;
     private JPlayer player;
+    private MainGUIFXML gui;
     
     //contructor
-    public GuiThread(Socket client, JPlayer player){
+    public GuiThread(Socket client, JPlayer player, MainGUIFXML gui){
         this.socket = client;
         this.id = -1;   //init to negative until id is negotiated
         this.in = null;
@@ -36,6 +41,7 @@ public class GuiThread implements Runnable {
         this.isFirstMsg = true;
         System.out.println("GuiThread object being created.");
         this.player = player;
+        this.gui = gui;
     }
     
     @Override
@@ -55,6 +61,7 @@ public class GuiThread implements Runnable {
         
         waitForMsg();
         
+        /*
         try {
             sendMove();
         } catch (IOException ex) {
@@ -64,6 +71,7 @@ public class GuiThread implements Runnable {
         } catch (InterruptedException ex) {
             Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }
     
     public void waitForMsg(){
@@ -110,6 +118,7 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case send_card_server: {
+                    handleSendCard();
                     break;
                 }
                 case kill_player: {
@@ -145,11 +154,33 @@ public class GuiThread implements Runnable {
 
     }
     
+    public void handleSendCard(){
+        JCard c = new JCard(Gmsg.card,Gmsg.ctype);
+        player.addCard(c);
+        setDefaultMsg();
+        
+        gui.refreshCards();
+    }
+    
     public void handleInit(){
         
         //set values from server
         player.setId(Gmsg.id);
         player.setSuspect(player.getBoard().findSuspect(Gmsg.suspect));
+        
+        //refresh gui
+        gui.refresh();
+        gui.message("Hi, this is thread.");
+        updateGUI = 1;
+        
+        try {
+            //sleep to let gui update
+            sleep(250);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        updateGUI = 0;
         
         setDefaultMsg();
         

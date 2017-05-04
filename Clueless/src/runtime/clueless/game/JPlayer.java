@@ -28,6 +28,7 @@ public class JPlayer {
         suspect = null;
         this.name = name;
         id = -99;
+        cards = new ArrayList<>();
     }
     
     public void setId(int id){
@@ -36,6 +37,10 @@ public class JPlayer {
     
     public int getId(){
         return id;
+    }
+    
+    public void addCard(JCard c){
+        cards.add(c);
     }
     
     //interface to update board, replicates commands done on server

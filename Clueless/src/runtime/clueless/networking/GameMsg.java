@@ -6,6 +6,7 @@
 package runtime.clueless.networking;
 
 import java.io.Serializable;
+import runtime.clueless.game.JCard;
 import runtime.clueless.game.RoomCard;
 import runtime.clueless.game.SuspectCard;
 import runtime.clueless.game.WeaponCard;
@@ -15,6 +16,8 @@ import runtime.clueless.game.WeaponCard;
  * @author jmnew
  */
 public class GameMsg implements Serializable{
+    
+    private static final long serialVersionUID = 6529685098267757690L;
     
     public enum cmd {
         
@@ -58,6 +61,10 @@ public class GameMsg implements Serializable{
     //DATA
     //for init msg
     public String suspect;
+    
+    //for card msg
+    public String card;
+    public JCard.card_type ctype;
     
     //for board update msgs
     //public Board board;

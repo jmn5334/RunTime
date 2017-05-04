@@ -226,8 +226,41 @@ public class GameServer {
   
     }
     
-    public void dealCards(){
+    public boolean dealCards(){
         
+        boolean success = true;
+        
+        int j = 0;
+        
+        //deal cards to each player
+        for(int i=0;i<deck.size();i++){
+            if(j == players.size())
+                j = 0;
+            players.get(j).addCard(deck.get(i));
+            j++;
+        }
+
+        //pass cards out
+        for (int i = 0; i < numClients; i++) {
+            
+            ArrayList<JCard> cards = players.get(i).getCards();
+            
+            for (JCard c : cards) {
+                msg.name = "Server";
+                msg.command = GameMsg.cmd.send_card_server;
+                msg.id = i;
+                msg.card = c.getName();
+
+                turn = i;
+                serverWait();
+
+                if (!verifyResponse("send_card_server", i)) {
+                    success = false;
+                } 
+            }
+        }
+
+        return success;
     }
     
     public final void initCards(){

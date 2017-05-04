@@ -16,7 +16,7 @@ import runtime.clueless.game.JPlayer;
 public class NetworkTest2 {
     
     public static void main(String [ ] args) throws InterruptedException, IOException, ClassNotFoundException{
-        
+        /*
         GameClient gc;
         JPlayer p = new JPlayer("headless_client",false);
         
@@ -29,6 +29,7 @@ public class NetworkTest2 {
         while(true){
             sleep(10);
         }
+        */
         
         //wait until we've recieved a message
         //gc.waitForMsg();

@@ -69,6 +69,7 @@
                   <TextField prefHeight="31.0" prefWidth="54.0" promptText="port" />
                   <Button mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="92.0" text="host game" />
                   <TextField prefHeight="31.0" prefWidth="55.0" promptText="port" />
+                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                </items>
             </ToolBar>
          </children>

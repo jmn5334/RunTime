@@ -13,6 +13,7 @@ import runtime.clueless.config.Config;
 import runtime.clueless.game.*;
 
 import java.util.ArrayList;
+import javafx.application.Platform;
 import runtime.clueless.Controller;
 import runtime.clueless.networking.GameClient;
 
@@ -66,7 +67,7 @@ public class MainGUIFXML {
         GameManager gm = GameManager.getInstance();
         
         player = new JPlayer("Test",false);
-        gc = new GameClient(player);
+        gc = new GameClient(player, this);
         
         //TODO: SET WITH SERVER
        // ArrayList<JSuspect> s = player.getSuspects();
@@ -259,6 +260,28 @@ public class MainGUIFXML {
         cardCombo.setItems(items5);
        
     }
+    
+    public void refreshCards(){
+        ObservableList<String> items = FXCollections.observableArrayList();
+        ArrayList<JCard> cards = player.getCards();
+        
+        //check if cards are null
+        if(cards == null)
+            return;
+        
+        cardCombo.getItems().clear();
+        
+        for(JCard c: cards){
+            items.add(c.getName());
+        }
+        
+        cardCombo.setItems(items);
+    }
+    
+    public void refresh(){
+        refreshCards();
+        refreshBoardLists();
+    }
 
     //populates all of the board lists using player class TODO: remove tag
     public void refreshBoardLists() {
@@ -410,7 +433,7 @@ public class MainGUIFXML {
         }
     }
 
-    private void message(String msg){
+    public void message(String msg){
 
         try{
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -423,5 +446,18 @@ public class MainGUIFXML {
 
         }
     }
+    /*
+  public void reportAndLogException(final Throwable t)
+  {
+    Platform.runLater(new Runnable() {
+      @Override public void run() {
+          while(true){
+        if(GameClient.updateGUI == 1){
+            refreshCards();
+        }    
+          }
+      }
+    });
+  }*/
 }
 
