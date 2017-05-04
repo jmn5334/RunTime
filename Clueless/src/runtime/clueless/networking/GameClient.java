@@ -24,11 +24,12 @@ public class GameClient {
     private JPlayer p;
     
     //ref to GUI to pass to thread
-    private MainGUIFXML gui;
+    private final MainGUIFXML gui;
     
     //shared object
     public static GameMsg Gmsg;
     public static volatile int updateGUI;
+    public static volatile int Gturn;
     
     //thread that acts on behalf of this class
     private GuiThread gThread;
@@ -47,7 +48,7 @@ public class GameClient {
     public void connectToServer() {
         //Create socket connection
         try {
-            socket = new Socket("192.168.0.11", 5000);
+            socket = new Socket("10.0.0.201", 5000);
             
             System.out.println("Connecting to server...");
             System.out.println("Creating thread...");
@@ -69,6 +70,34 @@ public class GameClient {
             System.out.println("No I/O");
             System.exit(1);
         }
+    }
+    
+    //send move using guithread
+    public void sendMove(String dest, int destId, boolean isRoom){
+        
+        //set up message
+        Gmsg.isRoom = isRoom;
+        Gmsg.dest = dest;
+        Gmsg.destId = destId;
+        
+        Gturn = 1;
+    }
+    
+    public void sendAccusation(){
+        //out.println("ACCUSATION MSG");
+    }
+    
+    public void sendSuggestion(){
+        //out.println("SUGGESTION MSG");
+    }
+    
+    public void revealCard(){
+        //out.println("REVEAL CARD MSG");
+    }
+    
+    public void endTurn(){
+        Gmsg.command = GameMsg.cmd.end_turn;
+        Gturn = 1;
     }
 
 }

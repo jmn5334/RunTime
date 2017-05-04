@@ -30,6 +30,7 @@ public class GameMsg implements Serializable{
         board_state,
         stuck,
         init,
+        update,
         
         //client to server commands
         move,
@@ -38,6 +39,7 @@ public class GameMsg implements Serializable{
         send_card_client,
         end_turn,
         join_game,
+        pass,
         
         //both
         ack,
@@ -57,6 +59,7 @@ public class GameMsg implements Serializable{
     public String name;
     public int id;
     public cmd command;
+    public sub_cmd subcommand;
     
     //DATA
     //for init msg
@@ -65,6 +68,14 @@ public class GameMsg implements Serializable{
     //for card msg
     public String card;
     public JCard.card_type ctype;
+    
+    //for move message
+    public String dest;
+    public boolean isRoom;
+    public int destId;
+    
+    //for suggest
+    public String weapon;
     
     //for board update msgs
     //public Board board;

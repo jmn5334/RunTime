@@ -61,6 +61,9 @@ public class MainGUIFXML {
     @FXML private ComboBox suspectAccuseCombo;
     @FXML private ComboBox weaponAccuseCombo;
     
+    //txt field
+    @FXML private TextField msgField;
+    
     @FXML
     public void initialize(){
 
@@ -108,6 +111,11 @@ public class MainGUIFXML {
     @FXML
     public void hostGame(){
         
+    }
+    
+    @FXML
+    public void endTurn(){
+        gc.endTurn();
     }
     
     //returns integer >=0 on success, -1 on failure(probably a room)
@@ -443,21 +451,14 @@ public class MainGUIFXML {
                 alert.showAndWait();
 
         }catch(IllegalStateException err){
-
+                System.out.println("message error");
         }
     }
-    /*
-  public void reportAndLogException(final Throwable t)
-  {
-    Platform.runLater(new Runnable() {
-      @Override public void run() {
-          while(true){
-        if(GameClient.updateGUI == 1){
-            refreshCards();
-        }    
-          }
-      }
-    });
-  }*/
+    
+    public void updateMsgField(String s){
+        msgField.setEditable(true);
+        msgField.setText(s);
+        msgField.setEditable(false);
+    }
 }
 

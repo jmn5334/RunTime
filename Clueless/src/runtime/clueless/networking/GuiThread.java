@@ -16,6 +16,7 @@ import runtime.clueless.game.JCard;
 import runtime.clueless.game.JPlayer;
 import runtime.clueless.gui.fxml.MainGUIFXML;
 import static runtime.clueless.networking.GameClient.Gmsg;
+import static runtime.clueless.networking.GameClient.Gturn;
 import static runtime.clueless.networking.GameClient.updateGUI;
 
 /**
@@ -29,8 +30,8 @@ public class GuiThread implements Runnable {
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private boolean isFirstMsg;
-    private JPlayer player;
-    private MainGUIFXML gui;
+    private final JPlayer player;
+    private final MainGUIFXML gui;
     
     //contructor
     public GuiThread(Socket client, JPlayer player, MainGUIFXML gui){
@@ -42,6 +43,7 @@ public class GuiThread implements Runnable {
         System.out.println("GuiThread object being created.");
         this.player = player;
         this.gui = gui;
+        Gturn = 1;
     }
     
     @Override
@@ -60,18 +62,6 @@ public class GuiThread implements Runnable {
         }
         
         waitForMsg();
-        
-        /*
-        try {
-            sendMove();
-        } catch (IOException ex) {
-            Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
     }
     
     public void waitForMsg(){
@@ -112,6 +102,7 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case start_turn: {
+                    handleStartTurn();
                     break;
                 }
                 case reveal_card: {
@@ -139,7 +130,7 @@ public class GuiThread implements Runnable {
 
             //send ack or invalid message back to server
             if (isValid) {
-                Gmsg.command = GameMsg.cmd.ack;
+                //Gmsg.command = GameMsg.cmd.ack;
             } else {
                 Gmsg.command = GameMsg.cmd.invalid;
             }
@@ -154,12 +145,38 @@ public class GuiThread implements Runnable {
 
     }
     
+    public void handleStartTurn() {
+        
+        System.out.println("handling start turn!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+
+        //set turn to 0
+        Gturn = 0;
+        
+        setDefaultMsg();
+        
+        //need to wait for user input
+        while (Gturn != 1) {
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+    }
+    
     public void handleSendCard(){
         JCard c = new JCard(Gmsg.card,Gmsg.ctype);
         player.addCard(c);
         setDefaultMsg();
         
         gui.refreshCards();
+        gui.updateMsgField("Recieving card...");
+        Gmsg.command = GameMsg.cmd.ack;
     }
     
     public void handleInit(){
@@ -168,24 +185,11 @@ public class GuiThread implements Runnable {
         player.setId(Gmsg.id);
         player.setSuspect(player.getBoard().findSuspect(Gmsg.suspect));
         
-        //refresh gui
-        gui.refresh();
-        gui.message("Hi, this is thread.");
-        updateGUI = 1;
-        
-        try {
-            //sleep to let gui update
-            sleep(250);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GuiThread.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        updateGUI = 0;
-        
         setDefaultMsg();
         
         //set message to send back
         Gmsg.name = "clientX";
+        Gmsg.command = GameMsg.cmd.ack;
     
     }
     
@@ -232,28 +236,6 @@ public class GuiThread implements Runnable {
         }
         
         return s;
-    }
-    
-    public void sendMove() throws IOException, ClassNotFoundException, InterruptedException{
-        //out.println("MOVE MSG");
-        Gmsg.text = "New message from client!!!";
-        while(true){
-            out.writeObject(Gmsg);
-            //sleep(5);
-        }
-        //System.out.println(Gmsg.text);
-    }
-    
-    public void sendAccusation(){
-        //out.println("ACCUSATION MSG");
-    }
-    
-    public void sendSuggestion(){
-        //out.println("SUGGESTION MSG");
-    }
-    
-    public void revealCard(){
-        //out.println("REVEAL CARD MSG");
     }
     
     public void setDefaultMsg(){

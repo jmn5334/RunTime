@@ -33,7 +33,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefWidth="768.0" spacing="5.0" style="-fx-background-color: #dddd00; -fx-border-color: #000000;">
                <children>
-                  <Label text="Make a Suggestion:" />
+                  <Label text="Suggest:" />
                   <ComboBox fx:id="suspectSuggestCombo" minWidth="100.0" prefHeight="31.0" prefWidth="125.0" promptText="Person" />
                   <ComboBox fx:id="weaponSuggestCombo" minWidth="80.0" prefHeight="31.0" prefWidth="143.0" promptText="Weapon" />
                   <Button mnemonicParsing="false" onAction="#makeSuggestion" text="Suggest">
@@ -41,6 +41,8 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
+                  <Label text="Update Msg:" />
+                  <TextField fx:id="msgField" editable="false" prefHeight="31.0" prefWidth="234.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="10.0" top="5.0" />
@@ -48,7 +50,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: #ddaaaa; -fx-border-color: #000000;">
                <children>
-                  <Label text="ACCUSE :" />
+                  <Label text="Accuse :" />
                   <ComboBox fx:id="suspectAccuseCombo" minWidth="100.0" prefHeight="31.0" prefWidth="120.0" promptText="Person" />
                   <ComboBox fx:id="weaponAccuseCombo" minWidth="80.0" prefHeight="31.0" prefWidth="144.0" promptText="Weapon" />
                   <ComboBox fx:id="accusePlaceCombo" layoutX="187.0" layoutY="15.0" minWidth="80.0" prefWidth="100.0" promptText="Place" />
@@ -57,6 +59,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Button>
+                  <Button mnemonicParsing="false" onAction="#endTurn" prefHeight="31.0" prefWidth="100.0" text="End Turn" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="10.0" top="5.0" />
@@ -69,7 +72,6 @@
                   <TextField prefHeight="31.0" prefWidth="54.0" promptText="port" />
                   <Button mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="92.0" text="host game" />
                   <TextField prefHeight="31.0" prefWidth="55.0" promptText="port" />
-                  <Button mnemonicParsing="false" onAction="#refresh" text="Refresh" />
                </items>
             </ToolBar>
          </children>

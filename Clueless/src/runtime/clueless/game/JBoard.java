@@ -23,6 +23,40 @@ public class JBoard {
     private final ArrayList<JSuspect> suspects;
     private final ArrayList<JWeapon> weapons;
     
+    //return true if stuck, false if not
+    public boolean isStuck(JSuspect s){
+        
+        boolean isStuck = false;
+        
+        //check if this player was moved on a suggestion, if so not stuck by biz rule definition
+        if(s.isWasMovedOnSuggest())
+            return false;
+        
+        //check if in hallway or room
+        JHallway hall = s.getHallwayLocation();
+        JRoom room = s.getRoomLocation();
+        
+        //if null we are in a room, can't be stuck in hallway
+        if (hall == null) {
+
+            //check for secret passage, can't be stuck if we have one
+            if (room.getSecretPassage() == null) {
+
+                ArrayList<JHallway> halls = room.getAdjacentHallways();
+
+                //if any halls are empty set this to true
+                isStuck = true;
+                for (JHallway h : halls) {
+                    if (h.getSuspect() == null) {
+                        isStuck = false;
+                    }
+                }
+            }
+        }
+
+        return isStuck;
+    }
+    
     //FIND METHODS
     public JRoom findRoom(String room){
         
@@ -109,6 +143,7 @@ public class JBoard {
                 rLocation.removeSuspect(s);
                 dest.addSuspect(s);
                 s.setHallwayLocation(dest);
+                s.setWasMovedOnSuggest(false);
             }
             else{
                 return false;
@@ -147,6 +182,7 @@ public class JBoard {
                 rLocation.removeSuspect(s);
                 dest.addSuspect(s);
                 s.setRoomLocation(dest);
+                s.setWasMovedOnSuggest(false);
             }
             else{
                 System.out.println("This room is not accessible via secret passage.");
@@ -188,6 +224,7 @@ public class JBoard {
         }
         dest.addSuspect(s);
         s.setRoomLocation(dest);
+        s.setWasMovedOnSuggest(true);
         
         //move weapon
         w.getRoomLocation().removeWeapon(w);

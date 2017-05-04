@@ -58,7 +58,8 @@ public class GameServer {
     private final ArrayList<JCard> deck;
     private final ArrayList<JCard> caseFile;
     private final JBoard board;
-    private ArrayList<JPlayer> players;
+    private final ArrayList<JPlayer> players;
+    private ArrayList<JPlayer> activePlayers;
     
     //shared object
     public static GameMsg msg;
@@ -77,6 +78,7 @@ public class GameServer {
         caseFile = new ArrayList<>();
         players = new ArrayList<>();
         board = new JBoard();
+        activePlayers = new ArrayList<>();
         
         //create cards
         initCards();
@@ -162,6 +164,7 @@ public class GameServer {
                 p.setId(i);
                 p.setSuspect(board.findSuspect(msg.suspect));
                 players.add(p);
+                activePlayers.add(p);
             }
             else{
                 success = false;
@@ -177,53 +180,291 @@ public class GameServer {
     //starts the game once everyone has joined
     public void startGame(){
         
-        //send state to threads
-        System.out.println("Sending board state to all clients.");
-        int retries = 3;
-        while(!sendBoardState() && retries > 0){
-            System.out.println("Retrying to send board state.");
-            retries--;
-        }
-        System.out.println("Done sending board state to all clients.");
-        
         negotiatePlayers();
         
-        dealCards();//TODO not implemented
+        dealCards();
     
         //BEGIN STATE MACHINE HERE
-        
-        //game managing assets
-        
         
         //turn terminating conditions
         boolean hasMoved,
                 hasSuggested,
                 hasAccused,
-                isStuck,
                 hasSurrendered;
         
         //game terminating conditions
         boolean haveWinner = false;
         
+        //LCVs
+        int i = 0;
+        int currentId;
+        
         //continue until we have a winner
         while(!haveWinner){
+            
+            //reset the player index if we hit max to restart turn rotation
+            if(i == activePlayers.size()){
+                i = 0;
+            }
+            
+            //get id of next player
+            currentId = activePlayers.get(i).getId();
             
             //intitialize turn state
             hasMoved = false;
             hasSuggested = false;
             hasAccused = false;
-            isStuck = false;
             hasSurrendered = false;
-            
-            //continue turn until we've met terminating conditions
-            while(!isStuck && !hasSurrendered && !hasAccused){
 
-                //check if stuck
-                
-                
+            //check for player being stuck, if so they can only accuse
+            if(board.isStuck(activePlayers.get(i).getSuspect())){
+                hasMoved = true;
+                hasSuggested = true;
             }
-        }       
-  
+
+            //continue turn until we've met terminating conditions
+            while (!hasSurrendered && !hasAccused) {
+
+                //send start_turn to client
+                sendTurn(currentId);
+
+                //check what command it is, if a move or suggest, needs to be validated
+                //perform logic based on what the current player did
+                switch (msg.command) {
+                    case move:
+                        //verify that we haven't moved already
+                        if(!hasMoved){
+                            
+                            boolean wasMoved;
+                            
+                            //figure out if this is a hallway or a room
+                            if(msg.isRoom)
+                                wasMoved = board.moveSuspectToRoom(activePlayers.get(i).getSuspect(), board.findRoom(msg.dest));
+                            else
+                                wasMoved = board.moveSuspectToHallway(activePlayers.get(i).getSuspect(), board.findHallway(msg.destId));
+                            
+                            if(wasMoved){
+                                hasMoved = true; //we will send board state msg after switch statement
+                                
+                                if(msg.isRoom)
+                                    //send board
+                                    sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
+                                            +") moved to "+msg.dest,GameMsg.sub_cmd.move2room);
+                                else
+                                    sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
+                                            +") moved to "+msg.dest,GameMsg.sub_cmd.move2hall);
+                            }
+                            else{
+                                sendInvalid(currentId,"Move failed! Choose an accessible location.");
+                            }
+                        }
+                        else{
+                            sendInvalid(currentId,"You've already moved! Please select another option.");
+                        }
+                        break;
+                    case suggest:
+                        if(!hasSuggested){
+                            
+                            String sSuspect = msg.suspect;
+                            String sWeapon = msg.weapon;
+                            String sRoom = msg.dest;
+                            
+                            //check that the player is actually in this room
+                            if (board.findRoom(msg.dest) == activePlayers.get(i).getSuspect().getRoomLocation()) {
+
+                                if (board.moveOnSuggestion(board.findSuspect(msg.suspect), board.findWeapon(msg.weapon), board.findRoom(msg.dest))) {
+                                    hasSuggested = true; //will send board update
+                                    
+                                    //send board update
+                                    sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
+                                            +") has suggested ("+msg.suspect+","+msg.weapon+","+msg.dest+").",GameMsg.sub_cmd.move2room);
+                                    
+                                    //begin suggetion logic - loop through remaining players
+                                    //need to map index back to all players as all can reveal cards
+                                    int startingPlayer = -1;
+                                    for(int j = 0;j<players.size();j++){
+                                        if(players.get(j) == activePlayers.get(i))
+                                            startingPlayer = j;
+                                    }
+                                    
+                                    //TODO - add better error handling
+                                    if(startingPlayer == -1){
+                                        System.out.println("Internal suggestion error. Couldn't find active player in total players.");
+                                    }
+                                    
+                                    int j;
+                                    
+                                    if(startingPlayer >= players.size() - 1)
+                                        j = 0;
+                                    else
+                                        j = startingPlayer + 1;
+                                    
+                                    boolean respValid = false;
+                                    //loop until we get back around to suggester
+                                    while(j != startingPlayer || respValid){
+                                        
+                                        //try until we get valid response
+                                        while (!respValid) {
+
+                                            //card sending code here
+                                            sendRevealCard(players.get(j).getId(), msg.suspect, msg.weapon, msg.dest);
+
+                                            //validate response
+                                            if (msg.command == GameMsg.cmd.send_card_client) {
+                                                if (msg.card.equals(sRoom) || msg.card.equals(sWeapon) || msg.card.equals(sSuspect)) {
+
+                                                    //send card to initial suggester
+                                                    sendCard(startingPlayer, msg.card);
+                                                    sendUpdate("Card passed."); //add more here later
+                                                    respValid = true;
+                                                    break;
+                                                } else {
+                                                    sendInvalid(currentId, "Card sent doesn't match suggestion. Send another card or pass");
+                                                }
+                                            } else if (msg.command == GameMsg.cmd.pass) {
+                                                //player doesn't have card so move on
+                                                respValid = true;
+                                            } else {
+                                                sendInvalid(currentId, "Invalid message type. Please send a card");
+                                            }
+                                        }   
+                                        
+                                        j++;
+                                        //if we reach end of array reset to 0
+                                        if(j == players.size())
+                                            j = 0;
+
+                                    }      
+                                } else {
+                                    sendInvalid(currentId, "Suggestion failed. Try again.");
+                                }
+
+                                
+                            } else {
+                                sendInvalid(currentId, "You can't suggest from a room you aren't in. Try again.");
+                            }
+                        }
+                        else{
+                            sendInvalid(currentId,"You've already suggested! Please select another option.");
+                        }
+                        break;
+                    case accuse:
+                        
+                        //check accusation against the casefile
+                        
+                        haveWinner = true;
+                        for(JCard c : caseFile){
+                            if(!(c.getName().equals(msg.suspect) || c.getName().equals(msg.weapon) || c.getName().equals(msg.dest)))
+                                haveWinner = false;
+                        }
+                        
+                        //if they won, continue to end the game, if not kill the player
+                        if(!haveWinner){
+                            sendKill(currentId);
+                        }
+                        
+                        hasAccused = true;
+                        break;
+                    case end_turn:
+                        hasSurrendered = true;
+                        break;
+                    default:
+                        sendInvalid(currentId,"Recieved invalid command at Game Server!");
+                }
+                
+            } //end turn loop
+            i++;
+        }//end game loop       
+    }
+    
+    public void sendUpdate(String s){
+        
+    }
+    
+    //sends message with move instructions to client
+    public boolean sendBoardState(String s, GameMsg.sub_cmd scmd) {
+        
+        boolean success = true;
+
+        for (int i = 0; i < numClients; i++) {
+
+            msg.name = "Server";
+            msg.command = GameMsg.cmd.board_state;
+            msg.id = i;  
+            msg.subcommand = scmd;
+            msg.text = s;
+
+            turn = i;
+            serverWait();
+            
+            //verify that msg worked, otherwise return failure
+            switch (msg.command) {
+                case ack:
+                    System.out.println("Successfully sent board state to client "+Integer.toString(i));
+                    break;
+                case invalid:
+                    System.out.println("Client returned that our cmd was invalid. Failed to send board state to client "+Integer.toString(i));
+                    success = false;
+                    break;
+                default:
+                    System.out.println("Recieved invalid response from client "+Integer.toString(i));
+                    success = false;
+                    break;
+            }
+        }
+
+        return success;
+    }
+    
+    public void sendKill(int i){
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.kill_player;
+        msg.id = i;
+
+        turn = i;
+        serverWait();
+    }
+    
+    public void sendCard(int i, String s) {
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.send_card_server;
+        msg.id = i;
+        msg.card = s;
+
+        turn = i;
+        serverWait();
+    }
+    
+    public void sendRevealCard(int i,String s, String w, String p){
+        
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.reveal_card;
+        msg.text = "Suggestion("+s+","+w+","+p+").Please reveal one of these cards.";
+        
+        turn = i;
+        serverWait(); 
+    }
+    
+    public void sendInvalid(int i, String err){
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.invalid;
+        msg.id = i;
+        msg.text = err;
+
+        turn = i;
+        serverWait();
+    }
+    
+    //sends turn and recieves message
+    public void sendTurn(int i){
+        
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.start_turn;
+        msg.id = i;
+        msg.text = "Please start your turn.";
+
+        turn = i;
+        serverWait();
     }
     
     public boolean dealCards(){
@@ -314,39 +555,6 @@ public class GameServer {
         //reshuffle
         Collections.shuffle(deck, new Random(seed));
         
-    }
-    
-    public boolean sendBoardState() {
-        
-        boolean success = true;
-
-        for (int i = 0; i < numClients; i++) {
-
-            msg.name = "Server";
-            msg.command = GameMsg.cmd.board_state;
-            msg.id = i;
-            //TODO: set boardstate
-
-            turn = i;
-            serverWait();
-            
-            //verify that msg worked, otherwise return failure
-            switch (msg.command) {
-                case ack:
-                    System.out.println("Successfully sent board state to client "+Integer.toString(i));
-                    break;
-                case invalid:
-                    System.out.println("Client returned that our cmd was invalid. Failed to send board state to client "+Integer.toString(i));
-                    success = false;
-                    break;
-                default:
-                    System.out.println("Recieved invalid response from client "+Integer.toString(i));
-                    success = false;
-                    break;
-            }
-        }
-
-        return success;
     }
     
     public void startTurn(){

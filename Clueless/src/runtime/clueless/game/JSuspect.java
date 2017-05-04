@@ -15,12 +15,14 @@ public class JSuspect {
     private final String name;
     private JHallway hLocation;
     private JRoom rLocation;
+    private boolean wasMovedOnSuggest; //set if this player was moved by a suggestion
     
     //constructor
     public JSuspect(String name){
         this.name = name;
         hLocation = null;
         rLocation = null;
+        wasMovedOnSuggest = false;
     }
     
     //returns 1 for room, 0 for hallway, -1 for error
@@ -70,6 +72,20 @@ public class JSuspect {
     public void setRoomLocation(JRoom rLocation) {
         this.rLocation = rLocation;
         this.hLocation = null;
+    }
+    
+    /**
+     * @return the wasMovedOnSuggest
+     */
+    public boolean isWasMovedOnSuggest() {
+        return wasMovedOnSuggest;
+    }
+
+    /**
+     * @param wasMovedOnSuggest the wasMovedOnSuggest to set
+     */
+    public void setWasMovedOnSuggest(boolean wasMovedOnSuggest) {
+        this.wasMovedOnSuggest = wasMovedOnSuggest;
     }
     
     public void printSuspect(){
