@@ -357,10 +357,14 @@ public class GameServer {
                             if(!(c.getName().equals(msg.suspect) || c.getName().equals(msg.weapon) || c.getName().equals(msg.dest)))
                                 haveWinner = false;
                         }
+                        String s = msg.suspect;
+                        String w = msg.weapon;
+                        String r = msg.dest;
                         
                         //if they won, continue to end the game, if not kill the player
                         if(!haveWinner){
                             sendKill(currentId);
+                            sendUpdate(activePlayers.get(currentId).getName()+" lost. Wrongly accused: ("+s+","+w+","+r+").");
                         }
                         else{
                             sendWinner(currentId);
@@ -394,7 +398,7 @@ public class GameServer {
         for (int i = 0; i < numClients; i++) {
 
             //only send to losers
-            if (players.get(i).getName().equals(activePlayers.get(winner).getName())) {
+            if (!players.get(i).getName().equals(activePlayers.get(winner).getName())) {
                 
                 msg.name = "Server";
                 msg.command = GameMsg.cmd.game_over;
@@ -510,13 +514,22 @@ public class GameServer {
     //sends turn and recieves message
     public void sendTurn(int i){
         
-        msg.name = "Server";
-        msg.command = GameMsg.cmd.start_turn;
-        msg.id = i;
-        msg.text = "Please start your turn.";
+        for (int j = 0;j<numClients;j++) {
 
-        turn = i;
-        serverWait();
+            msg.name = "Server";
+            msg.id = j;
+
+            if (players.get(j).getName().equals(activePlayers.get(i).getName())) {
+                msg.command = GameMsg.cmd.start_turn;
+                msg.text = "Please start your turn.";
+            } else {
+                msg.command = GameMsg.cmd.update;
+                msg.text = activePlayers.get(i).getName() + " is starting their turn.";
+            }
+
+            turn = j;
+            serverWait();
+        }
     }
     
     public boolean dealCards(){

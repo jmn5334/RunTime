@@ -123,6 +123,10 @@ public class GuiThread implements Runnable {
                 case board_state: {
                     break;
                 }
+                case update:{
+                    handleUpdate();
+                    break;
+                }
                 default: {
                     //bad_message
                     System.out.println("Error recieved unsupported message type from server.");
@@ -147,14 +151,7 @@ public class GuiThread implements Runnable {
 
     }
     
-    public void handleGameOver(){
-        System.out.println("handling game over!!!!!!!");
-        
-        //update gui with text
-        gui.updateMsgField(Gmsg.text);
-        
-        //TODO - disable all buttons
-
+    public void guiWait(){
         //set turn to 0
         Gturn = 0;
         
@@ -170,28 +167,28 @@ public class GuiThread implements Runnable {
         }
     }
     
+    public void handleUpdate(){
+        
+        System.out.println("handling update!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+
+    }
+    
+    public void handleGameOver(){
+        System.out.println("handling game over!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+    }
+    
     public void handleKillPlayer(){
         
         System.out.println("handling kill player!!!!!!!");
         
         //update gui with text
         gui.updateMsgField(Gmsg.text);
-        
-        //TODO - disable all buttons permently except reveal card
-
-        //set turn to 0
-        Gturn = 0;
-        
-        setDefaultMsg();
-        
-        //need to wait for user input
-        while (Gturn != 1) {
-            try {
-                Thread.sleep(25);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
     }
     
     public void handleStartTurn() {
@@ -201,21 +198,7 @@ public class GuiThread implements Runnable {
         //update gui with text
         gui.updateMsgField(Gmsg.text);
 
-        //set turn to 0
-        Gturn = 0;
-        
-        setDefaultMsg();
-        
-        //need to wait for user input
-        while (Gturn != 1) {
-            try {
-                Thread.sleep(25);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        
+        guiWait();
     }
     
     public void handleSendCard(){
