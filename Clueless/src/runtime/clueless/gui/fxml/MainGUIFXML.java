@@ -100,7 +100,7 @@ public class MainGUIFXML {
     
     @FXML
     public void accuse(){
-        
+        gc.sendAccusation(suspectAccuseCombo.getSelectionModel().getSelectedItem().toString(), weaponAccuseCombo.getSelectionModel().getSelectedItem().toString(), accusePlaceCombo.getSelectionModel().getSelectedItem().toString());
     }
     
     @FXML

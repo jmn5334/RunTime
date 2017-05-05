@@ -113,9 +113,11 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case kill_player: {
+                    handleKillPlayer();
                     break;
                 }
                 case game_over: {
+                    handleGameOver();
                     break;
                 }
                 case board_state: {
@@ -143,6 +145,53 @@ public class GuiThread implements Runnable {
 
         }
 
+    }
+    
+    public void handleGameOver(){
+        System.out.println("handling game over!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+        
+        //TODO - disable all buttons
+
+        //set turn to 0
+        Gturn = 0;
+        
+        setDefaultMsg();
+        
+        //need to wait for user input
+        while (Gturn != 1) {
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void handleKillPlayer(){
+        
+        System.out.println("handling kill player!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+        
+        //TODO - disable all buttons permently except reveal card
+
+        //set turn to 0
+        Gturn = 0;
+        
+        setDefaultMsg();
+        
+        //need to wait for user input
+        while (Gturn != 1) {
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
     
     public void handleStartTurn() {

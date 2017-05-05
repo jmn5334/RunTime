@@ -362,6 +362,10 @@ public class GameServer {
                         if(!haveWinner){
                             sendKill(currentId);
                         }
+                        else{
+                            sendWinner(currentId);
+                            notifyLosers(currentId);
+                        }
                         
                         hasAccused = true;
                         break;
@@ -374,11 +378,58 @@ public class GameServer {
                 
             } //end turn loop
             i++;
-        }//end game loop       
+        }//end game loop    
+        
+        while(true){
+            try {
+                sleep(250);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void notifyLosers(int winner){
+        
+        for (int i = 0; i < numClients; i++) {
+
+            //only send to losers
+            if (players.get(i).getName().equals(activePlayers.get(winner).getName())) {
+                
+                msg.name = "Server";
+                msg.command = GameMsg.cmd.game_over;
+                msg.id = i;
+                msg.text = activePlayers.get(winner).getName() + " has won. You lost...";
+
+                turn = i;
+                serverWait();
+            }
+        }
     }
     
     public void sendUpdate(String s){
         
+        for (int i = 0; i < numClients; i++) {
+
+            msg.name = "Server";
+            msg.command = GameMsg.cmd.update;
+            msg.id = i;
+            msg.text = s;
+
+            turn = i;
+            serverWait();
+        }
+        
+    }
+    
+    public void sendWinner(int i){
+        msg.name = "Server";
+        msg.command = GameMsg.cmd.game_over;
+        msg.id = i;
+        msg.text = "You won!!!";
+
+        turn = i;
+        serverWait(); 
     }
     
     //sends message with move instructions to client
@@ -420,6 +471,7 @@ public class GameServer {
         msg.name = "Server";
         msg.command = GameMsg.cmd.kill_player;
         msg.id = i;
+        msg.text = "Accusation incorrect!!! You've lost.";
 
         turn = i;
         serverWait();
@@ -541,9 +593,9 @@ public class GameServer {
         Collections.shuffle(weaponCards, new Random(seed));
         
         //remove an element from each and put into case file
-        caseFile.add(roomCards.remove(0));
         caseFile.add(suspectCards.remove(0));
         caseFile.add(weaponCards.remove(0));
+        caseFile.add(roomCards.remove(0));
         
         System.out.println("Winning cards are "+caseFile.get(0).getName()+","+caseFile.get(1).getName()+","+caseFile.get(2).getName());
         

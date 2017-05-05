@@ -83,8 +83,14 @@ public class GameClient {
         Gturn = 1;
     }
     
-    public void sendAccusation(){
+    public void sendAccusation(String s, String w, String r){
         //out.println("ACCUSATION MSG");
+        Gmsg.command = GameMsg.cmd.accuse;
+        Gmsg.suspect = s;
+        Gmsg.weapon = w;
+        Gmsg.dest = r;
+        
+        Gturn = 1;
     }
     
     public void sendSuggestion(){
