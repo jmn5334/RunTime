@@ -173,6 +173,8 @@ public class GuiThread implements Runnable {
         
         //update gui with text
         gui.updateMsgField(Gmsg.text);
+        
+        setDefaultMsg();
 
     }
     
@@ -181,6 +183,8 @@ public class GuiThread implements Runnable {
         
         //update gui with text
         gui.updateMsgField(Gmsg.text);
+        
+        setDefaultMsg();
     }
     
     public void handleKillPlayer(){
@@ -189,6 +193,8 @@ public class GuiThread implements Runnable {
         
         //update gui with text
         gui.updateMsgField(Gmsg.text);
+        
+        setDefaultMsg();
     }
     
     public void handleStartTurn() {
@@ -274,5 +280,6 @@ public class GuiThread implements Runnable {
         Gmsg.id = id;
         Gmsg.text = "Not set";
         Gmsg.name = "GUIThread";
+        Gmsg.command = GameMsg.cmd.ack;
     }
 }

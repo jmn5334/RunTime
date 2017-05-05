@@ -30,7 +30,7 @@ public class GameServer {
     public static void main(String [ ] args){
         
         GameServer gs;
-        gs =  new GameServer(1);
+        gs =  new GameServer(2);
         
         gs.acceptClients();
         
