@@ -121,10 +121,14 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case board_state: {
+                    handleBoardState();
                     break;
                 }
                 case update:{
                     handleUpdate();
+                    break;
+                }
+                case invalid:{
                     break;
                 }
                 default: {
@@ -149,6 +153,31 @@ public class GuiThread implements Runnable {
 
         }
 
+    }
+    
+    public void handleBoardState(){
+        System.out.println("handling board state!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+        
+        if (null != Gmsg.subcommand) {
+            //modify board
+            switch (Gmsg.subcommand) {
+                case move2hall:
+                    player.getBoard().moveSuspectToHallway(player.getBoard().findSuspect(Gmsg.suspect), player.getBoard().findHallway(Gmsg.destId));
+                    break;
+                case move2room:
+                    player.getBoard().moveSuspectToRoom(player.getBoard().findSuspect(Gmsg.suspect), player.getBoard().findRoom(Gmsg.dest));
+                    break;
+                case moveOnSuggest:
+                    player.getBoard().moveOnSuggestion(player.getBoard().findSuspect(Gmsg.suspect), player.getBoard().findWeapon(Gmsg.weapon), player.getBoard().findRoom(Gmsg.dest));
+                    break;
+                default:
+                    break;
+            }
+        }
+        setDefaultMsg();
     }
     
     public void guiWait(){

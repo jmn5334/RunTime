@@ -189,13 +189,14 @@ public class MainGUIFXML {
             
             //send to server first
             gc.sendMove(dest.getName(), -1, true);
-            
+            /*
             if(player.getBoard().moveSuspectToRoom(player.getSuspect(), dest)){
                 message("Moved "+msgStr);
             }
             else{
                 message("Failed to move "+msgStr);
             }
+            */
         }
         else{
             JHallway dest = player.getBoard().findHallway(id);
@@ -204,16 +205,17 @@ public class MainGUIFXML {
             
             //send to server first
             gc.sendMove("", id, false);
-            
+            /*
             if(player.getBoard().moveSuspectToHallway(player.getSuspect(), dest)){
                 message("Moved "+msgStr);
             }
             else{
                 message("Failed to move "+msgStr);
             }
+            */
         }
         
-        refreshBoardLists();
+        //refreshBoardLists();
         
     }
     
