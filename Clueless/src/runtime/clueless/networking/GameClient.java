@@ -117,6 +117,7 @@ public class GameClient {
     public void pass(){
         Gmsg.command = GameMsg.cmd.pass;
         gui.disableCardButtons(true);
+        Gturn = 1;
     }
     
     public void revealCard(String c){
@@ -125,6 +126,7 @@ public class GameClient {
         Gmsg.card = c;
         
         gui.disableCardButtons(true);
+        Gturn = 1;
     }
     
     public void endTurn(){
