@@ -284,6 +284,9 @@ public class GameServer {
                             if(wasMoved){
                                 hasMoved = true; //we will send board state msg after switch statement
                                 
+                                //set moved on suggest to false as this player just chose to move
+                                activePlayers.get(i).setMovedOnSuggest(false);
+                                
                                 if(msg.isRoom)
                                     //send board
                                     sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
@@ -301,7 +304,7 @@ public class GameServer {
                         }
                         break;
                     case suggest:
-                        if(!hasSuggested){
+                        if((!hasSuggested && activePlayers.get(i).isMovedOnSuggest()) || (!hasSuggested && hasMoved)){         
                             
                             String sSuspect = msg.suspect;
                             String sWeapon = msg.weapon;
@@ -311,7 +314,17 @@ public class GameServer {
                             if (board.findRoom(msg.dest) == activePlayers.get(i).getSuspect().getRoomLocation()) {
 
                                 if (board.moveOnSuggestion(board.findSuspect(msg.suspect), board.findWeapon(msg.weapon), board.findRoom(msg.dest))) {
+                                    
                                     hasSuggested = true; //will send board update
+                                    
+                                    //find the player with this suspect and set they're movedOnSuggest
+                                    for(JPlayer x : players){
+                                        if(x.getSuspect().getName().equals(msg.suspect))
+                                            x.setMovedOnSuggest(true);
+                                    }
+                                    
+                                    //when you suggest you forfeit the right to move
+                                    hasMoved = true;
                                     
                                     //send board update
                                     sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
@@ -380,7 +393,10 @@ public class GameServer {
                             }
                         }
                         else{
-                            sendInvalid(currentId,"You've already suggested! Please select another option.");
+                            if(hasSuggested)
+                                sendInvalid(currentId,"You've already suggested! Please select another option.");
+                            else
+                                sendInvalid(currentId,"Please move before suggesting.");
                         }
                         break;
                     case accuse:

@@ -19,6 +19,7 @@ public class JPlayer {
     private final String name;
     private int id;
     private ArrayList<JCard> cards;
+    private boolean movedOnSuggest;
     
     public JPlayer(String name, boolean onServer){
         if(!onServer)
@@ -29,6 +30,7 @@ public class JPlayer {
         this.name = name;
         id = -99;
         cards = new ArrayList<>();
+        movedOnSuggest = false;
     }
     
     public void setId(int id){
@@ -202,5 +204,19 @@ public class JPlayer {
      */
     public void setCards(ArrayList<JCard> cards) {
         this.cards = cards;
+    }
+    
+    /**
+     * @return the movedOnSuggest
+     */
+    public boolean isMovedOnSuggest() {
+        return movedOnSuggest;
+    }
+
+    /**
+     * @param movedOnSuggest the movedOnSuggest to set
+     */
+    public void setMovedOnSuggest(boolean movedOnSuggest) {
+        this.movedOnSuggest = movedOnSuggest;
     }
 }
