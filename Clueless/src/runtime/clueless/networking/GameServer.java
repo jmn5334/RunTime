@@ -203,7 +203,7 @@ public class GameServer {
         while(!haveWinner){
             
             //reset the player index if we hit max to restart turn rotation
-            if(i == activePlayers.size()){
+            if(i >= activePlayers.size()){
                 i = 0;
             }
             
@@ -362,9 +362,15 @@ public class GameServer {
                         String r = msg.dest;
                         
                         //if they won, continue to end the game, if not kill the player
-                        if(!haveWinner){
+                        if (!haveWinner) {
+                            activePlayers.remove(currentId);
                             sendKill(currentId);
-                            sendUpdate(activePlayers.get(currentId).getName()+" lost. Wrongly accused: ("+s+","+w+","+r+").");
+                            sendUpdate(activePlayers.get(currentId).getName() + " lost. Wrongly accused: (" + s + "," + w + "," + r + ").");
+                            try {
+                                sleep(3000); //give time for the loser to see this
+                            } catch (InterruptedException ex) {
+                                Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                         else{
                             sendWinner(currentId);
@@ -398,12 +404,12 @@ public class GameServer {
         for (int i = 0; i < numClients; i++) {
 
             //only send to losers
-            if (!players.get(i).getName().equals(activePlayers.get(winner).getName())) {
+            if (!(players.get(i).getId() == winner)) {
                 
                 msg.name = "Server";
                 msg.command = GameMsg.cmd.game_over;
                 msg.id = i;
-                msg.text = activePlayers.get(winner).getName() + " has won. You lost...";
+                msg.text = players.get(winner).getName() + " has won. You lost...";
 
                 turn = i;
                 serverWait();
@@ -519,17 +525,23 @@ public class GameServer {
             msg.name = "Server";
             msg.id = j;
 
-            if (players.get(j).getName().equals(activePlayers.get(i).getName())) {
-                msg.command = GameMsg.cmd.start_turn;
-                msg.text = "Please start your turn.";
-            } else {
+            if (!(players.get(j).getId() == i)) {
                 msg.command = GameMsg.cmd.update;
-                msg.text = activePlayers.get(i).getName() + " is starting their turn.";
+                msg.text = players.get(i).getName() + " is starting their turn.";
+
+                turn = j;
+                serverWait();
             }
 
-            turn = j;
-            serverWait();
         }
+        msg.name = "Server";
+        msg.id = i;
+
+        msg.command = GameMsg.cmd.start_turn;
+        msg.text = "Please start your turn.";
+
+        turn = i;
+        serverWait();
     }
     
     public boolean dealCards(){

@@ -268,6 +268,10 @@ public class GuiThread implements Runnable {
                 s = "stuck";
                 break;
             }
+            case update:{
+                s = "update";
+                break;
+            }
             default:{
                 s = "INVALID CMD: possibly forgot to add to this function";
             }
