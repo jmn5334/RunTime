@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="658.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="runtime.clueless.gui.fxml.MainGUIFXML">
    <bottom>
       <VBox alignment="BOTTOM_LEFT" prefHeight="175.0" prefWidth="768.0" style="-fx-background-color: #008080;" BorderPane.alignment="CENTER">
          <children>
@@ -26,7 +26,7 @@
                   <VBox prefHeight="44.0" prefWidth="14.0" />
                   <Button fx:id="moveButton" mnemonicParsing="false" onAction="#move" text="Move!" />
                   <Label text="  Cards: " />
-                  <ComboBox fx:id="cardCombo" prefHeight="31.0" prefWidth="126.0" promptText="card" />
+                  <ComboBox fx:id="cardCombo" prefHeight="31.0" prefWidth="126.0" promptText="Cards" />
                   <VBox prefHeight="44.0" prefWidth="26.0" />
                   <Button fx:id="revealButton" mnemonicParsing="false" onAction="#revealCard" text="Reveal Card" />
                   <VBox prefHeight="44.0" prefWidth="12.0" />
@@ -44,7 +44,7 @@
                      </HBox.margin>
                   </Button>
                   <Label text="Update Msg:" />
-                  <TextField fx:id="msgField" editable="false" prefHeight="31.0" prefWidth="234.0" />
+                  <TextField fx:id="msgField" editable="false" prefHeight="31.0" prefWidth="363.0" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="10.0" top="5.0" />
@@ -69,11 +69,17 @@
             </HBox>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
-                  <Button fx:id="joinButton" mnemonicParsing="false" onAction="#joinGame" prefHeight="31.0" prefWidth="87.0" text="join game" />
-                  <TextField prefHeight="31.0" prefWidth="92.0" promptText="ip_address" />
-                  <TextField prefHeight="31.0" prefWidth="54.0" promptText="port" />
-                  <Button fx:id="hostButton" mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="92.0" text="host game" />
-                  <TextField prefHeight="31.0" prefWidth="55.0" promptText="port" />
+                  <Button fx:id="joinButton" mnemonicParsing="false" onAction="#joinGame" prefHeight="31.0" prefWidth="107.0" text="Join Game" />
+                  <TextField fx:id="ipField" prefHeight="31.0" prefWidth="92.0" promptText="ip_address" />
+                  <TextField fx:id="clientPortField" prefHeight="31.0" prefWidth="54.0" promptText="port" />
+                  <Button fx:id="hostButton" mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="97.0" text="Host Game" />
+                  <TextField fx:id="hostPortField" prefHeight="31.0" prefWidth="55.0" promptText="port" />
+                  <TextField fx:id="playersField" prefHeight="31.0" prefWidth="81.0" promptText="# players" />
+                  <VBox prefHeight="31.0" prefWidth="2.0" />
+                  <Label text="Name" />
+                  <TextField fx:id="nameField" prefHeight="31.0" prefWidth="116.0" />
+                  <Label text="Character" />
+                  <TextField fx:id="charField" editable="false" prefHeight="31.0" prefWidth="115.0" />
                </items>
             </ToolBar>
          </children>

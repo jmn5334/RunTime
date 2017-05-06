@@ -30,7 +30,7 @@ public class GameServer {
     public static void main(String [ ] args){
         
         GameServer gs;
-        gs =  new GameServer(1);
+        gs =  new GameServer(2);
         
         gs.acceptClients();
         
@@ -258,7 +258,7 @@ public class GameServer {
                                             +") moved to "+msg.dest,GameMsg.sub_cmd.move2room);
                                 else
                                     sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
-                                            +") moved to "+msg.dest,GameMsg.sub_cmd.move2hall);
+                                            +") moved to Hallway "+Integer.toString(msg.destId),GameMsg.sub_cmd.move2hall);
                             }
                             else{
                                 sendInvalid(currentId,"Move failed! Choose an accessible location.");
@@ -310,15 +310,22 @@ public class GameServer {
                                                 if (msg.card.equals(sRoom) || msg.card.equals(sWeapon) || msg.card.equals(sSuspect)) {
 
                                                     //send card to initial suggester
-                                                    sendCard(startingPlayer, msg.card);
                                                     sendUpdate("Card passed from "+players.get(j).getName()+" to "+players.get(currentId).getName()+"."); //add more here later
+                                                    sendInvalid(startingPlayer, players.get(j).getName()+" revealed "+msg.card); //probably should use something else, but it works
                                                     respValid = true;
                                                     break;
                                                 } else {
-                                                    sendInvalid(currentId, "Card sent doesn't match suggestion. Send another card or pass");
+                                                    sendInvalid(j, "Card sent doesn't match suggestion. Send another card or pass");
+                                                    try {
+                                                        //pause so the player sees they're mistake
+                                                        sleep(5000);
+                                                    } catch (InterruptedException ex) {
+                                                        Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                                                    }
                                                 }
                                             } else if (msg.command == GameMsg.cmd.pass) {
                                                 //player doesn't have card so move on
+                                                sendUpdate(players.get(j).getName()+" could not reveal a card for ("+sSuspect+","+sWeapon+","+sRoom+").");
                                                 break;
                                             } else {
                                                 sendInvalid(currentId, "Invalid message type. Please send a card");
@@ -505,7 +512,7 @@ public class GameServer {
         
         msg.name = "Server";
         msg.command = GameMsg.cmd.reveal_card;
-        msg.text = "Suggestion("+s+","+w+","+p+").Please reveal one of these cards.";
+        msg.text = "Suggestion from "+players.get(i).getName()+" ("+s+","+w+","+p+").Please reveal one of these cards.";
         
         turn = i;
         serverWait(); 
