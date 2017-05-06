@@ -184,6 +184,8 @@ public class GuiThread implements Runnable {
         //update gui with text
         gui.updateMsgField(Gmsg.text);
         
+        gui.disableAllButtons(true);
+        
         setDefaultMsg();
     }
     
@@ -194,6 +196,8 @@ public class GuiThread implements Runnable {
         //update gui with text
         gui.updateMsgField(Gmsg.text);
         
+        gui.disableAllButtons(true);
+        
         setDefaultMsg();
     }
     
@@ -203,6 +207,9 @@ public class GuiThread implements Runnable {
         
         //update gui with text
         gui.updateMsgField(Gmsg.text);
+        
+        //enable buttons for turn
+        gui.disableTurnButtons(false);
 
         guiWait();
     }

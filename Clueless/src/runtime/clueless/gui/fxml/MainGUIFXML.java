@@ -61,6 +61,16 @@ public class MainGUIFXML {
     @FXML private ComboBox suspectAccuseCombo;
     @FXML private ComboBox weaponAccuseCombo;
     
+    //buttons
+    @FXML private Button moveButton;
+    @FXML private Button suggestButton;
+    @FXML private Button accuseButton;
+    @FXML private Button endTurnButton;
+    @FXML private Button revealButton;
+    @FXML private Button hostButton;
+    @FXML private Button joinButton;
+    
+    
     //txt field
     @FXML private TextField msgField;
     
@@ -83,7 +93,9 @@ public class MainGUIFXML {
         
         initComboBoxes();
         refreshBoardLists();
-
+        
+        //disable buttons except for host and join
+        disableTurnButtons(true);
 
         ArrayList<String> playerchoicelist = new ArrayList<>();
         for(int n=1; n<7; n++)
@@ -91,6 +103,29 @@ public class MainGUIFXML {
         ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
 
 
+    }
+    
+    public void disableAllButtons(boolean areDisabled){
+        disableGameButtons(areDisabled);
+        disableRevealButton(areDisabled);
+        disableTurnButtons(areDisabled);
+    }
+    
+    public void disableGameButtons(boolean areDisabled){
+        joinButton.setDisable(areDisabled);
+        hostButton.setDisable(areDisabled);
+    }
+    
+    public void disableRevealButton(boolean isDisabled){
+        revealButton.setDisable(isDisabled);
+    }
+    
+    //true disables buttons, false enables them
+    public void disableTurnButtons(boolean areDisabled){
+        moveButton.setDisable(areDisabled);
+        suggestButton.setDisable(areDisabled);
+        accuseButton.setDisable(areDisabled);
+        endTurnButton.setDisable(areDisabled);
     }
     
     @FXML
@@ -106,6 +141,7 @@ public class MainGUIFXML {
     @FXML
     public void joinGame(){
         gc.connectToServer();
+        disableGameButtons(true);
     }
     
     @FXML
