@@ -95,7 +95,7 @@ public class GuiThread implements Runnable {
             System.out.println(commandToString());
             System.out.println();
 
-            //check command
+            //handle command
             switch (Gmsg.command) {
                 case init: {
                     handleInit();
@@ -106,6 +106,7 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case reveal_card: {
+                    handleRevealCard();
                     break;
                 }
                 case send_card_server: {
@@ -153,6 +154,18 @@ public class GuiThread implements Runnable {
 
         }
 
+    }
+    
+    public void handleRevealCard(){
+        System.out.println("handling reveal card!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text);
+        
+        //enable buttons for card reveal request
+        gui.disableCardButtons(false);
+
+        guiWait();
     }
     
     public void handleBoardState(){

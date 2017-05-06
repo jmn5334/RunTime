@@ -69,6 +69,7 @@ public class MainGUIFXML {
     @FXML private Button revealButton;
     @FXML private Button hostButton;
     @FXML private Button joinButton;
+    @FXML private Button passButton;
     
     
     //txt field
@@ -76,38 +77,21 @@ public class MainGUIFXML {
     
     @FXML
     public void initialize(){
-
-        GameManager gm = GameManager.getInstance();
         
         player = new JPlayer("Test",false);
         gc = new GameClient(player, this);
-        
-        //TODO: SET WITH SERVER
-       // ArrayList<JSuspect> s = player.getSuspects();
-        
-       // player.setSuspect(s.get(0));
-        
-        //TODO^
-        
-        //need to connect and negotiate with server here
         
         initComboBoxes();
         refreshBoardLists();
         
         //disable buttons except for host and join
         disableTurnButtons(true);
-
-        ArrayList<String> playerchoicelist = new ArrayList<>();
-        for(int n=1; n<7; n++)
-            playerchoicelist.add(String.valueOf(n));
-        ObservableList<String> plist = FXCollections.observableArrayList(playerchoicelist);
-
-
+        disableCardButtons(true);
     }
     
     public void disableAllButtons(boolean areDisabled){
         disableGameButtons(areDisabled);
-        disableRevealButton(areDisabled);
+        disableCardButtons(areDisabled);
         disableTurnButtons(areDisabled);
     }
     
@@ -116,8 +100,9 @@ public class MainGUIFXML {
         hostButton.setDisable(areDisabled);
     }
     
-    public void disableRevealButton(boolean isDisabled){
+    public void disableCardButtons(boolean isDisabled){
         revealButton.setDisable(isDisabled);
+        passButton.setDisable(isDisabled);
     }
     
     //true disables buttons, false enables them
@@ -130,6 +115,11 @@ public class MainGUIFXML {
     
     @FXML
     public void revealCard(){
+        gc.revealCard(cardCombo.getSelectionModel().getSelectedItem().toString());
+    }
+    
+    @FXML
+    public void pass(){
         
     }
     
@@ -228,16 +218,24 @@ public class MainGUIFXML {
         
         JRoom r = player.getSuspect().getRoomLocation();
         
+        if(r == null){
+            message("Suggestion failed. You must be in a room");
+            return;
+        }
+        
         JSuspect suspect = player.getBoard().findSuspect(s);
         JWeapon weapon = player.getBoard().findWeapon(w);
         
+        gc.sendSuggestion(suspect.getName(), weapon.getName(), r.getName());
+        
+        /*
         if(player.getBoard().moveOnSuggestion(suspect, weapon, r))
             message("Moved!!");
         else
             message("Failed to move");
         
         refreshBoardLists();
-        
+        */  
     }
     
     //populates move combo box TODO: remove tag
@@ -392,6 +390,9 @@ public class MainGUIFXML {
         
         JRoom ourRoom;
         ObservableList<String> items = FXCollections.observableArrayList();
+        
+        //make sure we don't see double
+        list.getItems().clear();
         
         //find room
         ourRoom = player.getBoard().findRoom(name);

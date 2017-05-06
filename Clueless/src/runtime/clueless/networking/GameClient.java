@@ -103,12 +103,28 @@ public class GameClient {
         Gturn = 1;
     }
     
-    public void sendSuggestion(){
-        //out.println("SUGGESTION MSG");
+    public void sendSuggestion(String s, String w, String r){
+        Gmsg.command = GameMsg.cmd.suggest;
+        Gmsg.suspect = s;
+        Gmsg.weapon = w;
+        Gmsg.dest = r;
+        
+        gui.disableAllButtons(true);
+        
+        Gturn = 1;
     }
     
-    public void revealCard(){
-        //out.println("REVEAL CARD MSG");
+    public void pass(){
+        Gmsg.command = GameMsg.cmd.pass;
+        gui.disableCardButtons(true);
+    }
+    
+    public void revealCard(String c){
+        
+        Gmsg.command = GameMsg.cmd.send_card_client;
+        Gmsg.card = c;
+        
+        gui.disableCardButtons(true);
     }
     
     public void endTurn(){

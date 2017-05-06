@@ -240,6 +240,9 @@ public class GameServer {
                             
                             boolean wasMoved;
                             
+                            //set the msg to contain the suspect
+                            msg.suspect = activePlayers.get(i).getSuspect().getName();
+                            
                             //figure out if this is a hallway or a room
                             if(msg.isRoom)
                                 wasMoved = board.moveSuspectToRoom(activePlayers.get(i).getSuspect(), board.findRoom(msg.dest));
@@ -280,21 +283,11 @@ public class GameServer {
                                     
                                     //send board update
                                     sendBoardState("Player "+activePlayers.get(i).getName()+"("+activePlayers.get(i).getSuspect().getName()
-                                            +") has suggested ("+msg.suspect+","+msg.weapon+","+msg.dest+").",GameMsg.sub_cmd.move2room);
+                                            +") has suggested ("+msg.suspect+","+msg.weapon+","+msg.dest+").",GameMsg.sub_cmd.moveOnSuggest);
                                     
                                     //begin suggetion logic - loop through remaining players
                                     //need to map index back to all players as all can reveal cards
-                                    int startingPlayer = -1;
-                                    for(int j = 0;j<players.size();j++){
-                                        if(players.get(j) == activePlayers.get(i))
-                                            startingPlayer = j;
-                                    }
-                                    
-                                    //TODO - add better error handling
-                                    if(startingPlayer == -1){
-                                        System.out.println("Internal suggestion error. Couldn't find active player in total players.");
-                                    }
-                                    
+                                    int startingPlayer = currentId;
                                     int j;
                                     
                                     if(startingPlayer >= players.size() - 1)
@@ -304,7 +297,7 @@ public class GameServer {
                                     
                                     boolean respValid = false;
                                     //loop until we get back around to suggester
-                                    while(j != startingPlayer || respValid){
+                                    while(j != startingPlayer && !respValid){
                                         
                                         //try until we get valid response
                                         while (!respValid) {
@@ -318,7 +311,7 @@ public class GameServer {
 
                                                     //send card to initial suggester
                                                     sendCard(startingPlayer, msg.card);
-                                                    sendUpdate("Card passed."); //add more here later
+                                                    sendUpdate("Card passed from "+players.get(j).getName()+" to "+players.get(currentId).getName()+"."); //add more here later
                                                     respValid = true;
                                                     break;
                                                 } else {
@@ -326,7 +319,7 @@ public class GameServer {
                                                 }
                                             } else if (msg.command == GameMsg.cmd.pass) {
                                                 //player doesn't have card so move on
-                                                respValid = true;
+                                                break;
                                             } else {
                                                 sendInvalid(currentId, "Invalid message type. Please send a card");
                                             }
