@@ -12,7 +12,7 @@ package runtime.clueless.networking;
  * @author jmnew
  */
 public class GameNetworkInt {
-    
+    /*
     private GameServer gs;
     private GameClient gc;
     boolean isServer;
@@ -42,5 +42,5 @@ public class GameNetworkInt {
         gs = new GameServer(3);
         gs.acceptClients();
     }
-    
+    */
 }

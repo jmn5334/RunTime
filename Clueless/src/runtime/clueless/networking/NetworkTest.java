@@ -14,7 +14,7 @@ import static java.lang.Thread.sleep;
  */
 public class NetworkTest {
     public static void main(String [ ] args) throws InterruptedException{
-        
+        /*
         GameServer gs;
         
         gs =  new GameServer(2);
@@ -29,6 +29,6 @@ public class NetworkTest {
            // System.out.println(gs.msg.text);
             sleep(10);
         }
-        
+        */
     }
 }

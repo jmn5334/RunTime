@@ -29,8 +29,32 @@ public class GameServer {
     //TODO move this
     public static void main(String [ ] args){
         
+        String sPort;
+        String sNumPlayers;
+        
+        //validate that we got host and player args
+        if(args.length != 2){
+            System.out.println("Incorrect number of args provided!");
+            System.out.println("Using defaults port=5000 and numPlayers=1");
+            sPort = "5000";
+            sNumPlayers = "1";
+        }
+        else {
+            sPort = args[0];
+            sNumPlayers = args[1];
+        }
+
+        if(sPort.equals("")||sNumPlayers.equals("")){
+            System.out.println("Arguments are empty. Server not started.");
+            System.exit(-1);
+        }
+            
+        //convert to ints
+        int port = Integer.parseInt(sPort);
+        int numPlayers = Integer.parseInt(sNumPlayers);
+        
         GameServer gs;
-        gs =  new GameServer(1);
+        gs =  new GameServer(port,numPlayers);
         
         gs.acceptClients();
         
@@ -51,6 +75,7 @@ public class GameServer {
     private final int MAX_THREADS = 6;
     private int numClients;
     private final int numPlayers;
+    private final int port;
     private final Thread[] threads = new Thread[MAX_THREADS];
     private final ClientThread[] cthreads = new ClientThread[MAX_THREADS];
     
@@ -65,11 +90,12 @@ public class GameServer {
     public static GameMsg msg;
     public static volatile int turn;
 
-    public GameServer(int numPlayers){
+    public GameServer(int port, int numPlayers){
         System.out.println("GameServer is being created.");
         server = null;
         numClients = 0;
         this.numPlayers = numPlayers;
+        this.port = port;
         msg = new GameMsg();
         turn = -99;
         

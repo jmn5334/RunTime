@@ -1,5 +1,6 @@
 package runtime.clueless.gui.fxml;
 
+import java.io.IOException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,6 +14,8 @@ import runtime.clueless.config.Config;
 import runtime.clueless.game.*;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import runtime.clueless.Controller;
 import runtime.clueless.networking.GameClient;
@@ -25,6 +28,7 @@ public class MainGUIFXML {
     //biz logic variables
     private JPlayer player;
     private GameClient gc;
+    private ProcessBuilder pb;
     
     //GUI elements
     //rooms
@@ -151,7 +155,26 @@ public class MainGUIFXML {
     
     @FXML
     public void hostGame(){
-        
+        try {
+            String[] list = new String[3];
+            
+            list[0] = "C:\\git_repos\\RunTime\\Clueless\\start_server.bat";
+            list[1] = hostPortField.getText();
+            list[2] = playersField.getText();
+            
+            if(list[1].equals("") || list[2].equals("")){
+                System.out.println("Server args are empty.");
+                return;
+            }
+            
+            ProcessBuilder pb = new ProcessBuilder(list);
+            pb.start();
+            
+            hostButton.setDisable(true);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(MainGUIFXML.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @FXML
