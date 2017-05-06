@@ -79,6 +79,12 @@ public class GameClient {
         Gmsg.isRoom = isRoom;
         Gmsg.dest = dest;
         Gmsg.destId = destId;
+        Gmsg.command = GameMsg.cmd.move;
+        
+        if(isRoom)
+            Gmsg.subcommand = GameMsg.sub_cmd.move2room;
+        else
+            Gmsg.subcommand = GameMsg.sub_cmd.move2hall;
         
         gui.disableAllButtons(true);
         

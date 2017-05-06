@@ -30,7 +30,7 @@ public class GameServer {
     public static void main(String [ ] args){
         
         GameServer gs;
-        gs =  new GameServer(2);
+        gs =  new GameServer(1);
         
         gs.acceptClients();
         
@@ -190,7 +190,8 @@ public class GameServer {
         boolean hasMoved,
                 hasSuggested,
                 hasAccused,
-                hasSurrendered;
+                hasSurrendered,
+                hasGone;
         
         //game terminating conditions
         boolean haveWinner = false;
@@ -216,6 +217,7 @@ public class GameServer {
             hasSuggested = false;
             hasAccused = false;
             hasSurrendered = false;
+            hasGone = false;
 
             //check for player being stuck, if so they can only accuse
             if(board.isStuck(activePlayers.get(i).getSuspect())){
@@ -227,7 +229,7 @@ public class GameServer {
             while (!hasSurrendered && !hasAccused) {
 
                 //send start_turn to client
-                sendTurn(currentId);
+                sendTurn(currentId,hasGone);
 
                 //check what command it is, if a move or suggest, needs to be validated
                 //perform logic based on what the current player did
@@ -393,6 +395,7 @@ public class GameServer {
                     default:
                         sendInvalid(currentId,"Recieved invalid command at Game Server!");
                 }
+                hasGone = true;
                 
             } //end turn loop
             i++;
@@ -526,7 +529,7 @@ public class GameServer {
     }
     
     //sends turn and recieves message
-    public void sendTurn(int i){
+    public void sendTurn(int i, boolean hasGone){
         
         for (int j = 0;j<numClients;j++) {
 
@@ -535,7 +538,8 @@ public class GameServer {
 
             if (!(players.get(j).getId() == i)) {
                 msg.command = GameMsg.cmd.update;
-                msg.text = players.get(i).getName() + " is starting their turn.";
+                if(!hasGone)
+                    msg.text = players.get(i).getName() + " is starting their turn.";
 
                 turn = j;
                 serverWait();
@@ -546,7 +550,8 @@ public class GameServer {
         msg.id = i;
 
         msg.command = GameMsg.cmd.start_turn;
-        msg.text = "Please start your turn.";
+        if(!hasGone)
+            msg.text = "Please start your turn.";
 
         turn = i;
         serverWait();

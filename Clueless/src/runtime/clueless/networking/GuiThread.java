@@ -178,6 +178,8 @@ public class GuiThread implements Runnable {
             }
         }
         setDefaultMsg();
+        
+        gui.refreshBoardLists();
     }
     
     public void guiWait(){
@@ -318,7 +320,7 @@ public class GuiThread implements Runnable {
     
     public void setDefaultMsg(){
         Gmsg.id = id;
-        Gmsg.text = "Not set";
+        //Gmsg.text = "Not set";
         Gmsg.name = "GUIThread";
         Gmsg.command = GameMsg.cmd.ack;
     }
