@@ -186,6 +186,10 @@ public class MainGUIFXML {
             JRoom dest = player.getBoard().findRoom(destName);
             
             String msgStr = "player "+player.getName()+"("+player.getSuspect().getName()+") to "+dest.getName()+".";
+            
+            //send to server first
+            gc.sendMove(dest.getName(), -1, true);
+            
             if(player.getBoard().moveSuspectToRoom(player.getSuspect(), dest)){
                 message("Moved "+msgStr);
             }
@@ -197,6 +201,10 @@ public class MainGUIFXML {
             JHallway dest = player.getBoard().findHallway(id);
             
             String msgStr = "player "+player.getName()+"("+player.getSuspect().getName()+") to hallway "+Integer.toString(dest.getId())+".";
+            
+            //send to server first
+            gc.sendMove("", id, false);
+            
             if(player.getBoard().moveSuspectToHallway(player.getSuspect(), dest)){
                 message("Moved "+msgStr);
             }

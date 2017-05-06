@@ -194,13 +194,14 @@ public class GameServer {
         
         //game terminating conditions
         boolean haveWinner = false;
+        boolean allLosers = false;
         
         //LCVs
         int i = 0;
         int currentId;
         
         //continue until we have a winner
-        while(!haveWinner){
+        while(!haveWinner && !allLosers){
             
             //reset the player index if we hit max to restart turn rotation
             if(i >= activePlayers.size()){
@@ -363,11 +364,11 @@ public class GameServer {
                         
                         //if they won, continue to end the game, if not kill the player
                         if (!haveWinner) {
-                            activePlayers.remove(currentId);
                             sendKill(currentId);
-                            sendUpdate(activePlayers.get(currentId).getName() + " lost. Wrongly accused: (" + s + "," + w + "," + r + ").");
+                            sendUpdate(activePlayers.get(i).getName() + " lost. Wrongly accused: (" + s + "," + w + "," + r + ").");
+                            activePlayers.remove(i);
                             try {
-                                sleep(3000); //give time for the loser to see this
+                                sleep(10000); //give time for the loser to see this
                             } catch (InterruptedException ex) {
                                 Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -378,6 +379,13 @@ public class GameServer {
                         }
                         
                         hasAccused = true;
+                        
+                        //check if this is the last player, if so send out everybody lost
+                        if(activePlayers.isEmpty()){
+                            sendUpdate("Game over. Noone solved the mystery.");
+                            allLosers = true;
+                        }
+                        
                         break;
                     case end_turn:
                         hasSurrendered = true;
