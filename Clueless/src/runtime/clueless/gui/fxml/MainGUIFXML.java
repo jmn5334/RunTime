@@ -120,7 +120,7 @@ public class MainGUIFXML {
     
     @FXML
     public void pass(){
-        
+        gc.pass();
     }
     
     @FXML
