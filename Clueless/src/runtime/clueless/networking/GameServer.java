@@ -114,7 +114,7 @@ public class GameServer {
                 }
             } catch (IOException e){
                 System.out.println("Accept failed: 5000");
-                System.exit(-1);
+                //System.exit(-1);
             }
         }
     }
@@ -688,7 +688,7 @@ public class GameServer {
             server.close();
         } catch (IOException e) {
             System.out.println("Could not close socket");
-            System.exit(-1);
+            //System.exit(-1);
         } finally {         //called whether an exception is thrown or not
             super.finalize();
         }

@@ -136,7 +136,16 @@ public class MainGUIFXML {
     
     @FXML
     public void joinGame(){
-        gc.connectToServer();
+        
+        String host = ipField.getText();
+        String sport = clientPortField.getText();
+        
+        if(host.equals("")||sport.equals(""))
+            return;
+        
+        int port = Integer.parseInt(sport);
+        
+        gc.connectToServer(host,port);
         disableGameButtons(true);
     }
     

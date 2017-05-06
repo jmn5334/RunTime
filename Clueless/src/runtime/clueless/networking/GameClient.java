@@ -19,8 +19,6 @@ import runtime.clueless.gui.fxml.MainGUIFXML;
 public class GameClient {
     
     private Socket socket;
-    private String host;
-    private int port;
     private JPlayer p;
     
     //ref to GUI to pass to thread
@@ -45,10 +43,11 @@ public class GameClient {
         updateGUI = 0;
     }
 
-    public void connectToServer() {
+    public void connectToServer(String host, int port) {
         //Create socket connection
         try {
-            socket = new Socket("10.0.0.201", 5000);
+            //socket = new Socket("10.0.0.201", 5000);
+            socket = new Socket(host, port);
             
             System.out.println("Connecting to server...");
             System.out.println("Creating thread...");
@@ -65,10 +64,10 @@ public class GameClient {
 
         } catch (UnknownHostException e) {
             System.out.println("Unknown host: kq6py");
-            System.exit(1);
+            //System.exit(1);
         } catch (IOException e) {
             System.out.println("No I/O");
-            System.exit(1);
+            //System.exit(1);
         }
     }
     
