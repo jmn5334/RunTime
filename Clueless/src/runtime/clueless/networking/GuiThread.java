@@ -130,6 +130,7 @@ public class GuiThread implements Runnable {
                     break;
                 }
                 case invalid:{
+                    handleInvalid();
                     break;
                 }
                 default: {
@@ -154,6 +155,13 @@ public class GuiThread implements Runnable {
 
         }
 
+    }
+    
+    public void handleInvalid(){
+        System.out.println("handling invalid!!!!!!!");
+        
+        //update gui with text
+        gui.updateMsgField(Gmsg.text); 
     }
     
     public void handleRevealCard(){
