@@ -80,6 +80,8 @@ public class GameClient {
         Gmsg.dest = dest;
         Gmsg.destId = destId;
         
+        gui.disableAllButtons(true);
+        
         Gturn = 1;
     }
     
@@ -89,6 +91,8 @@ public class GameClient {
         Gmsg.suspect = s;
         Gmsg.weapon = w;
         Gmsg.dest = r;
+        
+        gui.disableAllButtons(true);
         
         Gturn = 1;
     }
@@ -103,6 +107,9 @@ public class GameClient {
     
     public void endTurn(){
         Gmsg.command = GameMsg.cmd.end_turn;
+        
+        gui.disableAllButtons(true);
+        
         Gturn = 1;
     }
 
