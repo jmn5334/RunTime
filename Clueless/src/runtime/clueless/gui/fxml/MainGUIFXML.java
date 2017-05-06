@@ -167,7 +167,7 @@ public class MainGUIFXML {
                 return;
             }
             
-            ProcessBuilder pb = new ProcessBuilder(list);
+            pb = new ProcessBuilder(list);
             pb.start();
             
             hostButton.setDisable(true);

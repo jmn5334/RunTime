@@ -69,12 +69,12 @@
             </HBox>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
                <items>
-                  <Button fx:id="joinButton" mnemonicParsing="false" onAction="#joinGame" prefHeight="31.0" prefWidth="107.0" text="Join Game" />
                   <TextField fx:id="ipField" prefHeight="31.0" prefWidth="92.0" promptText="ip_address" />
                   <TextField fx:id="clientPortField" prefHeight="31.0" prefWidth="54.0" promptText="port" />
-                  <Button fx:id="hostButton" mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="97.0" text="Host Game" />
+                  <Button fx:id="joinButton" mnemonicParsing="false" onAction="#joinGame" prefHeight="31.0" prefWidth="107.0" text="Join Game" />
                   <TextField fx:id="hostPortField" prefHeight="31.0" prefWidth="55.0" promptText="port" />
                   <TextField fx:id="playersField" prefHeight="31.0" prefWidth="81.0" promptText="# players" />
+                  <Button fx:id="hostButton" mnemonicParsing="false" onAction="#hostGame" prefHeight="31.0" prefWidth="97.0" text="Host Game" />
                   <VBox prefHeight="31.0" prefWidth="2.0" />
                   <Label text="Name" />
                   <TextField fx:id="nameField" prefHeight="31.0" prefWidth="116.0" />
@@ -173,8 +173,14 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
-                                    <Label text="Study" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="120.0">
+                                       <children>
+                                          <Label text="Study    " />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#191a1b" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                       </children>
+                                    </HBox>
                                     <ListView fx:id="studyList" prefHeight="80.0" prefWidth="80.0" />
+                                    <HBox prefHeight="10.0" prefWidth="120.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -197,8 +203,14 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
-                                    <Label text="Lounge" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="120.0">
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#191a1b" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                          <Label text=" Lounge" />
+                                       </children>
+                                    </HBox>
                                     <ListView fx:id="loungeList" prefHeight="80.0" prefWidth="80.0" />
+                                    <HBox prefHeight="10.0" prefWidth="120.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -289,8 +301,14 @@
                            <children>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
-                                    <Label text="Conservatory" />
+                                    <HBox alignment="CENTER_RIGHT" prefHeight="33.0" prefWidth="120.0">
+                                       <children>
+                                          <Label text="Conservatory" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#191a1b" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                       </children>
+                                    </HBox>
                                     <ListView fx:id="conservatoryList" prefHeight="80.0" prefWidth="80.0" />
+                                    <HBox prefHeight="10.0" prefWidth="120.0" />
                                  </children>
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
@@ -313,8 +331,14 @@
                               </VBox>
                               <VBox alignment="CENTER" prefHeight="120.0" prefWidth="120.0">
                                  <children>
-                                    <Label text="Kitchen" />
+                                    <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="120.0">
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#191a1b" height="30.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
+                                          <Label text=" Kitchen" />
+                                       </children>
+                                    </HBox>
                                     <ListView fx:id="kitchenList" prefHeight="80.0" prefWidth="80.0" />
+                                    <HBox prefHeight="10.0" prefWidth="120.0" />
                                  </children>
                               </VBox>
                            </children>

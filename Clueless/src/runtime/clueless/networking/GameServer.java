@@ -249,6 +249,12 @@ public class GameServer {
             if(board.isStuck(activePlayers.get(i).getSuspect())){
                 hasMoved = true;
                 hasSuggested = true;
+                sendUpdate(activePlayers.get(i).getName()+"is stuck. Can only accuse.");
+                try {
+                    sleep(2000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GameServer.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             //continue turn until we've met terminating conditions
