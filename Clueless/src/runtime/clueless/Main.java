@@ -59,7 +59,8 @@ public class Main extends Application {
         //mainstage.setMaxHeight(2500);
         mainstage.setMinHeight(400);
         //mainstage.setMaxWidth(640);
-        mainstage.setMinWidth(500);
+        //mainstage.setMinWidth(500);
+        mainstage.setMinWidth(950);
         mainstage.show();
 
         // load the main icon for the application

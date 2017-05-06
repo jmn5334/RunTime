@@ -281,11 +281,15 @@ public class GuiThread implements Runnable {
         //set values from server
         player.setId(Gmsg.id);
         player.setSuspect(player.getBoard().findSuspect(Gmsg.suspect));
+        gui.setCharacterOnGUI(Gmsg.suspect);
         
         setDefaultMsg();
         
         //set message to send back
-        Gmsg.name = "clientX";
+        //get name from name field
+        Gmsg.name = gui.getNameFromGUI();
+        
+        //Gmsg.name = "clientX";
         Gmsg.command = GameMsg.cmd.ack;
     
     }

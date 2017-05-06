@@ -74,6 +74,12 @@ public class MainGUIFXML {
     
     //txt field
     @FXML private TextField msgField;
+    @FXML private TextField nameField;
+    @FXML private TextField ipField;
+    @FXML private TextField hostPortField;
+    @FXML private TextField clientPortField;
+    @FXML private TextField charField;
+    @FXML private TextField playersField;
     
     @FXML
     public void initialize(){
@@ -144,6 +150,17 @@ public class MainGUIFXML {
         gc.endTurn();
     }
     
+    public String getNameFromGUI(){
+        nameField.setDisable(true);
+        return nameField.getText();
+    }
+    
+    public void setCharacterOnGUI(String c){
+        charField.setDisable(false);
+        charField.setText(c);
+        charField.setDisable(true);
+    }
+    
     //returns integer >=0 on success, -1 on failure(probably a room)
     private int getHallwayId(String s){
         
@@ -179,14 +196,6 @@ public class MainGUIFXML {
             
             //send to server first
             gc.sendMove(dest.getName(), -1, true);
-            /*
-            if(player.getBoard().moveSuspectToRoom(player.getSuspect(), dest)){
-                message("Moved "+msgStr);
-            }
-            else{
-                message("Failed to move "+msgStr);
-            }
-            */
         }
         else{
             JHallway dest = player.getBoard().findHallway(id);
@@ -195,18 +204,7 @@ public class MainGUIFXML {
             
             //send to server first
             gc.sendMove("", id, false);
-            /*
-            if(player.getBoard().moveSuspectToHallway(player.getSuspect(), dest)){
-                message("Moved "+msgStr);
-            }
-            else{
-                message("Failed to move "+msgStr);
-            }
-            */
-        }
-        
-        //refreshBoardLists();
-        
+        } 
     }
     
     @FXML
@@ -226,16 +224,7 @@ public class MainGUIFXML {
         JSuspect suspect = player.getBoard().findSuspect(s);
         JWeapon weapon = player.getBoard().findWeapon(w);
         
-        gc.sendSuggestion(suspect.getName(), weapon.getName(), r.getName());
-        
-        /*
-        if(player.getBoard().moveOnSuggestion(suspect, weapon, r))
-            message("Moved!!");
-        else
-            message("Failed to move");
-        
-        refreshBoardLists();
-        */  
+        gc.sendSuggestion(suspect.getName(), weapon.getName(), r.getName()); 
     }
     
     //populates move combo box TODO: remove tag
